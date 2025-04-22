@@ -26,9 +26,13 @@ export const DiscussForm = (actions) => {
     } = data;
 
     const templateParams = {
-      from_name: `${name} - ${company} ( ${phone} - ${email} )`,
-      to_name: 'CodeForge',
+      name,             // Shorthand for name: name
+      company,          // Shorthand for company: company
+      phone,            // Shorthand for phone: phone
+      email,            // Shorthand for email: email
       message: projectIdea,
+      from_name: `${name} - ${company}`,
+      to_name: 'DevZode',  // Added comma here
     };
 
     if (
@@ -39,10 +43,10 @@ export const DiscussForm = (actions) => {
       && projectIdea !== ''
     ) {
       emailjs.send(
-        'service_h4gtndg',
-        'template_a9tvs7a',
+        'service_n5ctd8p',
+        'template_m2xfcd6',
         templateParams,
-        'user_csqIxzN5mKsl1yw4ffJzV',
+        'GdZMP6QQPOpFbK3Kx',
       )
         .then(() => {
           toast.success('Success! we\'\ll get back to you soon. Thank you!');

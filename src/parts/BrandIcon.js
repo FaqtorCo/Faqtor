@@ -14,8 +14,8 @@ export default function BrandIcon() {
       href="/"
     >
       <p className="text-theme-blue text-4xl font-medium ">
-        Dev
-        <span className="text-theme-purple">Zode</span>
+        
+        <span className="text-theme-purple">Faqtor</span>
       </p>
     </Button>
   );

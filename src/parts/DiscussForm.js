@@ -32,7 +32,7 @@ export const DiscussForm = (actions) => {
       email,            // Shorthand for email: email
       message: projectIdea,
       from_name: `${name} - ${company}`,
-      to_name: 'DevZode',  // Added comma here
+      to_name: 'Faqtor',  // Added comma here
     };
 
     if (

@@ -76,7 +76,7 @@ export default function Footer() {
 
         <div className="border-t border-gray-200 mt-10 pt-8 text-center">
           <p className="text-gray-500 font-light">
-            &copy; {new Date().getFullYear()} - All rights reserved - DevZode
+            &copy; {new Date().getFullYear()} - All rights reserved - Faqtor
           </p>
         </div>
       </div>

@@ -1,0 +1,38 @@
+{
+  "files": {
+    "main.css": "/static/css/main.c10637da.css",
+    "main.js": "/static/js/main.3b61702c.js",
+    "static/js/453.f845e572.chunk.js": "/static/js/453.f845e572.chunk.js",
+    "static/media/Recruiting.png": "/static/media/Recruiting.faeebb5ecbceddc61777.png",
+    "static/media/Aura.png": "/static/media/Aura.e5ad93496c2e85e83e83.png",
+    "static/media/Freelance.png": "/static/media/Freelance.89112b918bcff02d3210.png",
+    "static/media/Surtido.png": "/static/media/Surtido.da4817557ad520882376.png",
+    "static/media/Stream.png": "/static/media/Stream.5bb25fd37b8e22b8e28a.png",
+    "static/media/NotFound.png": "/static/media/NotFound.67759b4097c5294d1ab9.png",
+    "static/media/team.png": "/static/media/team.917072ad0c0d596e2c70.png",
+    "static/media/ManagementApp.png": "/static/media/ManagementApp.22b48222454fada5584c.png",
+    "static/media/portfolioHero.png": "/static/media/portfolioHero.bd16fbc2ddbc062780ac.png",
+    "static/media/BuildWebsite.png": "/static/media/BuildWebsite.2d15641dcb298d3ebdbc.png",
+    "static/media/HRD.jpg": "/static/media/HRD.a068b40c1c2e7a731969.jpg",
+    "static/media/Sasha.jpg": "/static/media/Sasha.d03a2982978ba6c1ad59.jpg",
+    "static/media/Finance.jpg": "/static/media/Finance.a5bbe30ebe0d2584e1ec.jpg",
+    "static/media/Kruger.jpg": "/static/media/Kruger.0acf17f214f7b1ce391a.jpg",
+    "static/media/Reiner.jpg": "/static/media/Reiner.964ca1a031ef72005ed3.jpg",
+    "static/media/Management.png": "/static/media/Management.323b1fec36c45ff45ef7.png",
+    "static/media/Collaborative.png": "/static/media/Collaborative.2f9892ac98e9b787a975.png",
+    "static/media/Communicative.png": "/static/media/Communicative.eba258160f4e17106ad0.png",
+    "static/media/Web.png": "/static/media/Web.7d61f8d6aa09b13b47ec.png",
+    "static/media/Design.png": "/static/media/Design.b13455f1f3c66fb37b50.png",
+    "static/media/Favorite.png": "/static/media/Favorite.cb968fa8bc7d31037eb0.png",
+    "static/media/CEO.jpg": "/static/media/CEO.1348dc1626e3c3dd6e1e.jpg",
+    "static/media/Mobile.png": "/static/media/Mobile.3895db1ec1859459fd4e.png",
+    "index.html": "/index.html",
+    "main.c10637da.css.map": "/static/css/main.c10637da.css.map",
+    "main.3b61702c.js.map": "/static/js/main.3b61702c.js.map",
+    "453.f845e572.chunk.js.map": "/static/js/453.f845e572.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c10637da.css",
+    "static/js/main.3b61702c.js"
+  ]
+}

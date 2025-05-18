@@ -27,12 +27,12 @@
     "static/media/CEO.jpg": "/static/media/CEO.1348dc1626e3c3dd6e1e.jpg",
     "static/media/Mobile.png": "/static/media/Mobile.3895db1ec1859459fd4e.png",
     "index.html": "/index.html",
-    "main.df4939a0.css.map": "/static/css/main.df4939a0.css.map",
-    "main.b5691779.js.map": "/static/js/main.b5691779.js.map",
+    "main.c10637da.css.map": "/static/css/main.c10637da.css.map",
+    "main.3b61702c.js.map": "/static/js/main.3b61702c.js.map",
     "453.f845e572.chunk.js.map": "/static/js/453.f845e572.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.df4939a0.css",
-    "static/js/main.b5691779.js"
+    "static/css/main.c10637da.css",
+    "static/js/main.3b61702c.js"
   ]
 }

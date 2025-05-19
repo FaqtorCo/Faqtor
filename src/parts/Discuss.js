@@ -14,7 +14,7 @@ export default function Discuss() {
       <section className="flex container mx-auto justify-center">
         <div className="flex flex-col w-10/12 sm:w-11/12 xl:w-10/12 rounded-2xl bg-theme-purple text-gray-100 py-14 sm:px-12 sm:py-20 xl:px-16 shadow-2xl discuss">
           <div className="flex flex-col sm:flex-row mb-3 sm:mb-9 p-5 sm:p-0 sm:items-center">
-            <h1 className="w-2/3 text-5xl sm:text-6xl leading-tight font-semibold">
+            <h1 className="w-2/3 text-5xl sm:text-6xl leading-tight font-semibold fill-white">
               Have an awesome project in mind?
             </h1>
             <Fade direction="up" triggerOnce delay={500}>

@@ -14,12 +14,15 @@ import { ProjectDetailPage } from 'pages/ProjectDetailPage';
 import { DiscussProjectPage } from 'pages/DiscussProjectPage';
 
 import './assets/css/styles.css';
+import Services from 'pages/Services';
 
 function App() {
   return (
     <>
       <Routes>
         <Route exact path="/" element={<LandingPage />} />
+        <Route exact path="/services" element={<Services />} />
+
         <Route path="/project" element={<ProjectPage />} />
         <Route exact path="/project/:id" element={<ProjectDetailPage />} />
         <Route exact path="/team" element={<TeamPage />} />

@@ -8,7 +8,7 @@ export default function Hero() {
   return (
     <section className="hero">
       <div className="w-full lg:w-1/2 xl:pl-12 sm:pr-2 mt-8">
-        <h2 className="text-5xl sm:text-6xl text-theme-blue font-bold leading-tight mb-5">
+        <h2 className="text-5xl sm:text-5xl text-theme-blue font-bold leading-tight mb-5">
           The AI-Powered Ecosystem For <br />
           Your Business
         </h2>

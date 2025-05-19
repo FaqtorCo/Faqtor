@@ -12,7 +12,7 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
-  "plugins": ["react"],
+  "plugins": ["react", "import"],
   "rules": {
     "arrow-body-style": "off",
     "semi": ["error", "always"],

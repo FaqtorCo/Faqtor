@@ -12,8 +12,6 @@ import firstCaseStudyImage from "../assets/images/Aboutus/1st.jpg";
 import secondCaseStudyImage from "../assets/images/Aboutus/2nd.jpg";
 import thirdCaseStudyImage from "../assets/images/Aboutus/3rd.jpg";
 import aboutImage from "../assets/images/Aboutus/aboutus.jpeg";
-import aboutAnim from "../json/aboutAnim.json";
-import Lottie from "lottie-react";
 import { 
   Clock, 
   AlertTriangle, 

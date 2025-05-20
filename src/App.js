@@ -9,7 +9,6 @@ import LandingPage from "pages/LandingPage";
 import ProjectPage from "pages/ProjectPage";
 import NotFoundPage from "pages/NotFoundPage";
 import TeamPage from "pages/TeamPage";
-import Services from "pages/Services";
 import Aboutus from "pages/Aboutus";
 
 import { ProjectDetailPage } from "pages/ProjectDetailPage";
@@ -23,7 +22,7 @@ function App() {
     <>
       <Routes>
         <Route exact path="/" element={<LandingPage />} />
-        <Route path="/about" element={<Aboutus />} />
+        <Route path="/About-us" element={<Aboutus />} />
         <Route path="/services" element={<Services />} />
         <Route exact path="/services" element={<Services />} />
 

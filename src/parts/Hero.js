@@ -1,3 +1,9 @@
+/* eslint-disable linebreak-style */
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/button-has-type */
+/* eslint-disable react/jsx-filename-extension */
+/* eslint-disable import/extensions */
+/* eslint-disable react/prop-types */
 import React from "react";
 import { Fade } from "react-awesome-reveal";
 import Lottie from "lottie-react";
@@ -14,8 +20,8 @@ export default function Hero() {
         </h2>
 
         <p className="font-light text-xl text-gray-400 leading-relaxed mb-16">
-          Faqtor’s AI doesn’t just support your team—it evolves your business model
-          into something competitors can’t replicate.
+          Faqtor’s AI doesn’t just support your team—it evolves your business
+          model into something competitors can’t replicate.
         </p>
 
         <Fade direction="up" delay={500} triggerOnce>
@@ -45,12 +51,12 @@ export default function Hero() {
 
       <div className="flex pt-5 md:w-fit w-full justify-center items-center order-first md:order-first lg:order-last lg:w-1/2">
         <Fade direction="up" triggerOnce>
-        <Lottie
-          animationData={homeAnim}
-          loop
-          autoplay
-          style={{ width: 500, height: 500 }}
-        />
+          <Lottie
+            animationData={homeAnim}
+            loop
+            autoplay
+            style={{ width: 500, height: 500 }}
+          />
         </Fade>
       </div>
     </section>

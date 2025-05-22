@@ -15,7 +15,7 @@ export default function BrandIcon() {
     >
       <p className="text-theme-blue text-4xl font-medium ">
         
-        <span className="text-theme-purple">Faqtor</span>
+        <span className="whitetext">Faqtor</span>
       </p>
     </Button>
   );

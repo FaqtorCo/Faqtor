@@ -58,7 +58,7 @@ export default function AllPortfolio({ data }) {
                         </div>
                         <div className="py-4">
                           <h2 className="text-theme-blue text-center text-xl">{item.title}</h2>
-                          <p className="font-light text-gray-400 text-center">{item.type}</p>
+                          <p className="font-light  text-center">{item.type}</p>
                         </div>
                       </div>
                     </Button>
@@ -87,7 +87,7 @@ export default function AllPortfolio({ data }) {
                         </div>
                         <div className="py-4">
                           <h2 className="text-theme-blue text-center text-xl">{item.title}</h2>
-                          <p className="font-light text-gray-400 text-center">{item.type}</p>
+                          <p className="font-light  text-center">{item.type}</p>
                         </div>
                       </div>
                     </Button>
@@ -116,7 +116,7 @@ export default function AllPortfolio({ data }) {
                         </div>
                         <div className="py-4">
                           <h2 className="text-theme-blue text-center text-xl">{item.title}</h2>
-                          <p className="font-light text-gray-400 text-center">{item.type}</p>
+                          <p className="font-light  text-center">{item.type}</p>
                         </div>
                       </div>
                     </Button>

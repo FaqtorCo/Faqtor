@@ -1,0 +1,105 @@
+/* Create a new file: src/styles/n8n-chat-custom.css */
+
+/* Chat Button Styling */
+.n8n-chat-bubble {
+    background-color: #3b82f6 !important; /* Blue color - change to your preferred color */
+    border-radius: 9999px !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+    transition: all 0.2s ease !important;
+  }
+  
+  .n8n-chat-bubble:hover {
+    background-color: #2563eb !important; /* Darker blue on hover */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+  }
+  
+  /* Chat bubble icon color */
+  .n8n-chat-bubble svg {
+    fill: white !important;
+  }
+  
+  /* Chat Header Styling */
+  .n8n-chat-header {
+    background-color: #3b82f6 !important; /* Match with button color */
+    color: white !important;
+  }
+  
+  /* Close button styling */
+  .n8n-chat-header-close-button {
+    color: white !important;
+  }
+  
+  /* Title and subtitle styling */
+  .n8n-chat-header-title {
+    font-weight: bold !important;
+  }
+  
+  .n8n-chat-header-subtitle {
+    opacity: 0.9 !important;
+  }
+  
+  /* Message container styling */
+  .n8n-chat-messages-container {
+    background-color: #f9fafb !important; /* Light background for messages */
+  }
+  
+  /* Bot message styling */
+  .n8n-chat-message-bot {
+    background-color: #e0e7ff !important; /* Light indigo for bot messages */
+    border-radius: 0.75rem !important;
+    padding: 0.75rem 1rem !important;
+  }
+  
+  /* User message styling */
+  .n8n-chat-message-user {
+    background-color: #dbeafe !important; /* Light blue for user messages */
+    border-radius: 0.75rem !important;
+    color: #1e40af !important;
+  }
+  
+  /* Input box styling */
+  .n8n-chat-input-container {
+    border-top: 1px solid #e5e7eb !important;
+    padding: 0.75rem !important;
+  }
+  
+  .n8n-chat-input {
+    border: 1px solid #d1d5db !important;
+    border-radius: 0.5rem !important;
+    padding: 0.5rem 1rem !important;
+  }
+  
+  /* Send button styling */
+  .n8n-chat-send-button {
+    background-color: #3b82f6 !important; /* Match with chat button */
+    border-radius: 0.5rem !important;
+  }
+  
+  .n8n-chat-send-button:hover {
+    background-color: #2563eb !important; /* Darker on hover */
+  }
+  
+  /* Main chat window styling */
+  .n8n-chat-window {
+    border-radius: 0.75rem !important;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+    overflow: hidden !important;
+  }
+  
+  /* Custom scrollbar for Webkit browsers */
+  .n8n-chat-messages-container::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .n8n-chat-messages-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  .n8n-chat-messages-container::-webkit-scrollbar-thumb {
+    background: #c7d2fe;
+    border-radius: 3px;
+  }
+  
+  .n8n-chat-messages-container::-webkit-scrollbar-thumb:hover {
+    background: #a5b4fc;
+  }

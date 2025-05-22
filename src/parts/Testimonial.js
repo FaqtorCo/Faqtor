@@ -26,7 +26,7 @@ export default function Testimonial({ data }) {
         <h1 className="text-5xl text-theme-blue text-center font-bold">Testimonials</h1>
       </Fade>
       <Fade direction="up" delay={500}>
-        <p className="font-light text-lg text-gray-400 text-center mb-3 sm:mb-3 xl:mb-4">
+        <p className="font-light text-lg  text-center mb-3 sm:mb-3 xl:mb-4">
           What they said about us.
         </p>
       </Fade>
@@ -45,10 +45,10 @@ export default function Testimonial({ data }) {
                 <img src={item.imageUrl} alt="Testimoni" className="w-20 h-20 rounded-full" />
                 <div className="flex-col pl-5">
                   <h2 className="text-theme-blue text-2xl">{item.name}</h2>
-                  <p className="font-light text-gray-400">{item.company}</p>
+                  <p className="font-light ">{item.company}</p>
                 </div>
               </div>
-              <p className="font-light text-2xl text-gray-400 pl-5 pt-3 pb-1">
+              <p className="font-light text-2xl  pl-5 pt-3 pb-1">
                 {item.testimoni}
               </p>
             </div>

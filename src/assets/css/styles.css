@@ -4,15 +4,19 @@
 
 
 body{
-  @apply text-text-primary;
+  color:white;
+  background-color: #000000
 
+}
+.whitetext{
+  color: white
 }
 section {
   @apply mb-28;
 }
 
 .active-link {
-  @apply text-text-primary;
+  color:  #DAF7A6;
 }
 
 .header {
@@ -91,8 +95,18 @@ section {
   /* Darker background on hover */
 }
 
+h1, 
+h2 {
+  color: #DAF7A6
+  ; /* Orange base color */
+  text-shadow: 
+    0 0 10px #DAF7A6
+    ;     /* Inner glow */
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+}
 
-h2,
+
 h3,
 h4,
 h5,
@@ -106,6 +120,10 @@ h6 {
 p {
   @apply fill-white;
 }
+
+
+
+
 
 
 .discuss {

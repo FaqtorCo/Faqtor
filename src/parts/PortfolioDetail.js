@@ -37,8 +37,8 @@ export default function PortfolioDetail({ data }) {
   return (
     <section className="container mx-auto">
       <Fade bottom>
-        <Button type="link" href="/project" className="flex w-40 h-8 text-lg items-center ml-6 sm:ml-20 mt-8 font-light text-gray-400 hover:underline">
-          <svg className="w-5 h-5 text-gray-400 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <Button type="link" href="/project" className="flex w-40 h-8 text-lg items-center ml-6 sm:ml-20 mt-8 font-light  hover:underline">
+          <svg className="w-5 h-5  mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
           </svg>
           See All Project
@@ -51,7 +51,7 @@ export default function PortfolioDetail({ data }) {
             <Fade bottom triggerOnce>
               <h1 className="text-5xl text-theme-blue text-center font-bold">{item.title}</h1>
 
-              <p className="font-light text-xl text-gray-400 text-center mb-10">
+              <p className="font-light text-xl  text-center mb-10">
                 {item.type}
               </p>
             </Fade>
@@ -68,7 +68,7 @@ export default function PortfolioDetail({ data }) {
                   Project Detail
                 </h1>
 
-                <p className="font-light text-lg text-gray-400 text-justify">
+                <p className="font-light text-lg  text-justify">
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                 </p>
               </div>
@@ -89,7 +89,7 @@ export default function PortfolioDetail({ data }) {
                 </div>
               </div>
 
-              <p className="font-light italic text-gray-400 mt-16 mx-8 sm:mx-16 xl:mx-28">
+              <p className="font-light italic  mt-16 mx-8 sm:mx-16 xl:mx-28">
                 * This project is just example.
                 {' '}
                 <br />

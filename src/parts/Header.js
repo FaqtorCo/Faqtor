@@ -34,7 +34,7 @@ export default function Header() {
       <ul className="hidden text-theme-blue tracking-widest items-center lg:flex flex-row mt-0">
         <li>
           <Button
-            className={`${path === '/' ? 'active-link' : ''} font-medium text-lg px-5 no-underline hover:underline`}
+            className={`${path === '/' ? 'active-link' : ''} font-medium text-lg px-5 no-underline hover:underline `}
             type="link"
             href="/"
           >
@@ -88,11 +88,11 @@ export default function Header() {
         leaveFrom="opacity-100"
         leaveTo="opacity-0"
       >
-        <div className="transition duration-300 ease-in data-[closed]:opacity-0">
+        <div className="transition duration-300 ease-in data-[closed]:opacity-0 ">
 
           {/* <Fade> */}
           <ul className="z-50 flex flex-col text-theme-blue tracking-widest my-6 absolute bg-white w-full border-b-2 border-gray-300 lg:hidden">
-            <li className="py-2 bg-white">
+            <li className="py-2 ">
               <Button
                 className={`${path === '/' ? 'active-link' : ''} font-medium px-10 no-underline hover:underline`}
                 type="link"
@@ -110,7 +110,7 @@ export default function Header() {
                 Team
               </Button>
             </li>
-            <li className="py-2 bg-white">
+            <li className="py-2 bg-white ">
               <Button
                 className={`${path === '/project' ? 'active-link' : ''} font-medium px-10 no-underline hover:underline`}
                 type="link"

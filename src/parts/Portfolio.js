@@ -17,7 +17,7 @@ export default function Portfolio({ data }) {
         <h1 className="text-5xl text-theme-blue text-center font-bold">Our Selected Project</h1>
       </Fade>
       <Fade direction="left" triggerOnce>
-        <p className="font-light text-lg text-gray-400 text-center mb-12">
+        <p className="font-light text-lg  text-center mb-12">
           We are ready to scale up your business with our great work result.
         </p>
       </Fade>
@@ -42,7 +42,7 @@ export default function Portfolio({ data }) {
                   </div>
                   <div className="py-4">
                     <h2 className="text-theme-blue text-center text-xl">{item.title}</h2>
-                    <p className="font-light text-gray-400 text-center">{item.type}</p>
+                    <p className="font-light  text-center">{item.type}</p>
                   </div>
                 </div>
               </Button>

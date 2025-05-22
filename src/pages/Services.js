@@ -332,15 +332,15 @@ export default function Services() {
   return (
     <>
       <Header />
-      <section className="bg-gray-50 py-16 relative overflow-hidden">
+      <section className=" py-16 relative overflow-hidden">
         {/* Background elements */}
-        <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-white to-transparent"></div>
-        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-white to-transparent"></div>
+        <div className="absolute top-0 left-0 right-0 h-40 "></div>
+        <div className="absolute bottom-0 left-0 right-0 h-40 "></div>
         
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-20">
             <h1 className="text-5xl font-bold  bg-clip-text  mb-6">Our Services</h1>
-            <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+            <p className=" max-w-2xl mx-auto text-lg">
               Innovative solutions designed to transform your business
             </p>
             </div>

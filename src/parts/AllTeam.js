@@ -19,8 +19,8 @@ export default function AllTeam({ data }) {
                   </div>
                   <div className="p-6">
                     <h2 className="text-theme-blue text-center text-xl font-bold">{item.name}</h2>
-                    <p className="font-light text-gray-400 text-center">{item.position}</p>
-                    <p className="font-light text-gray-400 text-center">{item.experience}</p>
+                    <p className="font-light  text-center">{item.position}</p>
+                    <p className="font-light  text-center">{item.experience}</p>
 
                   </div>
                 </div>

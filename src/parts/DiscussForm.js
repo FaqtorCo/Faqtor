@@ -261,7 +261,7 @@ export const DiscussForm = (actions) => {
     <div className="bg-white rounded-2xl p-8 shadow-lg" style={{display:'flex', justifyContent:'center', flexDirection:'column', alignContent:'center',alignItems:'center'}}>
       <h1 style={{fontSize:'40px'}}>Book a meeting with us!</h1>
   <iframe
-    src="https://cal.com/faqtor-co-8kmg3v?theme=light"
+    src="https://cal.com/faqtor?theme=light"
     width="900"
     height="700"
     frameBorder="0"

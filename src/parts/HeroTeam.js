@@ -18,7 +18,7 @@ export default function HeroTeam() {
           </h1>
         </Fade>
         <Fade direction="up" delay={500} triggerOnce>
-          <p className="font-light text-xl text-gray-400 leading-relaxed">
+          <p className="font-light text-xl  leading-relaxed">
             Our team is full of passionate people and ready to make your dream software come true.
           </p>
         </Fade>

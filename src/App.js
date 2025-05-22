@@ -7,13 +7,14 @@
 import { Route, Routes } from 'react-router-dom';
 import { useEffect } from 'react';
 
-import LandingPage from 'pages/LandingPage';
-import ProjectPage from 'pages/ProjectPage';
-import NotFoundPage from 'pages/NotFoundPage';
-import TeamPage from 'pages/TeamPage';
+import LandingPage from "pages/LandingPage";
+import ProjectPage from "pages/ProjectPage";
+import NotFoundPage from "pages/NotFoundPage";
+import TeamPage from "pages/TeamPage";
+import Aboutus from "pages/Aboutus";
 
-import { ProjectDetailPage } from 'pages/ProjectDetailPage';
-import { DiscussProjectPage } from 'pages/DiscussProjectPage';
+import { ProjectDetailPage } from "pages/ProjectDetailPage";
+import { DiscussProjectPage } from "pages/DiscussProjectPage";
 
 import './assets/css/styles.css';
 import Services from 'pages/Services';
@@ -47,6 +48,8 @@ function App() {
     <>
       <Routes>
         <Route exact path="/" element={<LandingPage />} />
+        <Route path="/About-us" element={<Aboutus />} />
+        <Route path="/services" element={<Services />} />
         <Route exact path="/services" element={<Services />} />
         <Route path="/project" element={<ProjectPage />} />
         <Route exact path="/project/:id" element={<ProjectDetailPage />} />

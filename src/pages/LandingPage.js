@@ -26,7 +26,6 @@ export default class LandingPage extends Component {
         <Portfolio data={Portfolios} />
         <Advantage data={Advantages} />
         <Testimonial data={Testimonials} />
-
       </>
     );
   }

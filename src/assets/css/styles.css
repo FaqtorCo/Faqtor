@@ -99,9 +99,7 @@ h1,
 h2 {
   color: #DAF7A6
   ; /* Orange base color */
-  text-shadow: 
-    0 0 10px #DAF7A6
-    ;     /* Inner glow */
+
   font-family: Arial, sans-serif;
   font-weight: bold;
 }

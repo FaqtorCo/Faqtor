@@ -15,11 +15,7 @@ export default function Footer() {
           {/* Brand Section */}
           <div className="flex flex-col space-y-4">
             <BrandIcon />
-            <p className=" font-light leading-relaxed whitetext">
-              Growing Your Business
-              <br />
-              Is Our Calling
-            </p>
+    
             <div className="flex space-x-4 mt-2">
               <a href="https://www.instagram.com/racmathafidz/" target="_blank" rel="noopener noreferrer" className="whitetext hover:text-blue-600 transition-colors duration-300">
                 <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">

@@ -1,5 +1,4 @@
 /* eslint-disable */
-
 // src/components/ChatbotWidget.jsx
 import React, { useState, useEffect, useRef } from "react";
 import { createChat } from "@n8n/chat";

@@ -2,132 +2,242 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/button-has-type */
 /* eslint-disable react/jsx-filename-extension */
-/* eslint-disable react/prop-types */
-import React from 'react';
-
-import { Fade } from 'react-awesome-reveal';
-
-// eslint-disable-next-line import/no-extraneous-dependencies
-import {
-  Tab, Tabs, TabList, TabPanel,
-} from 'react-tabs';
-
-import Button from 'elements/Button';
+/* eslint-disable  */
+import React, { useState } from "react";
+import { Fade } from "react-awesome-reveal";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import ProjectModal from "./ProjectModal.js";
 
 export default function AllPortfolio({ data }) {
-  const mobile = data.filter((item) => item.type === 'Mobile Apps');
+  const [showMore, setShowMore] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const website = data.filter((item) => item.type === 'Website');
+  // Filter projects by type
+  const aiAgents = data.filter((item) => item.type === "AI Agent");
+  const automation = data.filter((item) => item.type === "Automation");
+  const webApps = data.filter((item) => item.type === "Web App");
+
+  // Split AI Agents into first 3 and remaining (if needed)
+  const firstThreeAI = aiAgents.slice(0, 3);
+  const remainingAI = aiAgents.slice(3);
+
+  // Split all projects into first 3 and remaining for "All" tab
+  const firstThreeAll = data.slice(0, 3);
+  const remainingAll = data.slice(3);
+
+  const handleProjectClick = (project) => {
+    setSelectedProject(project);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedProject(null);
+  };
+
+  const handleKeyPress = (event, project) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      handleProjectClick(project);
+    }
+  };
+
+  const renderProjectCard = (item, index, delay = 500) => (
+    <Fade triggerOnce direction="up" delay={delay * index} key={index}>
+      <div
+        className="group rounded-2xl shadow-xl w-auto m-3 transform transition duration-500 hover:scale-110 portofolio-card cursor-pointer"
+        onClick={() => handleProjectClick(item)}
+        onKeyDown={(event) => handleKeyPress(event, item)}
+        role="button"
+        tabIndex={0}
+        aria-label={`View details for ${item.title}`}
+      >
+        <div className="relative">
+          <img
+            src={item.imageUrl}
+            alt={item.title}
+            className="rounded-t-2xl z-0 w-80 h-60 object-cover"
+          />
+          <div className="absolute flex w-full h-full top-0 opacity-0 bg-black bg-opacity-50 justify-center items-center rounded-t-2xl group-hover:opacity-100 transition-opacity duration-300">
+            <div className="text-center">
+              <svg
+                className="w-16 h-16 text-white mx-auto mb-2"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                />
+              </svg>
+              <p className="text-white text-sm">View Details</p>
+            </div>
+          </div>
+        </div>
+        <div className="py-4">
+          <h2 className="text-theme-blue text-center text-xl">{item.title}</h2>
+        </div>
+      </div>
+    </Fade>
+  );
 
   return (
     <Fade bottom>
       <section className="container mx-auto">
-
         <Tabs className="flex flex-col px-4">
           <TabList>
-            <div className="flex flex-row mb-5">
+            <div className="flex flex-row mb-5 justify-center">
               <Tab>
-                <button className="font-normal px-5 py-2 mr-3 text-theme-purple text-lg border border-theme-purple rounded-full transition duration-300 hover:bg-theme-purple hover:text-white focus:outline-none focus:bg-theme-purple focus:text-white">Mobile</button>
+                <button className="font-normal px-5 py-2 mr-3 text-theme-purple text-lg border border-theme-purple rounded-full transition duration-300 hover:bg-theme-purple hover:text-white focus:outline-none focus:bg-theme-purple focus:text-white">
+                  All Projects
+                </button>
               </Tab>
               <Tab>
-                <button className="font-normal px-5 py-2 mr-3 text-theme-purple text-lg border border-theme-purple rounded-full transition duration-300 hover:bg-theme-purple hover:text-white focus:outline-none focus:bg-theme-purple focus:text-white">Website</button>
+                <button className="font-normal px-5 py-2 mr-3 text-theme-purple text-lg border border-theme-purple rounded-full transition duration-300 hover:bg-theme-purple hover:text-white focus:outline-none focus:bg-theme-purple focus:text-white">
+                  AI Agents
+                </button>
               </Tab>
               <Tab>
-                <button className="font-normal px-8 py-2 text-theme-purple text-lg border border-theme-purple rounded-full transition duration-300 hover:bg-theme-purple hover:text-white focus:outline-none focus:bg-theme-purple focus:text-white">UI/UX</button>
+                <button className="font-normal px-5 py-2 mr-3 text-theme-purple text-lg border border-theme-purple rounded-full transition duration-300 hover:bg-theme-purple hover:text-white focus:outline-none focus:bg-theme-purple focus:text-white">
+                  Automation
+                </button>
+              </Tab>
+              <Tab>
+                <button className="font-normal px-8 py-2 text-theme-purple text-lg border border-theme-purple rounded-full transition duration-300 hover:bg-theme-purple hover:text-white focus:outline-none focus:bg-theme-purple focus:text-white">
+                  Web Apps
+                </button>
               </Tab>
             </div>
           </TabList>
 
+          {/* All Projects Tab Panel (Default) */}
           <TabPanel>
-            <div className="grid grid-cols-2 sm:grid-cols-3 sm:gap-2 xl:gap-8 justify-items-center">
-              {
-                mobile.map((item, index) => (
-                  <Fade triggerOnce direction="up" delay={500 * index} key={index}>
-                    <Button type="link" href={`/project/${item.id}`}>
-                      <div className="group rounded-2xl shadow-xl w-auto m-3 transform transition duration-500 hover:scale-110 portofolio-card">
-                        <div className="relative">
-                          <img src={item.imageUrl} alt="Portfolio" className="rounded-t-2xl z-0" />
-                          <div className="absolute flex w-full h-full top-0 opacity-0 bg-black justify-center rounded-t-2xl rounded-b img-hover">
-                            <button className="focus:outline-none">
-                              <svg className="w-20 h-20 text-gray-200" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                              </svg>
-                            </button>
-                          </div>
-                        </div>
-                        <div className="py-4">
-                          <h2 className="text-theme-blue text-center text-xl">{item.title}</h2>
-                          <p className="font-light  text-center">{item.type}</p>
-                        </div>
-                      </div>
-                    </Button>
-                  </Fade>
-                ))
-              }
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 xl:gap-8 justify-items-center">
+              {firstThreeAll.map((item, index) =>
+                renderProjectCard(item, index)
+              )}
             </div>
+
+            {/* Show More Button for All Projects */}
+            {remainingAll.length > 0 && !showMore && (
+              <div className="flex justify-center mt-8">
+                <Fade triggerOnce direction="up" delay={800}>
+                  <button
+                    onClick={() => setShowMore(!showMore)}
+                    className="bg-theme-purple hover:bg-purple-700 text-white font-semibold py-3 px-8 rounded-full transition duration-300 transform hover:scale-105 shadow-lg"
+                  >
+                    See More Projects
+                    <svg
+                      className="w-4 h-4 ml-2 inline-block transition-transform duration-300"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </button>
+                </Fade>
+              </div>
+            )}
+
+            {/* Additional All Projects */}
+            {showMore && (
+              <Fade triggerOnce direction="up" delay={200}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 xl:gap-8 justify-items-center mt-8">
+                  {remainingAll.map((item, index) =>
+                    renderProjectCard(item, index, 200)
+                  )}
+                </div>
+              </Fade>
+            )}
           </TabPanel>
+
+          {/* AI Agents Tab Panel */}
           <TabPanel>
-            <div className="grid grid-cols-2 sm:grid-cols-3 sm:gap-2 xl:gap-8 justify-items-center">
-              {
-                website.map((item, index) => (
-                  <Fade bottom delay={500 * index} key={index}>
-                    <Button type="link" href={`/project/${item.id}`}>
-                      <div className="group rounded-2xl shadow-xl w-auto w-11/12 m-3 transform transition duration-500 hover:scale-110 portofolio-card">
-                        <div className="relative">
-                          <img src={item.imageUrl} alt="Portfolio" className="rounded-t-2xl z-0" />
-                          <div className="absolute flex w-full h-full top-0 opacity-0 bg-black justify-center rounded-t-2xl rounded-b img-hover">
-                            <button className="focus:outline-none">
-                              <svg className="w-20 h-20 text-gray-200" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                              </svg>
-                            </button>
-                          </div>
-                        </div>
-                        <div className="py-4">
-                          <h2 className="text-theme-blue text-center text-xl">{item.title}</h2>
-                          <p className="font-light  text-center">{item.type}</p>
-                        </div>
-                      </div>
-                    </Button>
-                  </Fade>
-                ))
-              }
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 xl:gap-8 justify-items-center">
+              {firstThreeAI.map((item, index) =>
+                renderProjectCard(item, index)
+              )}
             </div>
+
+            {/* Show More Button for AI Agents */}
+            {remainingAI.length > 0 && !showMore && (
+              <div className="flex justify-center mt-8">
+                <Fade triggerOnce direction="up" delay={800}>
+                  <button
+                    onClick={() => setShowMore(!showMore)}
+                    className="bg-theme-purple hover:bg-purple-700 text-white font-semibold py-3 px-8 rounded-full transition duration-300 transform hover:scale-105 shadow-lg"
+                  >
+                    See More Projects
+                    <svg
+                      className="w-4 h-4 ml-2 inline-block transition-transform duration-300"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </button>
+                </Fade>
+              </div>
+            )}
+
+            {/* Additional AI Agent Projects */}
+            {showMore && (
+              <Fade triggerOnce direction="up" delay={200}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 xl:gap-8 justify-items-center mt-8">
+                  {remainingAI.map((item, index) =>
+                    renderProjectCard(item, index, 200)
+                  )}
+                </div>
+              </Fade>
+            )}
           </TabPanel>
+
+          {/* Automation Tab Panel */}
           <TabPanel>
-            <div className="grid grid-cols-2 sm:grid-cols-3 sm:gap-2 xl:gap-8 justify-items-center">
-              {
-                data.map((item, index) => (
-                  <Fade bottom triggerOnce delay={500 * index} key={index}>
-                    <Button type="link" href={`/project/${item.id}`}>
-                      <div className="group rounded-2xl shadow-xl w-auto w-11/12 m-3 transform transition duration-500 hover:scale-110 portofolio-card">
-                        <div className="relative">
-                          <img src={item.imageUrl} alt="Portfolio" className="rounded-t-2xl z-0" />
-                          <div className="absolute flex w-full h-full top-0 opacity-0 bg-black justify-center rounded-t-2xl rounded-b img-hover">
-                            <button className="focus:outline-none">
-                              <svg className="w-20 h-20 text-gray-200" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                              </svg>
-                            </button>
-                          </div>
-                        </div>
-                        <div className="py-4">
-                          <h2 className="text-theme-blue text-center text-xl">{item.title}</h2>
-                          <p className="font-light  text-center">{item.type}</p>
-                        </div>
-                      </div>
-                    </Button>
-                  </Fade>
-                ))
-              }
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 xl:gap-8 justify-items-center">
+              {automation.map((item, index) => renderProjectCard(item, index))}
             </div>
           </TabPanel>
 
+          {/* Web Apps Tab Panel */}
+          <TabPanel>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 xl:gap-8 justify-items-center">
+              {webApps.map((item, index) => renderProjectCard(item, index))}
+            </div>
+          </TabPanel>
         </Tabs>
 
+        {/* Project Modal */}
+        {selectedProject && (
+          <ProjectModal
+            project={selectedProject}
+            isOpen={isModalOpen}
+            onClose={closeModal}
+          />
+        )}
       </section>
     </Fade>
   );

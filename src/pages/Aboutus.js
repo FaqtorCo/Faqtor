@@ -22,7 +22,7 @@ import {
 } from "lucide-react";
 import Lottie from "lottie-react";
 import firstCaseStudyVideo from "../assets/videos/Aboutus/1st.mp4";
-// import secondCaseStudyVideo from "../assets/videos/Aboutus/2nd.mp4";
+import secondCaseStudyVideo from "../assets/videos/Aboutus/2nd.mp4";
 import thirdCaseStudyVideo from "../assets/videos/Aboutus/3rd.mp4";
 // Case Studies data
 const caseStudies = [

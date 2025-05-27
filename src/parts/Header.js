@@ -69,13 +69,13 @@ export default function Header() {
       </div>
 
       {/* Desktop Navigation */}
-      <ul className="hidden tracking-widest items-center lg:flex flex-row mt-0 flex-wrap justify-center xl:justify-start">
+      <ul className="hidden tracking-widest items-center lg:flex flex-row mt-0 whitespace-nowrap">
         <li>
           <Button
             as="a"
             href="#home"
             onClick={handleSmoothScroll("home")}
-            className="font-medium text-base xl:text-lg px-3 xl:px-5 py-1 no-underline hover:underline cursor-pointer text-[#DAF7A6] transition-colors duration-200"
+            className="font-medium text-lg px-3 py-1 no-underline hover:underline cursor-pointer text-[#DAF7A6] transition-colors duration-200"
             type="link"
           >
             Home
@@ -86,7 +86,7 @@ export default function Header() {
             as="a"
             href="#services"
             onClick={handleSmoothScroll("services")}
-            className="font-medium text-base xl:text-lg px-3 xl:px-5 py-1 no-underline hover:underline cursor-pointer text-[#DAF7A6] transition-colors duration-200"
+            className="font-medium text-lg px-3 py-1 no-underline hover:underline cursor-pointer text-[#DAF7A6] transition-colors duration-200"
             type="link"
           >
             Services
@@ -97,7 +97,7 @@ export default function Header() {
             as="a"
             href="#projects"
             onClick={handleSmoothScroll("projects")}
-            className="font-medium text-base xl:text-lg px-3 xl:px-5 py-1 no-underline hover:underline cursor-pointer text-[#DAF7A6] transition-colors duration-200"
+            className="font-medium text-lg px-3 py-1 no-underline hover:underline cursor-pointer text-[#DAF7A6] transition-colors duration-200"
             type="link"
           >
             Projects
@@ -108,7 +108,7 @@ export default function Header() {
             as="a"
             href="#aboutus"
             onClick={handleSmoothScroll("aboutus")}
-            className="font-medium text-base xl:text-lg px-3 xl:px-5 py-1 no-underline hover:underline cursor-pointer text-[#DAF7A6] transition-colors duration-200"
+            className="font-medium text-lg px-3 py-1 no-underline hover:underline cursor-pointer text-[#DAF7A6] transition-colors duration-200 whitespace-nowrap"
             type="link"
           >
             About us
@@ -119,7 +119,7 @@ export default function Header() {
             as="a"
             href="#discuss-project"
             onClick={handleSmoothScroll("discuss-project")}
-            className="font-medium text-sm xl:text-base mx-auto ml-2 xl:ml-3 px-4 xl:px-6 py-2 bg-[#f2ffd9] text-black rounded-full border-2 border-[#DAF7A6] hover:bg-[#C8E6A0] hover:border-[#C8E6A0] transition-all duration-200 cursor-pointer transform hover:scale-105"
+            className="font-medium text-base ml-3 px-4 py-2 bg-[#f2ffd9] text-black rounded-full border-2 border-[#DAF7A6] hover:bg-[#C8E6A0] hover:border-[#C8E6A0] transition-all duration-200 cursor-pointer transform hover:scale-105 whitespace-nowrap"
             type="link"
           >
             Discuss Project

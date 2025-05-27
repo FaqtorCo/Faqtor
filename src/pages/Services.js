@@ -1172,6 +1172,7 @@ export default function Services() {
                         
                         <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
                           <a 
+                          onClick={closeModal}
                             href="/#discuss-project" 
                             className="bg-white text-theme-purple font-bold px-8 py-4 rounded-2xl hover:bg-gray-50 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center group"
                           >
@@ -1182,6 +1183,7 @@ export default function Services() {
                           </a>
                           
                           <a 
+                          onClick={closeModal}
                             href="/#projects" 
                             className="border-2 border-white text-white font-bold px-8 py-4 rounded-2xl hover:bg-white hover:text-theme-purple transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center group"
                           >

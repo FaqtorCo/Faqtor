@@ -1,4 +1,4 @@
-/* eslint-disable linebreak-style */
+/* eslint-disable  */
 /* eslint-disable import/extensions */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/jsx-filename-extension */

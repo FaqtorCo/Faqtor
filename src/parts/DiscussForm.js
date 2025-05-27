@@ -76,7 +76,7 @@ export const DiscussForm = (actions) => {
         {/* Left Side - Contact Form */}
         <div className="bg-white rounded-2xl p-8 shadow-lg" style={{marginTop:'60px'}}>
           <Fade direction="down" triggerOnce>
-            <h2 className="text-3xl  font-bold mb-6">Send Us a Message</h2>
+            <h2 className="text-3xl  font-bold mb-6" style={{color:'black'}}>Send Us a Message</h2>
           </Fade>
 
           <Fade direction="up" triggerOnce>

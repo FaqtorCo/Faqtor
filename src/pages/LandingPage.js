@@ -24,7 +24,7 @@ export default class LandingPage extends Component {
         <div id="services">
           <Services />
         </div>
-        <Advantage data={Advantages} />
+        {/* <Advantage data={Advantages} /> */}
         {/* <Testimonial data={Testimonials} /> */}
 
       </>

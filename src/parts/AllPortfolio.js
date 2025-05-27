@@ -94,27 +94,28 @@ export default function AllPortfolio({ data }) {
 
   return (
     <Fade bottom>
-      <section className="container mx-auto">
-        <Tabs className="flex flex-col px-4">
+      <section className="container mx-auto px-4 lg:px-0">
+        <Tabs className="flex flex-col">
           <TabList>
-            <div className="flex flex-row mb-5 justify-center">
+            {/* Mobile: Stacked layout, Desktop: Horizontal layout */}
+            <div className="flex flex-col space-y-3 mb-6 sm:flex-row sm:space-y-0 sm:space-x-3 sm:justify-center sm:flex-wrap lg:mb-5">
               <Tab>
-                <button className="font-normal px-5 py-2 mr-3  text-lg border  rounded-full transition duration-300 hover:bg-theme-purple hover:text-white focus:outline-none focus:bg-theme-purple focus:text-white">
+                <button className="w-full sm:w-auto font-normal px-4 sm:px-5 py-2 text-base sm:text-lg border rounded-full transition duration-300 hover:bg-theme-purple hover:text-white focus:outline-none focus:bg-theme-purple focus:text-white">
                   All Projects
                 </button>
               </Tab>
               <Tab>
-                <button className="font-normal px-5 py-2 mr-3  text-lg border  rounded-full transition duration-300 hover:bg-theme-purple hover:text-white focus:outline-none focus:bg-theme-purple focus:text-white">
+                <button className="w-full sm:w-auto font-normal px-4 sm:px-5 py-2 text-base sm:text-lg border rounded-full transition duration-300 hover:bg-theme-purple hover:text-white focus:outline-none focus:bg-theme-purple focus:text-white">
                   AI Agents
                 </button>
               </Tab>
               <Tab>
-                <button className="font-normal px-5 py-2 mr-3  text-lg border  rounded-full transition duration-300 hover:bg-theme-purple hover:text-white focus:outline-none focus:bg-theme-purple focus:text-white">
+                <button className="w-full sm:w-auto font-normal px-4 sm:px-5 py-2 text-base sm:text-lg border rounded-full transition duration-300 hover:bg-theme-purple hover:text-white focus:outline-none focus:bg-theme-purple focus:text-white">
                   Automation
                 </button>
               </Tab>
               <Tab>
-                <button className="font-normal px-8 py-2  text-lg border  rounded-full transition duration-300 hover:bg-theme-purple hover:text-white focus:outline-none focus:bg-theme-purple focus:text-white">
+                <button className="w-full sm:w-auto font-normal px-4 sm:px-6 lg:px-8 py-2 text-base sm:text-lg border rounded-full transition duration-300 hover:bg-theme-purple hover:text-white focus:outline-none focus:bg-theme-purple focus:text-white">
                   Web Apps
                 </button>
               </Tab>
@@ -131,27 +132,27 @@ export default function AllPortfolio({ data }) {
 
             {/* Show More Button for All Projects */}
             {remainingAll.length > 0 && !showMore && (
-              <div className="flex justify-center mt-8">
+              <div className="flex justify-center mt-6 sm:mt-8">
                 <Fade triggerOnce direction="up" delay={800}>
-                <button
-  onClick={() => setShowMore(!showMore)}
-  className="bg-[#f2ffd9] hover:bg-[#C8E6A0] text-black font-semibold py-3 px-8 border-2 border-[#DAF7A6] hover:border-[#C8E6A0] rounded-full transition duration-300 transform hover:scale-105 shadow-lg"
->
-  See More Projects
-  <svg
-    className="w-4 h-4 ml-2 inline-block transition-transform duration-300 text-black"
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M19 9l-7 7-7-7"
-    />
-  </svg>
-</button>
+                  <button
+                    onClick={() => setShowMore(!showMore)}
+                    className="w-full sm:w-auto bg-[#f2ffd9] hover:bg-[#C8E6A0] text-black font-semibold py-3 px-6 sm:px-8 border-2 border-[#DAF7A6] hover:border-[#C8E6A0] rounded-full transition duration-300 transform hover:scale-105 shadow-lg"
+                  >
+                    See More Projects
+                    <svg
+                      className="w-4 h-4 ml-2 inline-block transition-transform duration-300 text-black"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </button>
                 </Fade>
               </div>
             )}
@@ -159,7 +160,7 @@ export default function AllPortfolio({ data }) {
             {/* Additional All Projects */}
             {showMore && (
               <Fade triggerOnce direction="up" delay={200}>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 xl:gap-8 justify-items-center mt-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 xl:gap-8 justify-items-center mt-6 sm:mt-8">
                   {remainingAll.map((item, index) =>
                     renderProjectCard(item, index, 200)
                   )}
@@ -178,11 +179,11 @@ export default function AllPortfolio({ data }) {
 
             {/* Show More Button for AI Agents */}
             {remainingAI.length > 0 && !showMore && (
-              <div className="flex justify-center mt-8">
+              <div className="flex justify-center mt-6 sm:mt-8">
                 <Fade triggerOnce direction="up" delay={800}>
                   <button
                     onClick={() => setShowMore(!showMore)}
-                    className="bg-theme-purple hover:bg-purple-700 text-white font-semibold py-3 px-8 rounded-full transition duration-300 transform hover:scale-105 shadow-lg"
+                    className="w-full sm:w-auto bg-theme-purple hover:bg-purple-700 text-white font-semibold py-3 px-6 sm:px-8 rounded-full transition duration-300 transform hover:scale-105 shadow-lg"
                   >
                     See More Projects
                     <svg
@@ -206,7 +207,7 @@ export default function AllPortfolio({ data }) {
             {/* Additional AI Agent Projects */}
             {showMore && (
               <Fade triggerOnce direction="up" delay={200}>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 xl:gap-8 justify-items-center mt-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 xl:gap-8 justify-items-center mt-6 sm:mt-8">
                   {remainingAI.map((item, index) =>
                     renderProjectCard(item, index, 200)
                   )}

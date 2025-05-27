@@ -418,7 +418,7 @@ const ChatbotWidget = () => {
   };
 
   return (
-    <div className="fixed bottom-5 right-5 z-50">
+    <div className="fixed bottom-5 right-6 z-50">
       {isOpen ? (
         <div
           className="chat-window bg-white rounded-lg shadow-xl w-80 md:w-96 h-96 flex flex-col overflow-hidden border-2"

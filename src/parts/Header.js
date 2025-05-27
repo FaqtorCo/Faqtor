@@ -21,8 +21,8 @@ export default function Header() {
       const element = document.getElementById(targetId);
       if (element) {
         element.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start',
+          behavior: "smooth",
+          block: "start",
         });
       }
       // Close mobile menu after clicking
@@ -32,16 +32,19 @@ export default function Header() {
 
   return (
     <header className="header">
-      <div className="flex justify-between px-4 lg:px-0">
+      {/* Main header container with responsive padding */}
+      <div className="flex justify-between items-center w-full px-4 sm:px-6 lg:px-0">
         <BrandIcon />
 
+        {/* Mobile menu button with better touch target */}
         <button
-          className="block  lg:hidden focus:outline-none text-[#DAF7A6]"
-        
+          className="block lg:hidden focus:outline-none text-[#DAF7A6] p-2 -mr-2"
           onClick={() => setIsCollapse(!isCollapse)}
+          aria-label="Toggle menu"
+          aria-expanded={isCollapse}
         >
           <svg
-            className="w-8 h-8"
+            className="w-6 h-6 sm:w-7 sm:h-7 transition-transform duration-200"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -65,13 +68,14 @@ export default function Header() {
         </button>
       </div>
 
-      <ul className="hidden  tracking-widest items-center lg:flex flex-row mt-0">
+      {/* Desktop Navigation */}
+      <ul className="hidden tracking-widest items-center lg:flex flex-row mt-0 flex-wrap justify-center xl:justify-start">
         <li>
           <Button
             as="a"
             href="#home"
-            onClick={handleSmoothScroll('home')}
-            className="font-medium text-lg px-5 no-underline hover:underline cursor-pointer text-[#DAF7A6]" 
+            onClick={handleSmoothScroll("home")}
+            className="font-medium text-base xl:text-lg px-3 xl:px-5 py-1 no-underline hover:underline cursor-pointer text-[#DAF7A6] transition-colors duration-200"
             type="link"
           >
             Home
@@ -81,20 +85,19 @@ export default function Header() {
           <Button
             as="a"
             href="#services"
-            onClick={handleSmoothScroll('services')}
-            className="font-medium text-lg px-5 no-underline hover:underline cursor-pointer text-[#DAF7A6]"
+            onClick={handleSmoothScroll("services")}
+            className="font-medium text-base xl:text-lg px-3 xl:px-5 py-1 no-underline hover:underline cursor-pointer text-[#DAF7A6] transition-colors duration-200"
             type="link"
           >
             Services
           </Button>
         </li>
-       
         <li className="py-2 lg:py-0">
           <Button
             as="a"
             href="#projects"
-            onClick={handleSmoothScroll('projects')}
-            className="font-medium text-lg px-5 no-underline hover:underline cursor-pointer text-[#DAF7A6]"
+            onClick={handleSmoothScroll("projects")}
+            className="font-medium text-base xl:text-lg px-3 xl:px-5 py-1 no-underline hover:underline cursor-pointer text-[#DAF7A6] transition-colors duration-200"
             type="link"
           >
             Projects
@@ -104,8 +107,8 @@ export default function Header() {
           <Button
             as="a"
             href="#aboutus"
-            onClick={handleSmoothScroll('aboutus')}
-            className="font-medium text-lg px-5 no-underline hover:underline cursor-pointer text-[#DAF7A6]"
+            onClick={handleSmoothScroll("aboutus")}
+            className="font-medium text-base xl:text-lg px-3 xl:px-5 py-1 no-underline hover:underline cursor-pointer text-[#DAF7A6] transition-colors duration-200"
             type="link"
           >
             About us
@@ -115,77 +118,77 @@ export default function Header() {
           <Button
             as="a"
             href="#discuss-project"
-            onClick={handleSmoothScroll('discuss-project')}
-            className="font-medium text-lg mx-auto ml-3 px-6 py-2 bg-[#f2ffd9] text-black rounded-full border-2 border-[#DAF7A6] hover:bg-[#C8E6A0] transition duration-200 cursor-pointer"    
-                    type="link"
+            onClick={handleSmoothScroll("discuss-project")}
+            className="font-medium text-sm xl:text-base mx-auto ml-2 xl:ml-3 px-4 xl:px-6 py-2 bg-[#f2ffd9] text-black rounded-full border-2 border-[#DAF7A6] hover:bg-[#C8E6A0] hover:border-[#C8E6A0] transition-all duration-200 cursor-pointer transform hover:scale-105"
+            type="link"
           >
             Discuss Project
           </Button>
         </li>
-        
       </ul>
 
+      {/* Mobile Navigation Menu */}
       <Transition
         show={isCollapse}
-        enter="transition-opacity duration-400"
-        enterFrom="opacity-0"
-        enterTo="opacity-100"
-        leave="transition-opacity duration-400"
-        leaveFrom="opacity-100"
-        leaveTo="opacity-0"
+        enter="transition-all duration-300"
+        enterFrom="opacity-0 -translate-y-2"
+        enterTo="opacity-100 translate-y-0"
+        leave="transition-all duration-200"
+        leaveFrom="opacity-100 translate-y-0"
+        leaveTo="opacity-0 -translate-y-2"
       >
-        <div className="transition duration-300 ease-in data-[closed]:opacity-0 ">
-          <ul className="z-50 flex flex-col  tracking-widest my-6 absolute bg-white w-full border-b-2 border-gray-300 lg:hidden">
-            <li className="py-2 ">
+        <div className="lg:hidden">
+          <ul className="z-50 flex flex-col tracking-widest my-4 sm:my-6 absolute left-4 right-4 sm:left-6 sm:right-6 bg-white border-b-2 border-gray-300 shadow-lg rounded-b-lg">
+            <li className="py-3 px-4 border-b border-gray-100 last:border-b-0">
               <Button
                 as="a"
                 href="#home"
-                onClick={handleSmoothScroll('home')}
-                className="font-medium px-10 no-underline hover:underline cursor-pointer"
+                onClick={handleSmoothScroll("home")}
+                className="font-medium text-base sm:text-lg w-full text-left px-4 sm:px-6 py-2 no-underline hover:underline cursor-pointer text-gray-800 hover:text-[#333] transition-colors duration-200 block rounded-md hover:bg-gray-50"
                 type="link"
               >
                 Home
               </Button>
             </li>
-            <li className="py-2 bg-white">
+            <li className="py-3 px-4 border-b border-gray-100 last:border-b-0">
               <Button
                 as="a"
                 href="#services"
-                onClick={handleSmoothScroll('services')}
-                className="font-medium px-10 no-underline hover:underline cursor-pointer"
+                onClick={handleSmoothScroll("services")}
+                className="font-medium text-base sm:text-lg w-full text-left px-4 sm:px-6 py-2 no-underline hover:underline cursor-pointer text-gray-800 hover:text-[#333] transition-colors duration-200 block rounded-md hover:bg-gray-50"
                 type="link"
               >
                 Services
               </Button>
             </li>
-            <li className="py-2 bg-white ">
+            <li className="py-3 px-4 border-b border-gray-100 last:border-b-0">
               <Button
                 as="a"
                 href="#aboutus"
-                onClick={handleSmoothScroll('aboutus')}
-                className="font-medium px-10 no-underline hover:underline cursor-pointer"
+                onClick={handleSmoothScroll("aboutus")}
+                className="font-medium text-base sm:text-lg w-full text-left px-4 sm:px-6 py-2 no-underline hover:underline cursor-pointer text-gray-800 hover:text-[#333] transition-colors duration-200 block rounded-md hover:bg-gray-50"
                 type="link"
               >
                 About us
               </Button>
             </li>
-            <li className="py-2 bg-white ">
+            <li className="py-3 px-4 border-b border-gray-100 last:border-b-0">
               <Button
                 as="a"
                 href="#projects"
-                onClick={handleSmoothScroll('projects')}
-                className="font-medium px-10 no-underline hover:underline cursor-pointer"
+                onClick={handleSmoothScroll("projects")}
+                className="font-medium text-base sm:text-lg w-full text-left px-4 sm:px-6 py-2 no-underline hover:underline cursor-pointer text-gray-800 hover:text-[#333] transition-colors duration-200 block rounded-md hover:bg-gray-50"
                 type="link"
               >
                 Projects
               </Button>
             </li>
-            <li className="mx-auto my-9 bg-white">
+            <li className="py-4 sm:py-6 px-4 flex justify-center">
               <Button
                 as="a"
                 href="#discuss-project"
-                onClick={handleSmoothScroll('discuss-project')}
-                className="font-bold mx-auto px-5 py-2 bg-theme-purple text-white rounded-full border-2 border-theme-purple hover:bg-dark-theme-purple border-purple-800 transition duration-200 cursor-pointer"
+                onClick={handleSmoothScroll("discuss-project")}
+                className="font-semibold text-base sm:text-lg px-6 sm:px-8 py-3 bg-[#f2ffd9] text-black rounded-full border-2 border-[#DAF7A6] hover:bg-[#C8E6A0] hover:border-[#C8E6A0] transition-all duration-200 cursor-pointer transform hover:scale-105 shadow-md min-w-[160px] text-center"
                 type="link"
               >
                 Discuss Project
@@ -194,6 +197,15 @@ export default function Header() {
           </ul>
         </div>
       </Transition>
+
+      {/* Overlay for mobile menu */}
+      {isCollapse && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-25 z-40 lg:hidden"
+          onClick={() => setIsCollapse(false)}
+          aria-hidden="true"
+        />
+      )}
     </header>
   );
 }

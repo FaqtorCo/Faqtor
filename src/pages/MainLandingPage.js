@@ -17,7 +17,9 @@ export default function MainLandingPage() {
       <section id="home">
         <LandingPage />
       </section>
-  
+      <section id="services">
+        <Services />
+      </section>
       <section id="aboutus">
         <Aboutus />
       </section>

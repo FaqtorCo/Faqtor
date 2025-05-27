@@ -214,7 +214,7 @@ export default function AboutUs() {
     <>
       {/* Centered About Us Heading */}
       <div className="w-full flex justify-center items-center mt-0">
-        <h1 className="text-4xl md:text-5xl font-bold text-center" style={{ color: '#daf7a7', textShadow: 'none' }}>
+        <h1 className="text-6xl md:text-6xl font-bold text-center" style={{ color: '#daf7a7', textShadow: 'none' }}>
           About Us
         </h1>
       </div>
@@ -283,13 +283,13 @@ export default function AboutUs() {
 </section>
 
       {/* Mission Section - Minimal Spacing */}
-      <section id="mission" className="-mt-4 bg-black">
+      <section id="mission" className="-mt-4 bg-black relative">
         <div className="container mx-auto px-6 flex flex-col items-center justify-center">
-          <div className="text-center mb-3">
-            <h2 className="text-4xl md:text-5xl font-bold mb-1" style={{textShadow: 'none', color: '#daf7a7'}}>Our Mission</h2>
+          <div className="text-center mt-3 relative z-20">
+            <h2 className="font-bold text-4xl mb-1" style={{textShadow: 'none', color: '#daf7a7'}}>Our Mission</h2>
             <div className="w-20 h-1 mx-auto rounded-full" style={{backgroundColor: '#374f00'}} />
           </div>
-          <div className="flex flex-col md:flex-row items-center justify-center w-full">
+          <div className="flex flex-col md:flex-row items-center justify-center w-full relative z-10">
             {/* Left accent/icon */}
             <div className="flex-shrink-0 flex items-center justify-center w-14 h-14 rounded-full bg-[#374f00] mr-0 md:mr-6 mb-4 md:mb-0">
               <svg className="w-7 h-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">

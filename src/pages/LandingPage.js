@@ -21,7 +21,9 @@ export default class LandingPage extends Component {
     return (
       <>
         <Hero />
-        <Services />
+        <div id="services">
+          <Services />
+        </div>
         <Advantage data={Advantages} />
         <Testimonial data={Testimonials} />
 

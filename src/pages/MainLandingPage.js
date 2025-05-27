@@ -1,4 +1,4 @@
-/* eslint-disable  */
+/* eslint-disable linebreak-style */
 /* eslint-disable import/extensions */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/jsx-filename-extension */
@@ -8,7 +8,6 @@ import Aboutus from './Aboutus';
 import ProjectPage from './ProjectPage';
 import { DiscussProjectPage } from './DiscussProjectPage';
 import Header from '../parts/Header';
-import Services from './Services';
 
 export default function MainLandingPage() {
   return (
@@ -16,9 +15,6 @@ export default function MainLandingPage() {
       <Header />
       <section id="home">
         <LandingPage />
-      </section>
-      <section id="services">
-        <Services />
       </section>
       <section id="aboutus">
         <Aboutus />

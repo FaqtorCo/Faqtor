@@ -286,7 +286,8 @@ export default function AboutUs() {
       <section id="mission" className="-mt-4 bg-black">
         <div className="container mx-auto px-6 flex flex-col items-center justify-center">
           <div className="text-center mb-3">
-            <h2 className="text-4xl md:text-5xl font-bold mb-1" style={{textShadow: 'none', color: '#daf7a7'}}>Our Mission</h2>
+            <h2 className="text-4xl font-bold" style={{textShadow: 'none', color: '#daf7a7'}}>Our Mission</h2>
+
             <div className="w-20 h-1 mx-auto rounded-full" style={{backgroundColor: '#374f00'}} />
           </div>
           <div className="flex flex-col md:flex-row items-center justify-center w-full">

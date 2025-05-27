@@ -1172,7 +1172,7 @@ export default function Services() {
                         
                         <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
                           <a 
-                            href="/contact" 
+                            href="/#discuss-project" 
                             className="bg-white text-theme-purple font-bold px-8 py-4 rounded-2xl hover:bg-gray-50 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center group"
                           >
                             <svg className="w-6 h-6 mr-3 group-hover:rotate-12 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -1182,7 +1182,7 @@ export default function Services() {
                           </a>
                           
                           <a 
-                            href="/portfolio" 
+                            href="/#projects" 
                             className="border-2 border-white text-white font-bold px-8 py-4 rounded-2xl hover:bg-white hover:text-theme-purple transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center group"
                           >
                             <svg className="w-6 h-6 mr-3 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

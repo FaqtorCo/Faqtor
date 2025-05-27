@@ -88,17 +88,7 @@ export default function Header() {
             Services
           </Button>
         </li>
-        <li className="py-2 lg:py-0">
-          <Button
-            as="a"
-            href="#aboutus"
-            onClick={handleSmoothScroll('aboutus')}
-            className="font-medium text-lg px-5 no-underline hover:underline cursor-pointer text-[#DAF7A6]"
-            type="link"
-          >
-            About us
-          </Button>
-        </li>
+       
         <li className="py-2 lg:py-0">
           <Button
             as="a"
@@ -108,6 +98,17 @@ export default function Header() {
             type="link"
           >
             Projects
+          </Button>
+        </li>
+        <li className="py-2 lg:py-0">
+          <Button
+            as="a"
+            href="#aboutus"
+            onClick={handleSmoothScroll('aboutus')}
+            className="font-medium text-lg px-5 no-underline hover:underline cursor-pointer text-[#DAF7A6]"
+            type="link"
+          >
+            About us
           </Button>
         </li>
         <li>
@@ -121,6 +122,7 @@ export default function Header() {
             Discuss Project
           </Button>
         </li>
+        
       </ul>
 
       <Transition

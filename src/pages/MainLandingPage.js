@@ -1,4 +1,4 @@
-/* eslint-disable linebreak-style */
+/* eslint-disable  */
 /* eslint-disable import/extensions */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/jsx-filename-extension */
@@ -17,9 +17,7 @@ export default function MainLandingPage() {
       <section id="home">
         <LandingPage />
       </section>
-      <section id="services">
-        <Services />
-      </section>
+  
       <section id="aboutus">
         <Aboutus />
       </section>

@@ -16,9 +16,8 @@ import BrianKarshMain from "../assets/images/Portfolio/BrianKarshMain.jpg";
 import ArkFoods from "../assets/images/Portfolio/ArkFoodMain.jpg";
 import ArkFoodAnalytics from "../assets/images/Portfolio/ArkFoodsAnalytics.jpg";
 import Aura from "../assets/images/Portfolio/Aura.png";
-import Surtido from "../assets/images/Portfolio/Surtido.png";
-import ManagementApp from "../assets/images/Portfolio/ManagementApp.png";
-
+import marketingagent from "../assets/images/Portfolio/marketingagent.png";
+import socialmedia from "../assets/images/Portfolio/social.jpg";
 // Advantages
 import Communicative from "../assets/images/Advantages/Communicative.png";
 import Collaborative from "../assets/images/Advantages/Collaborative.png";
@@ -64,7 +63,6 @@ export const Portfolios = [
     id: "ai-calling-agent-001",
     title: "AI Calling Agent",
     imageUrl: Recruiting, // Main image for card display
-    images: [Recruiting, Stream, Freelance], // Multiple images for carousel
     type: "AI Agent",
     status: "Production Ready",
     responsibility: [
@@ -97,7 +95,6 @@ export const Portfolios = [
     id: "ai-chatbot-002",
     title: "Intelligent Chatbot",
     imageUrl: chatbot, // Main image for card display
-    images: [chatbot, Aura], // Multiple images for carousel
     type: "AI Agent",
     status: "Demo Available",
     responsibility: [
@@ -185,7 +182,6 @@ export const Portfolios = [
     id: "ai-avatar-agent-004",
     title: "Avatar Agent System",
     imageUrl: Aura, // Main image for card display
-    images: [Aura, ManagementApp], // Multiple images for carousel
     type: "AI Agent",
     status: "Demo Available",
     responsibility: [
@@ -217,8 +213,7 @@ export const Portfolios = [
   {
     id: "marketing-agent-005",
     title: "AI Marketing Agent",
-    imageUrl: Surtido, // Main image for card display
-    images: [Surtido, Recruiting, Stream], // Multiple images for carousel
+    imageUrl: marketingagent, // Main image for card display
     type: "AI Agent",
     status: "Production Ready",
     responsibility: [
@@ -250,8 +245,7 @@ export const Portfolios = [
   {
     id: "social-media-posting-006",
     title: "Social Media Automation",
-    imageUrl: ManagementApp, // Main image for card display
-    images: [ManagementApp, Freelance, Aura], // Multiple images for carousel
+    imageUrl: socialmedia, // Main image for card display
     type: "Automation",
     status: "Production Ready",
     responsibility: [

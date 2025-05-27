@@ -23,7 +23,7 @@ export default class LandingPage extends Component {
         <Hero />
         <Services />
         <Advantage data={Advantages} />
-        <Testimonial data={Testimonials} />
+        {/* <Testimonial data={Testimonials} /> */}
 
       </>
     );

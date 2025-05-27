@@ -214,9 +214,9 @@ export default function AboutUs() {
     <>
       {/* Centered About Us Heading */}
       <div className="w-full flex justify-center items-center mt-0">
-        <h1 className="text-4xl md:text-5xl font-bold text-center" style={{ color: '#daf7a7', textShadow: 'none' }}>
-          About Us
-        </h1>
+        <h1 className="text-5xl  text-center font-bold">About Us</h1>
+
+          
       </div>
 {/* Hero Section - Matching Hero Component Style */}
 <section className="mb-0 relative bg-black">

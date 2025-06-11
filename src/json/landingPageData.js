@@ -1,4 +1,3 @@
-/* eslint-disable import/extensions */
 /* eslint-disable */
 
 // Services Img Imports
@@ -36,25 +35,25 @@ import Finance from "../assets/images/TeamMembers/Finance.jpg";
 
 export const Services = [
   {
-    title: 'Immersive Web Experience',
+    title: "Immersive Web Experience",
     imageUrl: Web,
     animation: "left",
   },
   {
-    title: 'Data Analytics and Visualization',
+    title: "Data Analytics and Visualization",
     imageUrl: Analytic,
     animation: "up",
   },
   {
-    title: 'Agentic AI Solutions',
+    title: "Agentic AI Solutions",
     imageUrl: UIUX,
-    animation: 'right',
+    animation: "right",
   },
   {
-    title: 'Intelligent Automation',
+    title: "Intelligent Automation",
     imageUrl: UIUX,
-    animation: 'right',
-  }
+    animation: "right",
+  },
 ];
 
 export const Portfolios = [
@@ -166,9 +165,6 @@ export const Portfolios = [
       "Ark Foods is a comprehensive Spices Price Analytics platform that connects Merchants with their profitable markets across the globe. Built with modern web technologies, it features real-time data analytics, Efficient Alert System, Historical and forecasted data, and an admin dashboard for complete platform oversight.",
  
   },
-
-
-  
 
   // AI Agent Projects (Remaining 3 - Show More)
   {

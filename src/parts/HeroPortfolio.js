@@ -17,7 +17,7 @@ export default function HeroPortfolio() {
           className="text-4xl md:text-5xl font-bold mb-8 mt-4 text-center"
           style={{ color: "#daf7a7", textShadow: "none" }}
         >
-          Portfolio
+          Projects
         </h1>
       </div>
       <section className="hero sm:items-center lg:items-start sm:flex-row">

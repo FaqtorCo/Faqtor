@@ -132,11 +132,11 @@ export const Portfolios = [
     ],
     technologies: ["React", "Python", "Google Console Storage", "Selenium"],
     description:
-      "Collection of web applications enhanced with AI capabilities including predictive analytics, recommendation engines, and automated decision-making systems.",
+      "A portfolio for realtor for portraying his achievements and client relationship through past records, integrated with automations to fetch the latest communities of Los Vegas!",
     longDescription:
-      "Our AI-Powered Web Applications combine traditional web development with cutting-edge artificial intelligence to create intelligent, responsive, and predictive user experiences. These applications learn from user behavior, provide personalized recommendations, and automate complex business processes.",
+      "",
     features: [
-      "Predictive Analytics",
+      "Ai automated Blogs Writer",
       "Recommendation Systems",
       "Automated Workflows",
       "Real-time Decision Making",
@@ -152,26 +152,19 @@ export const Portfolios = [
     type: "Web App",
     status: "Production Ready",
     responsibility: [
-      "Full-Stack Development",
-      "UI/UX Design",
-      "Payment Integration",
-      "Real-time Order Tracking",
+      "Real time data analytics",
+      "Future forecasts from previous data",
+      "Spice crops plantation forecaster",
+      "Analytics dashboard for spice merchants",
+      "Price Data presented in Correlation, Scattered, Empirical, Pearson correlation and numerous other charts",
+      "Alert system for price hikes and drops"
     ],
-    technologies: ["React", "Node.js", "MongoDB", "Stripe API", "Socket.io"],
+    technologies: ["React", "Python", "Google console", "USDA Api", "ProduceIQ API", "MeteoMatics Api"],
     description:
-      "Modern food delivery platform with real-time order tracking, multiple payment options, and an intuitive user interface for seamless food ordering experience.",
+      "Ark Foods is a comprehensive Spices Price Analytics platform that connects Merchants with their profitable markets across the globe. Built with modern web technologies, it features real-time data analytics, Efficient Alert System, Historical and forecasted data, and an admin dashboard for complete platform oversight.",
     longDescription:
-      "Ark Foods is a comprehensive food delivery platform that connects hungry customers with their favorite restaurants. Built with modern web technologies, it features real-time order tracking, secure payment processing, restaurant management tools, and an admin dashboard for complete platform oversight. The application ensures a smooth experience from order placement to delivery.",
-    features: [
-      "Real-time Order Tracking",
-      "Multiple Payment Gateways",
-      "Restaurant Management Portal",
-      "Push Notifications",
-      "Rating & Review System",
-      "Admin Analytics Dashboard",
-      "Mobile-Responsive Design",
-      "Order History & Reordering",
-    ],
+      "Ark Foods is a comprehensive Spices Price Analytics platform that connects Merchants with their profitable markets across the globe. Built with modern web technologies, it features real-time data analytics, Efficient Alert System, Historical and forecasted data, and an admin dashboard for complete platform oversight.",
+ 
   },
 
 
@@ -191,23 +184,25 @@ export const Portfolios = [
       "Emotional Intelligence",
     ],
     technologies: [
-      "Three.js",
-      "WebGL",
-      "AI Voice Synthesis",
-      "Machine Learning",
-      "WebRTC",
+      "n8n",
+      "LiveKit",
+      "Go High Level",
+      "cal.com",
+      "Twilio (Voice & SMS)",
     ],
     description:
-      "Interactive AI avatars with customizable personalities, realistic animations, and voice synthesis for virtual customer service and digital assistance.",
+      "Advanced AI-powered outbound calling system developed for San Jose Clean Energy to handle customer outreach, enrollment campaigns, and service notifications. The system automates customer contact for renewable energy program promotions, billing notifications, and service updates while maintaining natural conversation flow and regulatory compliance for utility communications.",
     longDescription:
       "Our Avatar Agent System creates lifelike digital representatives that can interact with users through voice, text, and visual cues. These avatars are powered by advanced AI algorithms that enable them to understand emotions, respond appropriately, and maintain consistent personalities across interactions.",
     features: [
-      "Realistic 3D Avatars",
-      "Custom Personality Profiles",
-      "Voice & Text Interaction",
-      "Emotion Recognition",
-      "Multi-language Support",
-      "Brand Customization",
+      "Automated Outbound Campaign Management",
+      "Regulatory Compliance Monitoring",
+      "Real-time Call Analytics",
+      "CRM Integration ",
+      "Scheduled Campaign Deployment",
+      "Multi-language Support (English/Spanish)",
+      "Callback Scheduling System",
+      "Lead Qualification & Scoring",
     ],
   },
   {

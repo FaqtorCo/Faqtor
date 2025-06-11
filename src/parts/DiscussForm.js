@@ -440,7 +440,7 @@ export const DiscussForm = (actions) => {
               Book a meeting with us!
             </h1>
 
-            <div className="bg-white rounded-2xl p-4 sm:p-6 lg:p-8 shadow-lg flex justify-center items-center">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 lg:p-8 shadow-lg">
               <div className="w-full max-w-full overflow-hidden">
                 {/* Mobile: Show simplified calendar or link */}
                 <div className="block sm:hidden">

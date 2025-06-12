@@ -1,10 +1,9 @@
-/* eslint-disable linebreak-style */
+/* eslint-disable  */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/jsx-filename-extension */
 import React, { useState, useEffect } from 'react';
 import { DiscussForm } from 'parts/DiscussForm';
 
-import Footer from 'parts/Footer';
 import Discuss from 'parts/Discuss';
 
 export const DiscussProjectPage = () => {
@@ -41,7 +40,6 @@ export const DiscussProjectPage = () => {
     <>
       <DiscussForm data={data} onChange={onChange} resetForm={resetForm} />
       <Discuss />
-      <Footer />
     </>
   );
 };

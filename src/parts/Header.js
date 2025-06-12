@@ -6,18 +6,28 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
 import { Transition } from "@headlessui/react";
+import { Link, useLocation } from "react-router-dom"; // Import Link and useLocation
 
 import Button from "../elements/Button";
 import BrandIcon from "./BrandIcon";
 
 export default function Header() {
   const [isCollapse, setIsCollapse] = useState(false);
+  const location = useLocation(); // Get current location
+  const isHomePage = location.pathname === "/";
 
   const handleSmoothScroll = (targetId) => {
     return (e) => {
       if (e && e.preventDefault) {
         e.preventDefault();
       }
+      
+      // If we're not on the homepage, navigate to homepage first then scroll
+      if (!isHomePage) {
+        window.location.href = `/#${targetId}`;
+        return;
+      }
+      
       const element = document.getElementById(targetId);
       if (element) {
         element.scrollIntoView({
@@ -104,6 +114,17 @@ export default function Header() {
           </Button>
         </li>
         <li className="py-2 lg:py-0">
+          {/* Changed from scroll to Router Link for blogs */}
+          <Button
+            as={Link}
+            to="/blogs"
+            className="font-medium text-lg px-3 py-1 no-underline hover:underline cursor-pointer text-[#DAF7A6] transition-colors duration-200 whitespace-nowrap"
+            type="link"
+          >
+            Blogs
+          </Button>
+        </li>
+        <li className="py-2 lg:py-0">
           <Button
             as="a"
             href="#aboutus"
@@ -114,6 +135,7 @@ export default function Header() {
             About us
           </Button>
         </li>
+        
         <li>
           <Button
             as="a"
@@ -170,6 +192,17 @@ export default function Header() {
                 type="link"
               >
                 About us
+              </Button>
+            </li>
+            <li className="py-3 px-4 border-b border-gray-100 last:border-b-0">
+              {/* Changed from scroll to Router Link for blogs in mobile menu */}
+              <Button
+                as={Link}
+                to="/blogs"
+                className="font-medium text-base sm:text-lg w-full text-left px-4 sm:px-6 py-2 no-underline hover:underline cursor-pointer text-gray-800 hover:text-[#333] transition-colors duration-200 block rounded-md hover:bg-gray-50"
+                type="link"
+              >
+                Blogs
               </Button>
             </li>
             <li className="py-3 px-4 border-b border-gray-100 last:border-b-0">

@@ -8,11 +8,13 @@ import Aboutus from './Aboutus';
 import ProjectPage from './ProjectPage';
 import { DiscussProjectPage } from './DiscussProjectPage';
 import Header from '../parts/Header';
+import Footer from '../parts/Footer'; // Add Footer import
 
 export default function MainLandingPage() {
   return (
     <div>
       <Header />
+
       <section id="home">
         <LandingPage />
       </section>
@@ -25,6 +27,8 @@ export default function MainLandingPage() {
       <section id="discuss-project">
         <DiscussProjectPage />
       </section>
+      
+      <Footer /> {/* Add Footer component */}
     </div>
   );
 }

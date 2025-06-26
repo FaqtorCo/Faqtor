@@ -21,13 +21,13 @@ export default function Header() {
       if (e && e.preventDefault) {
         e.preventDefault();
       }
-      
+
       // If we're not on the homepage, navigate to homepage first then scroll
       if (!isHomePage) {
         window.location.href = `/#${targetId}`;
         return;
       }
-      
+
       const element = document.getElementById(targetId);
       if (element) {
         element.scrollIntoView({
@@ -41,14 +41,16 @@ export default function Header() {
   };
 
   return (
-    <header className="header">
+    <header className="header relative z-50">
+      {" "}
+      {/* Added relative z-50 to ensure header is above all content */}
       {/* Main header container with responsive padding */}
       <div className="flex justify-between items-center w-full px-4 sm:px-6 lg:px-0">
         <BrandIcon />
 
         {/* Mobile menu button with better touch target */}
         <button
-          className="block lg:hidden focus:outline-none text-[#DAF7A6] p-2 -mr-2"
+          className="block lg:hidden focus:outline-none text-[#DAF7A6] p-2 -mr-2 relative z-50" // Added z-50 to button
           onClick={() => setIsCollapse(!isCollapse)}
           aria-label="Toggle menu"
           aria-expanded={isCollapse}
@@ -77,7 +79,6 @@ export default function Header() {
           </svg>
         </button>
       </div>
-
       {/* Desktop Navigation */}
       <ul className="hidden tracking-widest items-center lg:flex flex-row mt-0 whitespace-nowrap">
         <li>
@@ -135,7 +136,7 @@ export default function Header() {
             About us
           </Button>
         </li>
-        
+
         <li>
           <Button
             as="a"
@@ -148,7 +149,6 @@ export default function Header() {
           </Button>
         </li>
       </ul>
-
       {/* Mobile Navigation Menu */}
       <Transition
         show={isCollapse}
@@ -159,8 +159,12 @@ export default function Header() {
         leaveFrom="opacity-100 translate-y-0"
         leaveTo="opacity-0 -translate-y-2"
       >
-        <div className="lg:hidden">
-          <ul className="z-50 flex flex-col tracking-widest my-4 sm:my-6 absolute left-4 right-4 sm:left-6 sm:right-6 bg-white border-b-2 border-gray-300 shadow-lg rounded-b-lg">
+        <div className="lg:hidden absolute top-full left-0 right-0 z-40">
+          {" "}
+          {/* Changed z-50 to z-40 and added positioning */}
+          <ul className="flex flex-col tracking-widest my-4 sm:my-6 mx-4 sm:mx-6 bg-white border-b-2 border-gray-300 shadow-xl rounded-b-lg">
+            {" "}
+            {/* Added shadow-xl for better visibility */}
             <li className="py-3 px-4 border-b border-gray-100 last:border-b-0">
               <Button
                 as="a"
@@ -230,11 +234,10 @@ export default function Header() {
           </ul>
         </div>
       </Transition>
-
       {/* Overlay for mobile menu */}
       {isCollapse && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-25 z-40 lg:hidden"
+          className="fixed inset-0 bg-black bg-opacity-25 z-30 lg:hidden" // Changed z-40 to z-30
           onClick={() => setIsCollapse(false)}
           aria-hidden="true"
         />

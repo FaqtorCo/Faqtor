@@ -277,16 +277,18 @@ export const DiscussForm = (actions) => {
       </div>
 
       <section className="container mx-auto mt-6 sm:mt-8 lg:mt-10 px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 w-full">
+        {/* Use h-full and min-h-0 to make both columns equal height */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 w-full lg:h-full lg:items-stretch">
           {/* Left Side - Contact Form */}
-          <div className="order-1 lg:order-1">
+          <div className="order-1 lg:order-1 flex flex-col">
             <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-center mb-4 sm:mb-6">
               Send Us a Message
             </h1>
 
-            <div className="bg-white rounded-2xl p-4 sm:p-6 lg:p-8 shadow-lg">
+            {/* Make the card flex-1 to fill available space */}
+            <div className="bg-white rounded-2xl p-4 sm:p-6 lg:p-8 shadow-lg flex-1 flex flex-col">
               <Fade direction="up" triggerOnce>
-                <div className="flex flex-col space-y-4 sm:space-y-6">
+                <div className="flex flex-col space-y-4 sm:space-y-6 flex-1">
                   <div className="flex flex-col space-y-2">
                     <label className="flex items-center text-text-primary text-sm font-medium">
                       <svg
@@ -398,36 +400,39 @@ export const DiscussForm = (actions) => {
                       type="textarea"
                       value={data.projectIdea}
                       placeholder="Describe your project requirements, goals, and timeline..."
-                      className="rounded-lg border border-gray-300 p-2 sm:p-3 bg-gray-50 w-full max-w-full h-32 sm:h-40 focus:outline-none focus:ring-2 focus:ring-theme-purple/30 text-sm sm:text-base resize-none box-border"
+                      className="rounded-lg border border-gray-300 p-2 sm:p-3 bg-gray-50 w-full max-w-full h-32 sm:h-40 focus:outline-none focus:ring-2 focus:ring-theme-purple/30 text-sm sm:text-base resize-none box-border flex-1"
                       onChange={actions.onChange}
                     />
                   </div>
 
-                  <Button
-                    className="w-full py-2 sm:py-3 mt-2 bg-[#f2ffd9] text-black border-2 border-[#DAF7A6] rounded-lg hover:bg-[#C8E6A0] hover:border-[#C8E6A0] transition duration-200 focus:outline-none text-sm sm:text-base font-medium"
-                    type="button"
-                    onClick={submitEmail}
-                  >
-                    Submit Request
-                  </Button>
-
-                  <div className="flex items-center justify-center text-xs sm:text-sm text-gray-500 mt-4 text-center px-2">
-                    <svg
-                      className="w-3 h-3 sm:w-4 sm:h-4 mr-2 flex-shrink-0"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
+                  {/* Push button to bottom */}
+                  <div className="mt-auto pt-4">
+                    <Button
+                      className="w-full py-2 sm:py-3 mt-2 bg-[#f2ffd9] text-black border-2 border-[#DAF7A6] rounded-lg hover:bg-[#C8E6A0] hover:border-[#C8E6A0] transition duration-200 focus:outline-none text-sm sm:text-base font-medium"
+                      type="button"
+                      onClick={submitEmail}
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                      ></path>
-                    </svg>
-                    Your information is encrypted and secure. We respect your
-                    privacy and will never share your data with third parties.
+                      Submit Request
+                    </Button>
+
+                    <div className="flex items-center justify-center text-xs sm:text-sm text-gray-500 mt-4 text-center px-2">
+                      <svg
+                        className="w-3 h-3 sm:w-4 sm:h-4 mr-2 flex-shrink-0"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                        ></path>
+                      </svg>
+                      Your information is encrypted and secure. We respect your
+                      privacy and will never share your data with third parties.
+                    </div>
                   </div>
                 </div>
               </Fade>
@@ -435,16 +440,17 @@ export const DiscussForm = (actions) => {
           </div>
 
           {/* Right Side - Calendar Booking */}
-          <div className="order-2 lg:order-2">
+          <div className="order-2 lg:order-2 flex flex-col">
             <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-center mb-4 sm:mb-6">
               Book a meeting with us!
             </h1>
 
-            <div className="bg-white rounded-2xl p-4 sm:p-6 lg:p-8 shadow-lg">
-              <div className="w-full max-w-full overflow-hidden">
+            {/* Make the card flex-1 to fill available space */}
+            <div className="bg-white rounded-2xl p-4 sm:p-6 lg:p-8 shadow-lg flex-1 flex flex-col">
+              <div className="w-full max-w-full overflow-hidden flex-1">
                 {/* Mobile: Show simplified calendar or link */}
-                <div className="block sm:hidden">
-                  <div className="text-center p-6 border-2 border-dashed border-gray-300 rounded-lg">
+                <div className="block sm:hidden h-full flex flex-col">
+                  <div className="text-center p-6 border-2 border-dashed border-gray-300 rounded-lg flex-1 flex flex-col justify-center">
                     <svg
                       className="w-12 h-12 mx-auto mb-4 text-gray-400"
                       fill="none"
@@ -477,22 +483,16 @@ export const DiscussForm = (actions) => {
                 </div>
 
                 {/* Tablet and Desktop: Show embedded calendar */}
-                <div className="hidden sm:block">
-                  <div
-                    className="relative w-full"
-                    style={{ paddingBottom: "120%" }}
-                  >
-                    <iframe
-                      src="https://cal.com/faqtor?theme=light"
-                      className="absolute top-0 left-0 w-full h-full rounded-lg"
-                      style={{
-                        minHeight: "500px",
-                        height: "600px",
-                      }}
-                      frameBorder="0"
-                      title="Schedule a meeting"
-                    />
-                  </div>
+                <div className="hidden sm:block h-full">
+                  <iframe
+                    src="https://cal.com/faqtor?theme=light"
+                    className="w-full h-full rounded-lg"
+                    style={{
+                      minHeight: "600px", // Increased min-height to match form better
+                    }}
+                    frameBorder="0"
+                    title="Schedule a meeting"
+                  />
                 </div>
               </div>
             </div>

@@ -11,14 +11,15 @@ function Blogs() {
   const [filteredBlogs, setFilteredBlogs] = useState([]);
 
   useEffect(() => {
-    // Load blogs data
-    setBlogs(blogsData.blogs);
+    // Load blogs data and sort by publishDate descending
+    const sortedBlogs = [...blogsData.blogs].sort((a, b) => new Date(b.publishDate) - new Date(a.publishDate));
+    setBlogs(sortedBlogs);
     setCategories(['All', ...blogsData.categories.map(cat => cat.name)]);
-    setFilteredBlogs(blogsData.blogs);
+    setFilteredBlogs(sortedBlogs);
   }, []);
 
   useEffect(() => {
-    // Filter blogs based on selected category
+    // Filter blogs based on selected category and keep newest at top
     if (selectedCategory === 'All') {
       setFilteredBlogs(blogs);
     } else {

@@ -1,62 +1,6 @@
 {
     "blogs": [
       {
-        "id": "building-systems-that-define-trends",
-        "title": "Building Systems That Define Trends",
-        "slug": "building-systems-that-define-trends",
-        "category": "Development",
-        "excerpt": "How we approach building intuitive systems that simplify complex business challenges and drive innovation...",
-        "featuredImage": "/images/blogs/systems-trends.jpg",
-        "publishDate": "2025-06-10",
-        "readTime": "8 min read",
-        "tags": ["Development", "Innovation", "Systems", "Business"],
-        "featured": true,
-        "metaDescription": "Learn how to build intuitive systems that simplify complex business challenges and drive innovation in your organization.",
-        "content": {
-          "introduction": "In today's rapidly evolving technological landscape, the ability to build systems that not only solve current problems but also anticipate future trends has become a crucial competitive advantage.",
-          "sections": [
-            {
-              "heading": "Understanding System Architecture",
-              "content": "Building effective systems starts with understanding the fundamental principles of good architecture. This involves creating modular, scalable, and maintainable solutions that can adapt to changing requirements.",
-              "image": "/images/blogs/architecture-diagram.jpg",
-              "imageAlt": "System architecture diagram showing modular components"
-            },
-            {
-              "heading": "Identifying Business Pain Points",
-              "content": "Before diving into technical solutions, it's essential to thoroughly understand the business challenges you're trying to solve. This requires close collaboration with stakeholders and end-users.",
-              "bulletPoints": [
-                "Conduct thorough stakeholder interviews",
-                "Map existing workflows and processes",
-                "Identify bottlenecks and inefficiencies",
-                "Prioritize pain points by impact and effort"
-              ]
-            },
-            {
-              "heading": "Innovation Through Simplicity",
-              "content": "The most innovative solutions are often the simplest ones. By focusing on user experience and eliminating unnecessary complexity, we can create systems that users actually want to use.",
-              "quote": {
-                "text": "Simplicity is the ultimate sophistication.",
-                "author": "Leonardo da Vinci"
-              }
-            },
-            {
-              "heading": "Future-Proofing Your Systems",
-              "content": "Building for the future means creating flexible architectures that can evolve with changing requirements. This involves using modern development practices, choosing the right technology stack, and maintaining clean, well-documented code.",
-              "codeExample": {
-                "language": "javascript",
-                "code": "// Example of a flexible, modular system design\nclass SystemCore {\n  constructor(modules = []) {\n    this.modules = new Map();\n    this.loadModules(modules);\n  }\n\n  loadModules(modules) {\n    modules.forEach(module => {\n      this.modules.set(module.name, module);\n    });\n  }\n\n  executeWorkflow(workflowName, data) {\n    const workflow = this.modules.get(workflowName);\n    return workflow ? workflow.execute(data) : null;\n  }\n}"
-              }
-            }
-          ],
-          "conclusion": "By focusing on understanding business needs, embracing simplicity, and building for the future, we can create systems that not only solve today's problems but also define tomorrow's trends.",
-          "callToAction": {
-            "text": "Ready to build systems that define trends?",
-            "buttonText": "Start Your Project",
-            "buttonLink": "#discuss-project"
-          }
-        }
-      },
-      {
         "id": "human-creativity-machine-precision",
         "title": "Human Creativity + Machine Precision",
         "slug": "human-creativity-machine-precision",
@@ -164,7 +108,7 @@
       },
       {
         "id": "n8n-automation-for-everyone",
-        "title": "n8n: Automation for Everyone",
+        "title": "n8n: n8n: How does it work?",
         "slug": "n8n-automation-for-everyone",
         "category": "AI",
         "excerpt": "Discover how n8n empowers teams to automate workflows, connect apps, and solve real business problems without writing endless code.",

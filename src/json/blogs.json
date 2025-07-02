@@ -107,9 +107,9 @@
         }
       },
       {
-        "id": "n8n-automation-for-everyone",
-        "title": "n8n: n8n: How does it work?",
-        "slug": "n8n-automation-for-everyone",
+        "id": "n8n-how-does-it-work",
+        "title": "n8n: How does it work?",
+        "slug": "n8n-how-does-it-work",
         "category": "AI",
         "excerpt": "Discover how n8n empowers teams to automate workflows, connect apps, and solve real business problems without writing endless code.",
         "featuredImage": "/assets/blogs/n8n.png",

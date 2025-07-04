@@ -21,9 +21,6 @@ import {
   Star,
 } from "lucide-react";
 import Lottie from "lottie-react";
-import firstCaseStudyVideo from "../assets/videos/Aboutus/1st.mp4";
-import secondCaseStudyVideo from "../assets/videos/Aboutus/2nd.mp4";
-import thirdCaseStudyVideo from "../assets/videos/Aboutus/3rd.mp4";
 // Case Studies data
 const caseStudies = [
   {
@@ -675,32 +672,23 @@ export default function AboutUs() {
                       {/* Top image with overlay */}
                       <div className="h-48 sm:h-56 lg:h-64 relative overflow-hidden">
                         {activeCaseStudy === 0 && (
-                          <video
-                            src={firstCaseStudyVideo}
-                            autoPlay
-                            loop
-                            muted
-                            playsInline
+                          <img
+                            src="/assets/images/1case.jpg"
+                            alt="GHS Medicare Advantage Organization Case Study"
                             className="w-full h-full object-cover rounded-lg bg-black"
                           />
                         )}
                         {activeCaseStudy === 1 && (
-                          <video
-                            src={secondCaseStudyVideo}
-                            autoPlay
-                            loop
-                            muted
-                            playsInline
+                          <img
+                            src="/assets/images/3case.jpg"
+                            alt="Customer Service AI Implementation Case Study"
                             className="w-full h-full object-cover rounded-lg bg-black"
                           />
                         )}
                         {activeCaseStudy === 2 && (
-                          <video
-                            src={thirdCaseStudyVideo}
-                            autoPlay
-                            loop
-                            muted
-                            playsInline
+                          <img
+                            src="/assets/images/2case.jpg"
+                            alt="Brand Identity System Case Study"
                             className="w-full h-full object-cover rounded-lg bg-black"
                           />
                         )}

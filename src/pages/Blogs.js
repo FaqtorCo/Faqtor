@@ -11,16 +11,6 @@ function Blogs() {
   const [filteredBlogs, setFilteredBlogs] = useState([]);
 
   useEffect(() => {
-<<<<<<< HEAD
-    // Load blogs data
-    setBlogs(blogsData.blogs);
-    setCategories(['All', ...blogsData.categories.map(cat => cat.name)]);
-    setFilteredBlogs(blogsData.blogs);
-  }, []);
-
-  useEffect(() => {
-    // Filter blogs based on selected category
-=======
     // Load blogs data and sort by publishDate descending
     const sortedBlogs = [...blogsData.blogs].sort((a, b) => new Date(b.publishDate) - new Date(a.publishDate));
     setBlogs(sortedBlogs);
@@ -30,7 +20,6 @@ function Blogs() {
 
   useEffect(() => {
     // Filter blogs based on selected category and keep newest at top
->>>>>>> 662f1868387be3ec2c1e54a1b75dee7e246d184e
     if (selectedCategory === 'All') {
       setFilteredBlogs(blogs);
     } else {

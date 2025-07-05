@@ -19,9 +19,16 @@ function BlogPost() {
     if (foundBlog) {
       setBlog(foundBlog);
       
+<<<<<<< HEAD
       // Find related blogs (same category, excluding current blog)
       const related = blogsData.blogs
         .filter(b => b.category === foundBlog.category && b.id !== foundBlog.id)
+=======
+      // Find related blogs (same category, excluding current blog), newest first
+      const related = blogsData.blogs
+        .filter(b => b.category === foundBlog.category && b.id !== foundBlog.id)
+        .sort((a, b) => new Date(b.publishDate) - new Date(a.publishDate))
+>>>>>>> 662f1868387be3ec2c1e54a1b75dee7e246d184e
         .slice(0, 3);
       setRelatedBlogs(related);
     }

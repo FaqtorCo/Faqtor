@@ -27,7 +27,10 @@ export default function Header() {
         window.location.href = `/#${targetId}`;
         return;
       }
-
+      
+      // Update the hash in the URL
+      window.location.hash = targetId;
+      
       const element = document.getElementById(targetId);
       if (element) {
         element.scrollIntoView({

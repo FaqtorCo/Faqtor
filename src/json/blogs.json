@@ -9,11 +9,7 @@
         "featuredImage": "/images/blogs/systems-trends.jpg",
         "publishDate": "2025-06-10",
         "readTime": "8 min read",
-        "author": {
-          "name": "John Smith",
-          "avatar": "/images/authors/john-smith.jpg",
-          "bio": "Senior Software Architect with 10+ years of experience in building scalable systems."
-        },
+
         "tags": ["Development", "Innovation", "Systems", "Business"],
         "featured": true,
         "metaDescription": "Learn how to build intuitive systems that simplify complex business challenges and drive innovation in your organization.",

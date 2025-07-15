@@ -13,6 +13,7 @@ import './assets/css/styles.css';
 import ChatbotWidget from './parts/ChatbotWidget'; // Import the custom ChatbotWidget
 import Blogs from 'pages/Blogs';
 import BlogPost from 'pages/BlogPost'; // Import the new BlogPost component
+import DemoAgents from 'pages/DemoAgents';
 
 function App() {
   // Add this useEffect to remove any n8n elements that might appear
@@ -43,6 +44,8 @@ function App() {
       <Routes>
         <Route path="/" element={<MainLandingPage />} />
         <Route path="/blogs" element={<Blogs />} />
+        <Route path="/demo-agents" element={<DemoAgents />} />
+
         <Route path="/blogs/:slug" element={<BlogPost />} /> {/* Dynamic route for individual blog posts */}
 
         {/* <Route exact path="/" element={<LandingPage />} />

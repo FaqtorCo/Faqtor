@@ -1,14 +1,15 @@
 /* eslint-disable */
 
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { Fade } from "react-awesome-reveal";
 import Lottie from "lottie-react";
 import Button from "../elements/Button";
 import Side from "../json/side.json";
-import Background from "../assets/videos/background.mp4";
 
 export default function Hero() {
   const videoRef = useRef(null);
+  const isHomePage = location.pathname === "/";
+  const [isCollapse, setIsCollapse] = useState(false);
 
   useEffect(() => {
     // Force video to play on component mount
@@ -18,6 +19,34 @@ export default function Hero() {
       });
     }
   }, []);
+
+
+  const handleSmoothScroll = (targetId) => {
+    return (e) => {
+      if (e && e.preventDefault) {
+        e.preventDefault();
+      }
+
+      // If we're not on the homepage, navigate to homepage first then scroll
+      if (!isHomePage) {
+        window.location.href = `/#${targetId}`;
+        return;
+      }
+      
+      // Update the hash in the URL
+      window.location.hash = targetId;
+      
+      const element = document.getElementById(targetId);
+      if (element) {
+        element.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+      // Close mobile menu after clicking
+      setIsCollapse(false);
+    };
+  };
 
   return (
     <section className="hero relative">
@@ -53,27 +82,55 @@ export default function Hero() {
           </p>
 
           <Fade direction="up" delay={500} triggerOnce>
-            <Button
-              href="/project"
-              type="link"
-              className="flex w-72 h-16 items-center px-14 py-5 text-black text-xl bg-[#f2ffd9] border-2 border-[#DAF7A6] rounded-lg shadow-2xl hover:bg-[#C8E6A0] hover:border-[#C8E6A0] transition duration-200"
-            >
-              See Our Work
-              <svg
-                className="ml-2 w-7 h-7 text-black animate-bounce-x"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-5">
+              <div>
+                <Button
+                  href="#projects"
+                  onClick={handleSmoothScroll("projects")}
+                  type="link"
+                  className="flex items-center justify-center px-8 py-4 text-black text-xl bg-[#f2ffd9] border-2 border-[#DAF7A6] rounded-lg shadow-2xl hover:bg-[#C8E6A0] hover:border-[#C8E6A0] transition duration-200 whitespace-nowrap min-w-max"
+                >
+                  See Our Work
+                  <svg
+                    className="ml-2 w-7 h-7 text-black animate-bounce-x"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </Button>
+              </div>
+              <div>
+                <Button
+                  href="/demo-agents"
+                  type="link"
+                  className="flex items-center justify-center px-8 py-4 text-black text-xl bg-[#f2ffd9] border-2 border-[#DAF7A6] rounded-lg shadow-2xl hover:bg-[#C8E6A0] hover:border-[#C8E6A0] transition duration-200 whitespace-nowrap min-w-max"
+                >
+                  Demo our Agents
+                  <svg
+                    className="ml-2 w-7 h-7 text-black animate-bounce-x"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </Button>
+              </div>
+            </div>
           </Fade>
         </div>
 

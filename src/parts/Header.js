@@ -1,9 +1,5 @@
 /* eslint-disable  */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/button-has-type */
-/* eslint-disable react/jsx-filename-extension */
-/* eslint-disable import/extensions */
-/* eslint-disable react/prop-types */
+
 import React, { useState } from "react";
 import { Transition } from "@headlessui/react";
 import { Link, useLocation } from "react-router-dom"; // Import Link and useLocation
@@ -89,7 +85,7 @@ export default function Header() {
             as="a"
             href="#home"
             onClick={handleSmoothScroll("home")}
-            className="font-medium text-lg px-3 py-1 no-underline hover:underline cursor-pointer text-[#DAF7A6] transition-colors duration-200"
+            className="font-medium text-lg px-3 py-1 no-underline cursor-pointer text-[#DAF7A6] transition-all duration-300 hover:bg-gradient-to-r hover:from-green-400 hover:to-white hover:bg-clip-text hover:text-transparent"
             type="link"
           >
             Home
@@ -100,7 +96,7 @@ export default function Header() {
             as="a"
             href="#services"
             onClick={handleSmoothScroll("services")}
-            className="font-medium text-lg px-3 py-1 no-underline hover:underline cursor-pointer text-[#DAF7A6] transition-colors duration-200"
+            className="font-medium text-lg px-3 py-1 no-underline cursor-pointer text-[#DAF7A6] transition-all duration-300 hover:bg-gradient-to-r hover:from-green-400 hover:to-white hover:bg-clip-text hover:text-transparent"
             type="link"
           >
             Services
@@ -111,10 +107,10 @@ export default function Header() {
             as="a"
             href="#projects"
             onClick={handleSmoothScroll("projects")}
-            className="font-medium text-lg px-3 py-1 no-underline hover:underline cursor-pointer text-[#DAF7A6] transition-colors duration-200"
+            className="font-medium text-lg px-3 py-1 no-underline cursor-pointer text-[#DAF7A6] transition-all duration-300 hover:bg-gradient-to-r hover:from-green-400 hover:to-white hover:bg-clip-text hover:text-transparent"
             type="link"
           >
-            Projects
+            Our Projects
           </Button>
         </li>
         <li className="py-2 lg:py-0">
@@ -122,7 +118,7 @@ export default function Header() {
           <Button
             as={Link}
             to="/blogs"
-            className="font-medium text-lg px-3 py-1 no-underline hover:underline cursor-pointer text-[#DAF7A6] transition-colors duration-200 whitespace-nowrap"
+            className="font-medium text-lg px-3 py-1 no-underline cursor-pointer text-[#DAF7A6] transition-all duration-300 hover:bg-gradient-to-r hover:from-green-400 hover:to-white hover:bg-clip-text hover:text-transparent whitespace-nowrap"
             type="link"
           >
             Blogs
@@ -133,7 +129,7 @@ export default function Header() {
             as="a"
             href="#aboutus"
             onClick={handleSmoothScroll("aboutus")}
-            className="font-medium text-lg px-3 py-1 no-underline hover:underline cursor-pointer text-[#DAF7A6] transition-colors duration-200 whitespace-nowrap"
+            className="font-medium text-lg px-3 py-1 no-underline cursor-pointer text-[#DAF7A6] transition-all duration-300 hover:bg-gradient-to-r hover:from-green-400 hover:to-white hover:bg-clip-text hover:text-transparent whitespace-nowrap"
             type="link"
           >
             About us
@@ -148,7 +144,7 @@ export default function Header() {
             className="font-medium text-base ml-3 px-4 py-2 bg-[#f2ffd9] text-black rounded-full border-2 border-[#DAF7A6] hover:bg-[#C8E6A0] hover:border-[#C8E6A0] transition-all duration-200 cursor-pointer transform hover:scale-105 whitespace-nowrap"
             type="link"
           >
-            Discuss Project
+            Book a Call
           </Button>
         </li>
       </ul>
@@ -173,7 +169,7 @@ export default function Header() {
                 as="a"
                 href="#home"
                 onClick={handleSmoothScroll("home")}
-                className="font-medium text-base sm:text-lg w-full text-left px-4 sm:px-6 py-2 no-underline hover:underline cursor-pointer text-gray-800 hover:text-[#333] transition-colors duration-200 block rounded-md hover:bg-gray-50"
+                className="font-medium text-base sm:text-lg w-full text-left px-4 sm:px-6 py-2 no-underline cursor-pointer text-gray-800 transition-all duration-300 hover:bg-gradient-to-r hover:from-green-400 hover:to-white hover:bg-clip-text hover:text-transparent block rounded-md hover:bg-gray-50"
                 type="link"
               >
                 Home
@@ -184,7 +180,7 @@ export default function Header() {
                 as="a"
                 href="#services"
                 onClick={handleSmoothScroll("services")}
-                className="font-medium text-base sm:text-lg w-full text-left px-4 sm:px-6 py-2 no-underline hover:underline cursor-pointer text-gray-800 hover:text-[#333] transition-colors duration-200 block rounded-md hover:bg-gray-50"
+                className="font-medium text-base sm:text-lg w-full text-left px-4 sm:px-6 py-2 no-underline cursor-pointer text-gray-800 transition-all duration-300 hover:bg-gradient-to-r hover:from-green-400 hover:to-white hover:bg-clip-text hover:text-transparent block rounded-md hover:bg-gray-50"
                 type="link"
               >
                 Services
@@ -195,7 +191,7 @@ export default function Header() {
                 as="a"
                 href="#aboutus"
                 onClick={handleSmoothScroll("aboutus")}
-                className="font-medium text-base sm:text-lg w-full text-left px-4 sm:px-6 py-2 no-underline hover:underline cursor-pointer text-gray-800 hover:text-[#333] transition-colors duration-200 block rounded-md hover:bg-gray-50"
+                className="font-medium text-base sm:text-lg w-full text-left px-4 sm:px-6 py-2 no-underline cursor-pointer text-gray-800 transition-all duration-300 hover:bg-gradient-to-r hover:from-green-400 hover:to-white hover:bg-clip-text hover:text-transparent block rounded-md hover:bg-gray-50"
                 type="link"
               >
                 About us
@@ -206,7 +202,7 @@ export default function Header() {
               <Button
                 as={Link}
                 to="/blogs"
-                className="font-medium text-base sm:text-lg w-full text-left px-4 sm:px-6 py-2 no-underline hover:underline cursor-pointer text-gray-800 hover:text-[#333] transition-colors duration-200 block rounded-md hover:bg-gray-50"
+                className="font-medium text-base sm:text-lg w-full text-left px-4 sm:px-6 py-2 no-underline cursor-pointer text-gray-800 transition-all duration-300 hover:bg-gradient-to-r hover:from-green-400 hover:to-white hover:bg-clip-text hover:text-transparent block rounded-md hover:bg-gray-50"
                 type="link"
               >
                 Blogs
@@ -217,10 +213,10 @@ export default function Header() {
                 as="a"
                 href="#projects"
                 onClick={handleSmoothScroll("projects")}
-                className="font-medium text-base sm:text-lg w-full text-left px-4 sm:px-6 py-2 no-underline hover:underline cursor-pointer text-gray-800 hover:text-[#333] transition-colors duration-200 block rounded-md hover:bg-gray-50"
+                className="font-medium text-base sm:text-lg w-full text-left px-4 sm:px-6 py-2 no-underline cursor-pointer text-gray-800 transition-all duration-300 hover:bg-gradient-to-r hover:from-green-400 hover:to-white hover:bg-clip-text hover:text-transparent block rounded-md hover:bg-gray-50"
                 type="link"
               >
-                Projects
+                Our Projects
               </Button>
             </li>
             <li className="py-4 sm:py-6 px-4 flex justify-center">
@@ -231,7 +227,7 @@ export default function Header() {
                 className="font-semibold text-base sm:text-lg px-6 sm:px-8 py-3 bg-[#f2ffd9] text-black rounded-full border-2 border-[#DAF7A6] hover:bg-[#C8E6A0] hover:border-[#C8E6A0] transition-all duration-200 cursor-pointer transform hover:scale-105 shadow-md min-w-[160px] text-center"
                 type="link"
               >
-                Discuss Project
+                Book a Call
               </Button>
             </li>
           </ul>

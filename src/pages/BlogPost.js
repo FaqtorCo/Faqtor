@@ -56,9 +56,10 @@ function BlogPost() {
               {section.heading}
             </h2>
             
-            <div className="text-gray-300 leading-relaxed mb-6">
-              {section.content}
-            </div>
+            <div 
+              className="text-gray-300 leading-relaxed mb-6"
+              dangerouslySetInnerHTML={{ __html: section.content }}
+            />
 
             {/* Section Image */}
             {section.image && (

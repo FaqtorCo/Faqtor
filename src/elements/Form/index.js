@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 export const Form = (props) => {
   const {
-    name, value, type, placeholder, className, errorResponse,
+    name, value, type, placeholder, className, errorResponse = 'Please match the requested format.',
   } = props;
 
   const [hasError, setHasError] = useState(null);

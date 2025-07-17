@@ -2,13 +2,264 @@
 
 import React, { useState, useEffect } from 'react';
 import { Phone, MessageCircle, Image, Zap, Brain, Sparkles, ArrowRight, ArrowLeft } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { Form } from "../elements/Form";
+import Button from "../elements/Button";
+import { FAQTOR_URL } from "../constant";
+import { Eye, EyeOff } from "lucide-react";
+function isLoggedIn() {
+  return Boolean(localStorage.getItem("faqtor_jwt"));
+}
+
+function LoginSignupModal({ show, onClose, mode, setMode, onSuccess, intendedDemoLink, setIntendedDemoLink }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+
+  // Prevent background scroll when modal is open
+  useEffect(() => {
+    if (show) {
+      document.body.classList.add("overflow-hidden");
+    } else {
+      document.body.classList.remove("overflow-hidden");
+    }
+    return () => document.body.classList.remove("overflow-hidden");
+  }, [show]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (name === "email") setEmail(value);
+    if (name === "password") setPassword(value);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+    try {
+      if (mode === "signup") {
+        const signupRes = await fetch(`${FAQTOR_URL}auth/signup`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+        });
+        if (!signupRes.ok) throw new Error("Signup failed");
+      }
+      const loginRes = await fetch(`${FAQTOR_URL}auth/token`, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({ username: email, password }),
+      });
+      if (!loginRes.ok) throw new Error("Login failed");
+      const data = await loginRes.json();
+      // Note: Using in-memory state instead of localStorage for Claude.ai environment
+      localStorage.setItem("faqtor_jwt", data.access_token);
+      const token = data.access_token;
+      console.log("Token saved:", token);
+      
+      setLoading(false);
+      onSuccess();
+      onClose();
+      if (intendedDemoLink) {
+        navigate(intendedDemoLink);
+        setIntendedDemoLink(null);
+      }
+    } catch (err) {
+      setError(err.message || "Authentication error");
+      setLoading(false);
+    }
+  };
+
+  return show ? (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
+      <div className="relative bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md mx-2">
+        {/* Improved tab design - more consistent spacing */}
+        <div className="flex justify-between mb-6">
+          <button 
+            onClick={() => setMode('login')} 
+            className={`w-1/2 mr-2 px-4 py-2 rounded-lg transition-colors ${
+              mode === 'login' 
+                ? 'bg-[#DAF7A6] text-black font-medium' 
+                : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
+            }`}
+          >
+            Login
+          </button>
+          <button 
+            onClick={() => setMode('signup')} 
+            className={`w-1/2 ml-2 px-4 py-2 rounded-lg transition-colors ${
+              mode === 'signup' 
+                ? 'bg-[#DAF7A6] text-black font-medium' 
+                : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
+            }`}
+          >
+            Sign Up
+          </button>
+        </div>
+        
+        <div className="mb-6">
+          <h2 className="text-2xl font-bold text-center text-gray-800">
+            {mode === 'login' ? 'Welcome Back' : 'Create Account'}
+          </h2>
+        </div>
+        
+        <div className="space-y-4">
+          {/* Email input - both fields styled consistently */}
+          <div className="relative mb-4">
+            <input
+              name="email"
+              type="email"
+              value={email}
+              placeholder="Email"
+              onChange={handleChange}
+              className="w-full p-4 font-light text-lg text-black rounded border border-gray-300 focus:outline-none focus:ring-1 focus:ring-[#DAF7A6]"
+              style={{ background: "#fff" }}
+              required
+            />
+          </div>
+          
+          {/* Password input - matching styles with email field */}
+          <div className="relative mb-4">
+            <input
+              name="password"
+              type={showPassword ? "text" : "password"}
+              value={password}
+              placeholder="Password"
+              onChange={handleChange}
+              className="w-full p-4 font-light text-lg text-black rounded border border-gray-300 focus:outline-none focus:ring-1 focus:ring-[#DAF7A6]"
+              style={{ background: "#fff" }}
+              required
+            />
+            <button
+              type="button"
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+              onClick={() => setShowPassword((v) => !v)}
+              tabIndex={-1}
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </button>
+          </div>
+          
+          {/* Error message with improved styling */}
+          {error && (
+            <div className="text-red-500 text-sm p-3 mb-4 bg-red-50 rounded-lg border border-red-100">
+              {error}
+            </div>
+          )}
+          
+          {/* Submit button with improved styling */}
+          <button 
+            className="w-full py-4 bg-[#DAF7A6] hover:bg-[#c5e68c] text-black rounded-lg font-bold transition-colors"
+            type="submit"
+            onClick={handleSubmit}
+            disabled={loading}
+          >
+            {loading ? (
+              <div className="flex items-center justify-center">
+                <svg className="animate-spin -ml-1 mr-2 h-5 w-5 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Please wait...
+              </div>
+            ) : (
+              mode === 'login' ? 'Login' : 'Sign Up'
+            )}
+          </button>
+        </div>
+        
+        {/* Improved close button */}
+        <button 
+          onClick={onClose} 
+          className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-gray-400 hover:text-black hover:bg-gray-100 rounded-full transition-colors"
+          aria-label="Close"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M18 6L6 18M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  ) : null;
+}
+
 
 const FuturisticServices = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
   const [selectedCard, setSelectedCard] = useState(null);
   const [typingText, setTypingText] = useState('');
   const [currentCodeIndex, setCurrentCodeIndex] = useState(0);
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [authMode, setAuthMode] = useState('login');
+  const [intendedDemoLink, setIntendedDemoLink] = useState(null);
+  const navigate = useNavigate();
+  const [usageError, setUsageError] = useState("");
+  const [intendedDemoService, setIntendedDemoService] = useState(null);
+  const [userUsage, setUserUsage] = useState(null);
+
+  useEffect(() => {
+    if (isLoggedIn()) {
+      const token = localStorage.getItem("faqtor_jwt");
+      fetch(`${FAQTOR_URL}auth/me`, {
+        headers: { "Authorization": `Bearer ${token}` }
+      })
+        .then(res => res.json())
+        .then(data => setUserUsage(data))
+        .catch(() => setUserUsage(null));
+    } else {
+      setUserUsage(null);
+    }
+  }, [showAuthModal]); // refetch after login/signup
+
+  const serviceLimits = {
+    calling_agent: 2,
+    chatbot: 3,
+    image_generation: 5
+  };
+
+  const trackUsageAndNavigate = async (demoLink, serviceApiPath) => {
+    const token = localStorage.getItem("faqtor_jwt");
+    try {
+      const res = await fetch(`${FAQTOR_URL}demo/${serviceApiPath}`, {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        const errorMsg = data.detail || "Usage limit reached or error";
+        alert(errorMsg);
+        // Redirect to /demo-agents if not already there
+        if (window.location.pathname !== "/demo-agents") {
+          navigate("/demo-agents");
+        }
+        return false;
+      }
+      navigate(demoLink);
+      return true;
+    } catch (err) {
+      alert(err.message);
+      if (window.location.pathname !== "/demo-agents") {
+        navigate("/demo-agents");
+      }
+      return false;
+    }
+  };
+  const handleTryDemo = async (demoLink, serviceApiPath) => {
+    setIntendedDemoLink(demoLink);
+    setIntendedDemoService(serviceApiPath); // <-- add this state
+    setUsageError("");
+    if (!isLoggedIn()) {
+      setShowAuthModal(true);
+    } else {
+      await trackUsageAndNavigate(demoLink, serviceApiPath);
+    }
+  };
 
   const services = [
     {
@@ -18,7 +269,8 @@ const FuturisticServices = () => {
       icon: Phone,
       features: ["Live Call Simulation", "Voice Quality Test"],
       animationType: "flowing",
-      demoLink: "/demo/ai-calling"
+      demoLink: "/demo/ai-calling",
+      apiPath: "calling_agent"
     },
     {
       id: 2,
@@ -27,7 +279,8 @@ const FuturisticServices = () => {
       icon: MessageCircle,
       features: ["Live Chat Interface", "Context Testing"],
       animationType: "typing",
-      demoLink: "/demo/chatbot"
+      demoLink: "/demo/chatbot",
+      apiPath: "chatbot"
     },
     {
       id: 3,
@@ -36,7 +289,8 @@ const FuturisticServices = () => {
       icon: Image,
       features: ["Text-to-Image Creator", "Style Customization"],
       animationType: "illuminating",
-      demoLink: "/demo/image-generation"
+      demoLink: "/demo/image-generation",
+      apiPath: "image_generation"
     }
   ];
 
@@ -597,19 +851,25 @@ const FuturisticServices = () => {
 
                       {/* CTA Button with Enhanced Effects */}
                       <div className="pt-4">
-                        <Link 
-                          to={service.demoLink}
-                          className={`w-full flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-500 ${
-                            isSelected 
-                              ? 'bg-gradient-to-r from-[#DAF7A6] to-[#C8E6A0] text-black scale-105 shadow-lg shadow-[#DAF7A6]/40 text-base' 
-                              : 'bg-gradient-to-r from-[#DAF7A6] to-[#C8E6A0] text-black hover:scale-105 hover:shadow-lg hover:shadow-[#DAF7A6]/20 text-sm'
-                          }`}
-                        >
-                          <span>Try Demo Now</span>
+                        <Button onClick={() => handleTryDemo(service.demoLink, service.apiPath)}
+                                disabled={
+                                  userUsage &&
+                                  userUsage[`${service.apiPath}_count`] >= serviceLimits[service.apiPath]
+                                }
+                                className={`w-full flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-500 ${
+                                  isSelected 
+                                    ? 'bg-gradient-to-r from-[#DAF7A6] to-[#C8E6A0] text-black scale-105 shadow-lg shadow-[#DAF7A6]/40 text-base' 
+                                    : 'bg-gradient-to-r from-[#DAF7A6] to-[#C8E6A0] text-black hover:scale-105 hover:shadow-lg hover:shadow-[#DAF7A6]/20 text-sm'
+                                } ${userUsage && userUsage[`${service.apiPath}_count`] >= serviceLimits[service.apiPath] ? 'opacity-50 cursor-not-allowed' : ''}`}>
+                          <span>
+                            {userUsage && userUsage[`${service.apiPath}_count`] >= serviceLimits[service.apiPath]
+                              ? 'Limit Reached'
+                              : 'Try Demo Now'}
+                          </span>
                           <ArrowRight className={`transition-transform duration-300 ${
                             isSelected ? 'w-5 h-5 translate-x-2' : 'w-4 h-4 hover:translate-x-1'
                           }`} />
-                        </Link>
+                        </Button>
                       </div>
                     </div>
 
@@ -869,6 +1129,23 @@ const FuturisticServices = () => {
           animation: spin 8s linear infinite;
         }
       `}</style>
+
+<LoginSignupModal
+  show={showAuthModal}
+  onClose={() => setShowAuthModal(false)}
+  mode={authMode}
+  setMode={setAuthMode}
+  onSuccess={async () => {
+    if (intendedDemoLink && intendedDemoService) {
+      await trackUsageAndNavigate(intendedDemoLink, intendedDemoService);
+      setIntendedDemoLink(null);
+      setIntendedDemoService(null);
+    }
+  }}
+  intendedDemoLink={intendedDemoLink}
+  setIntendedDemoLink={setIntendedDemoLink}
+/>
+
     </div>
   );
 };

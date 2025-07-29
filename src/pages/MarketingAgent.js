@@ -1,6 +1,5 @@
 /* eslint-disable */
 
-
 import React, { useState } from 'react';
 import { TrendingUp, Upload, Zap, Bot, Loader2, CheckCircle, AlertCircle, Sparkles, Target, Palette, MessageSquare } from 'lucide-react';
 
@@ -8,6 +7,7 @@ const MarketingAgentDemo = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const [showSuccess, setShowSuccess] = useState(false);
+  const [imageCompressing, setImageCompressing] = useState(false);
   const [formData, setFormData] = useState({
     brandName: '',
     websiteUrl: '',
@@ -19,7 +19,110 @@ const MarketingAgentDemo = () => {
     referenceImage: null
   });
 
-  // Product Types with industry-specific attributes
+  // Image compression function
+  const compressImage = (file, maxWidth = 800, maxHeight = 600, quality = 0.8) => {
+    return new Promise((resolve) => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      const img = new Image();
+      
+      img.onload = () => {
+        // Calculate new dimensions
+        let { width, height } = img;
+        
+        if (width > height) {
+          if (width > maxWidth) {
+            height = (height * maxWidth) / width;
+            width = maxWidth;
+          }
+        } else {
+          if (height > maxHeight) {
+            width = (width * maxHeight) / height;
+            height = maxHeight;
+          }
+        }
+        
+        canvas.width = width;
+        canvas.height = height;
+        
+        // Draw and compress
+        ctx.drawImage(img, 0, 0, width, height);
+        
+        canvas.toBlob(
+          (blob) => {
+            // Create new file with compressed data
+            const compressedFile = new File([blob], file.name, {
+              type: 'image/jpeg',
+              lastModified: Date.now()
+            });
+            resolve(compressedFile);
+          },
+          'image/jpeg',
+          quality
+        );
+      };
+      
+      img.src = URL.createObjectURL(file);
+    });
+  };
+
+  // Validate file size and type
+  const validateFile = (file) => {
+    const maxSize = 10 * 1024 * 1024; // 10MB
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+    
+    if (!allowedTypes.includes(file.type)) {
+      return 'Please upload a valid image file (JPEG, PNG, or WebP)';
+    }
+    
+    if (file.size > maxSize) {
+      return 'Image file is too large. Please choose a file smaller than 10MB';
+    }
+    
+    return null;
+  };
+
+  const handleFileUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    // Validate file
+    const validationError = validateFile(file);
+    if (validationError) {
+      setMessage(validationError);
+      return;
+    }
+
+    setImageCompressing(true);
+    setMessage('Compressing image...');
+
+    try {
+      // Compress image if it's larger than 1MB
+      let processedFile = file;
+      if (file.size > 1024 * 1024) { // 1MB
+        processedFile = await compressImage(file);
+        console.log(`Image compressed from ${(file.size / 1024 / 1024).toFixed(2)}MB to ${(processedFile.size / 1024 / 1024).toFixed(2)}MB`);
+      }
+
+      setFormData(prev => ({
+        ...prev,
+        referenceImage: processedFile
+      }));
+      
+      setMessage(`Image uploaded successfully (${(processedFile.size / 1024 / 1024).toFixed(2)}MB)`);
+      
+      // Clear message after 3 seconds
+      setTimeout(() => setMessage(''), 3000);
+      
+    } catch (error) {
+      console.error('Error processing image:', error);
+      setMessage('Error processing image. Please try again.');
+    } finally {
+      setImageCompressing(false);
+    }
+  };
+
+  // Product Types with industry-specific attributes (keeping original data)
   const productTypes = [
     {
       value: "remodeling",
@@ -285,16 +388,6 @@ const MarketingAgentDemo = () => {
     setMessage('');
   };
 
-  const handleFileUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setFormData(prev => ({
-        ...prev,
-        referenceImage: file
-      }));
-    }
-  };
-
   const validateForm = () => {
     const required = ['brandName', 'websiteUrl', 'productType', 'targetAudience', 'campaignGoal', 'keyMessage', 'visualStyle'];
     const missing = required.filter(field => !formData[field]);
@@ -371,10 +464,16 @@ const MarketingAgentDemo = () => {
           setMessage('');
         }, 5000);
       } else {
-        throw new Error('Failed to submit request');
+        const errorText = await response.text();
+        if (response.status === 413) {
+          throw new Error('Image file is too large. Please try a smaller image or compress it further.');
+        } else {
+          throw new Error(`Server error: ${errorText}`);
+        }
       }
     } catch (error) {
-      setMessage('Failed to submit marketing request. Please try again.');
+      console.error('Submission error:', error);
+      setMessage(error.message || 'Failed to submit marketing request. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -560,25 +659,46 @@ const MarketingAgentDemo = () => {
               </div>
             </div>
 
-            {/* Reference Image Upload */}
+            {/* Reference Image Upload - ENHANCED */}
             <div className="mt-6">
               <label className="block text-sm font-medium text-gray-300 mb-2 flex items-center gap-2">
                 <Upload className="w-4 h-4 text-[#cbe9a1]" />
                 Reference Image (Optional)
+                <span className="text-xs text-gray-500">Max 10MB - Will be compressed automatically</span>
               </label>
-              <div className="border-2 border-dashed border-gray-600 rounded-xl p-6 text-center hover:border-[#cbe9a1]/50 transition-colors duration-200">
+              <div className={`border-2 border-dashed rounded-xl p-6 text-center transition-all duration-200 ${
+                imageCompressing 
+                  ? 'border-yellow-500/50 bg-yellow-500/5' 
+                  : 'border-gray-600 hover:border-[#cbe9a1]/50'
+              }`}>
                 <input
                   type="file"
-                  accept="image/*"
+                  accept="image/jpeg,image/jpg,image/png,image/webp"
                   onChange={handleFileUpload}
                   className="hidden"
                   id="referenceImage"
+                  disabled={imageCompressing}
                 />
-                <label htmlFor="referenceImage" className="cursor-pointer">
-                  <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2" />
-                  <p className="text-gray-400">
-                    {formData.referenceImage ? formData.referenceImage.name : 'Click to upload reference image'}
-                  </p>
+                <label htmlFor="referenceImage" className={`cursor-pointer ${imageCompressing ? 'pointer-events-none' : ''}`}>
+                  {imageCompressing ? (
+                    <div className="flex flex-col items-center">
+                      <Loader2 className="w-8 h-8 text-yellow-400 mx-auto mb-2 animate-spin" />
+                      <p className="text-yellow-400">Compressing image...</p>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col items-center">
+                      <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2" />
+                      <p className="text-gray-400">
+                        {formData.referenceImage 
+                          ? `Selected: ${formData.referenceImage.name} (${(formData.referenceImage.size / 1024 / 1024).toFixed(2)}MB)`
+                          : 'Click to upload reference image (JPEG, PNG, WebP)'
+                        }
+                      </p>
+                      <p className="text-xs text-gray-500 mt-1">
+                        Images larger than 1MB will be automatically compressed
+                      </p>
+                    </div>
+                  )}
                 </label>
               </div>
             </div>
@@ -588,10 +708,16 @@ const MarketingAgentDemo = () => {
               <div className={`mt-6 p-4 rounded-xl border text-sm ${
                 message.includes('successfully') || showSuccess
                   ? 'bg-[#cbe9a1]/10 border-[#cbe9a1]/20 text-[#cbe9a1]'
-                  : 'bg-red-400/10 border-red-400/20 text-red-400'
+                  : message.includes('Compressing') || message.includes('uploaded successfully')
+                    ? 'bg-blue-400/10 border-blue-400/20 text-blue-400'
+                    : 'bg-red-400/10 border-red-400/20 text-red-400'
               }`}>
                 <div className="flex items-center gap-3">
                   {message.includes('successfully') || showSuccess ? (
+                    <CheckCircle className="w-5 h-5" />
+                  ) : message.includes('Compressing') ? (
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                  ) : message.includes('uploaded successfully') ? (
                     <CheckCircle className="w-5 h-5" />
                   ) : (
                     <AlertCircle className="w-5 h-5" />
@@ -604,7 +730,7 @@ const MarketingAgentDemo = () => {
             {/* Submit Button */}
             <button
               onClick={handleSubmit}
-              disabled={loading}
+              disabled={loading || imageCompressing}
               className="w-full mt-8 py-4 px-8 rounded-xl font-semibold text-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group"
               style={{
                 backgroundColor: '#cbe9a1',
@@ -618,6 +744,11 @@ const MarketingAgentDemo = () => {
                   <>
                     <Loader2 className="w-6 h-6 animate-spin" />
                     <span>Creating Campaign...</span>
+                  </>
+                ) : imageCompressing ? (
+                  <>
+                    <Loader2 className="w-6 h-6 animate-spin" />
+                    <span>Processing Image...</span>
                   </>
                 ) : showSuccess ? (
                   <>

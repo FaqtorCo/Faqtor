@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Phone, MessageCircle, Image, Zap, Brain, Sparkles, ArrowRight, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import AuthComponent from 'parts/login'; 
 
 const FuturisticServices = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
@@ -18,17 +19,19 @@ const FuturisticServices = () => {
       icon: Phone,
       features: ["Live Call Simulation", "Voice Quality Test"],
       animationType: "flowing",
-      demoLink: "/demo/ai-calling"
-    },
+      demoLink: "/demo-agents/ai-calling"
+    }, 
+    
     {
       id: 2,
-      title: "Smart Chatbot",
-      description: "Interact directly with our intelligent chatbot and test its understanding.",
-      icon: MessageCircle,
-      features: ["Live Chat Interface", "Context Testing"],
-      animationType: "typing",
-      demoLink: "/demo/chatbot"
+      title: "Marketing Agent",
+      description: "Experience our marketing agent guiding you how to grow your band",
+      icon: Image,
+      features: ["Increase Reach", "More Impressions and Engagement, Elevated ROI"],
+      animationType: "marketing",
+      demoLink: "/demo-agents/marketing-agent"
     },
+
     {
       id: 3,
       title: "AI Image Generation",
@@ -38,6 +41,16 @@ const FuturisticServices = () => {
       animationType: "illuminating",
       demoLink: "/demo/image-generation"
     }
+    ,
+    {
+      id: 4,
+      title: "Smart Chatbot",
+      description: "Interact directly with our intelligent chatbot and test its understanding.",
+      icon: MessageCircle,
+      features: ["Live Chat Interface", "Context Testing"],
+      animationType: "typing",
+      demoLink: "/demo/chatbot"
+    },
   ];
 
   const StaticParticles = () => (
@@ -54,6 +67,255 @@ const FuturisticServices = () => {
           }}
         />
       ))}
+    </div>
+  );
+
+
+  // Marketing Agent Animation (funnel with leads conversion)
+  const MarketingAnimation = () => (
+    <div className="absolute inset-0 overflow-hidden opacity-90">
+      <div className="relative w-full h-full">
+        <svg className="absolute inset-0 w-full h-full" viewBox="0 0 240 120">
+          <defs>
+            <linearGradient id="socialGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#DAF7A6" stopOpacity="0.2" />
+              <stop offset="50%" stopColor="#DAF7A6" stopOpacity="1" />
+              <stop offset="100%" stopColor="#DAF7A6" stopOpacity="0.2" />
+            </linearGradient>
+            <radialGradient id="engagement" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#DAF7A6" stopOpacity="0.8" />
+              <stop offset="100%" stopColor="#DAF7A6" stopOpacity="0" />
+            </radialGradient>
+          </defs>
+          
+          {/* Central Brand Hub */}
+          <g transform="translate(120, 60)">
+            <circle r="25" fill="url(#engagement)" opacity="0.3">
+              <animate attributeName="r" values="25;35;25" dur="4s" repeatCount="indefinite" />
+            </circle>
+            <circle r="15" fill="#DAF7A6" opacity="0.7">
+              <animate attributeName="r" values="15;18;15" dur="2s" repeatCount="indefinite" />
+            </circle>
+            <text x="0" y="3" textAnchor="middle" fill="#000" fontSize="8" fontWeight="bold">BRAND</text>
+          </g>
+  
+          {/* Social Media Platforms Orbiting */}
+          {[
+            { name: 'Facebook', angle: 0, radius: 50, color: '#1877F2', delay: '0s' },
+            { name: 'Insta', angle: 72, radius: 45, color: '#E4405F', delay: '0.8s' },
+            { name: 'Twitter', angle: 144, radius: 55, color: '#1DA1F2', delay: '1.6s' },
+            { name: 'LinkedIn', angle: 216, radius: 48, color: '#0077B5', delay: '2.4s' },
+            { name: 'Youtube', angle: 288, radius: 52, color: '#FF0000', delay: '3.2s' }
+          ].map((platform, i) => (
+            <g key={i} transform="translate(120, 60)">
+              <g>
+                <animateTransform
+                  attributeName="transform"
+                  type="rotate"
+                  values={`${platform.angle};${platform.angle + 360}`}
+                  dur="12s"
+                  repeatCount="indefinite"
+                  begin={platform.delay}
+                />
+                <circle
+                  cx={platform.radius}
+                  cy="0"
+                  r="8"
+                  fill={platform.color}
+                  opacity="0.8"
+                >
+                  <animate attributeName="r" values="8;12;8" dur="3s" repeatCount="indefinite" begin={platform.delay} />
+                </circle>
+                <text
+                  x={platform.radius}
+                  y="3"
+                  textAnchor="middle"
+                  fill="white"
+                  fontSize="6"
+                  fontWeight="bold"
+                >
+                  {platform.name}
+                </text>
+                
+                {/* Engagement Particles */}
+                <circle cx={platform.radius + 15} cy="0" r="2" fill="#DAF7A6" opacity="0.6">
+                  <animate attributeName="opacity" values="0;1;0" dur="2s" repeatCount="indefinite" begin={platform.delay} />
+                  <animate attributeName="r" values="2;4;2" dur="2s" repeatCount="indefinite" begin={platform.delay} />
+                </circle>
+              </g>
+            </g>
+          ))}
+  
+          {/* Viral Content Bursts */}
+          {[...Array(6)].map((_, i) => (
+            <g key={i} transform="translate(120, 60)">
+              <circle r="3" fill="#DAF7A6" opacity="0">
+                <animate attributeName="r" values="0;20;0" dur="4s" repeatCount="indefinite" begin={`${i * 0.7}s`} />
+                <animate attributeName="opacity" values="0;0.6;0" dur="4s" repeatCount="indefinite" begin={`${i * 0.7}s`} />
+              </circle>
+            </g>
+          ))}
+  
+          {/* Trending Arrows */}
+          {/* {[...Array(2)].map((_, i) => (
+            <g key={i}>
+              <path
+                d={`M${30 + i * 40},100 L${40 + i * 40},85 L${50 + i * 40},100`}
+                stroke="#DAF7A6"
+                strokeWidth="2"
+                fill="none"
+                opacity="0.7"
+              >
+                <animateTransform
+                  attributeName="transform"
+                  type="translate"
+                  values="0,0;0,-10;0,0"
+                  dur="2s"
+                  repeatCount="indefinite"
+                  begin={`${i * 0.5}s`}
+                />
+                <animate
+                  attributeName="opacity"
+                  values="0.7;1;0.7"
+                  dur="2s"
+                  repeatCount="indefinite"
+                  begin={`${i * 0.5}s`}
+                />
+              </path>
+            </g>
+          ))} */}
+  
+          {/* Analytics Lines */}
+          {/* <g transform="translate(20, 20)">
+            <path
+              d="M0,20 Q10,10 20,15 T40,10 T60,5"
+              stroke="url(#socialGlow)"
+              strokeWidth="2"
+              fill="none"
+              strokeDasharray="4,2"
+            >
+              <animate attributeName="stroke-dashoffset" values="0;6" dur="1s" repeatCount="indefinite" />
+            </path>
+            
+            {[0, 20, 40, 60].map((x, i) => (
+              <circle key={i} cx={x} cy={20 - i * 3} r="2" fill="#DAF7A6">
+                <animate attributeName="r" values="2;4;2" dur="1.5s" repeatCount="indefinite" begin={`${i * 0.3}s`} />
+              </circle>
+            ))}
+          </g>
+   */}
+          {/* Engagement Waves */}
+          {[...Array(5)].map((_, i) => (
+            <circle
+              key={i}
+              cx="120"
+              cy="60"
+              r="30"
+              fill="none"
+              stroke="#DAF7A6"
+              strokeWidth="1"
+              opacity="0.4"
+            >
+              <animate
+                attributeName="r"
+                values="30;60;30"
+                dur="5s"
+                repeatCount="indefinite"
+                begin={`${i * 1.7}s`}
+              />
+              <animate
+                attributeName="opacity"
+                values="0.4;0;0.4"
+                dur="5s"
+                repeatCount="indefinite"
+                begin={`${i * 1.7}s`}
+              />
+            </circle>
+          ))}
+  
+          {/* Floating Hashtags */}
+          {['#VIRAL', '#TREND', '#BOOST'].map((tag, i) => (
+            <text
+              key={i}
+              x={40 + i * 60}
+              y={30 + Math.sin(i) * 10}
+              fill="#DAF7A6"
+              fontSize="8"
+              opacity="0.6"
+            >
+              <animateTransform
+                attributeName="transform"
+                type="translate"
+                values="0,0;0,-5;0,0"
+                dur="3s"
+                repeatCount="indefinite"
+                begin={`${i * 1}s`}
+              />
+              <animate
+                attributeName="opacity"
+                values="0.6;1;0.6"
+                dur="3s"
+                repeatCount="indefinite"
+                begin={`${i * 1}s`}
+              />
+              {tag}
+            </text>
+          ))}
+        </svg>
+  
+        {/* Dynamic Floating Metrics */}
+        {/* <div className="absolute top-2 left-2">
+          <div className="text-xs text-[#DAF7A6] font-mono bg-black/60 px-2 py-1 rounded-full border border-[#DAF7A6]/30">
+            <div className="flex items-center gap-1">
+              <div className="w-1 h-1 bg-red-400 rounded-full animate-ping"></div>
+              <span className="animate-pulse">VIRAL</span>
+            </div>
+          </div>
+        </div> */}
+  
+        {/* <div className="absolute top-2 right-2">
+          <div className="text-xs text-[#C8E6A0] font-mono bg-black/60 px-2 py-1 rounded-full border border-[#C8E6A0]/30">
+            <div className="flex items-center gap-1">
+              <div className="w-1 h-1 bg-blue-400 rounded-full animate-pulse"></div>
+              <span>Reach: 2.4M</span>
+            </div>
+          </div>
+        </div>
+  
+        <div className="absolute bottom-2 left-2">
+          <div className="text-xs text-[#DAF7A6] font-mono bg-black/60 px-2 py-1 rounded-full border border-[#DAF7A6]/30">
+            <span>Engagement: </span>
+            <span className="text-green-400 font-bold animate-pulse">↗ 340%</span>
+          </div>
+        </div>
+  
+        <div className="absolute bottom-2 right-2">
+          <div className="text-xs text-[#A8D3A0] font-mono bg-black/60 px-2 py-1 rounded-full border border-[#A8D3A0]/30">
+            <div className="flex items-center gap-1">
+              <div className="w-1 h-1 bg-yellow-400 rounded-full animate-bounce"></div>
+              <span>ROI: 450%</span>
+            </div>
+          </div>
+        </div> */}
+  
+        {/* Floating Social Icons */}
+        <div className="absolute inset-0">
+          {['💡', '🚀', '📈', '🎯', '⚡'].map((emoji, i) => (
+            <div
+              key={i}
+              className="absolute text-lg opacity-60"
+              style={{
+                left: `${20 + i * 35}%`,
+                top: `${30 + Math.sin(i) * 20}%`,
+                animation: `socialFloat 4s ease-in-out infinite`,
+                animationDelay: `${i * 0.8}s`,
+              }}
+            >
+              {emoji}
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 
@@ -421,6 +683,10 @@ const FuturisticServices = () => {
           </Link>
         </div>
 
+        <div className="flex justify-end">
+  <AuthComponent />
+</div>
+
         {/* Header Section */}
         <div className="text-center mb-20">
           <h1 className="text-6xl md:text-4xl font-bold bg-gradient-to-r from-white via-[#DAF7A6] to-[#C8E6A0] bg-clip-text text-transparent mb-6 leading-tight">
@@ -524,6 +790,8 @@ const FuturisticServices = () => {
                       {service.animationType === 'flowing' && <FlowingAnimation />}
                       {service.animationType === 'typing' && <TypingAnimation />}
                       {service.animationType === 'illuminating' && <IlluminatingAnimation />}
+                      {service.animationType === 'marketing' && <MarketingAnimation />}
+
                       
                       {/* Animation Overlay Effect */}
                       <div className={`absolute inset-0 bg-gradient-to-t from-gray-900/20 to-transparent transition-opacity duration-500 ${
@@ -868,6 +1136,17 @@ const FuturisticServices = () => {
         .animate-spin-slow {
           animation: spin 8s linear infinite;
         }
+
+        @keyframes socialFloat {
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.6;
+  }
+  50% { 
+    transform: translateY(-15px) rotate(180deg);
+    opacity: 1;
+  }
+}
       `}</style>
     </div>
   );

@@ -14,6 +14,8 @@ import ChatbotWidget from './parts/ChatbotWidget'; // Import the custom ChatbotW
 import Blogs from 'pages/Blogs';
 import BlogPost from 'pages/BlogPost'; // Import the new BlogPost component
 import DemoAgents from 'pages/DemoAgents';
+import CallingAgentDemo from 'pages/AiCalling';
+import MarketingAgentDemo from 'pages/MarketingAgent';
 
 function App() {
   // Add this useEffect to remove any n8n elements that might appear
@@ -45,6 +47,8 @@ function App() {
         <Route path="/" element={<MainLandingPage />} />
         <Route path="/blogs" element={<Blogs />} />
         <Route path="/demo-agents" element={<DemoAgents />} />
+        <Route path="/demo-agents/ai-calling" element={<CallingAgentDemo />} />
+        <Route path="/demo-agents/marketing-agent" element={<MarketingAgentDemo />} />
 
         <Route path="/blogs/:slug" element={<BlogPost />} /> {/* Dynamic route for individual blog posts */}
 

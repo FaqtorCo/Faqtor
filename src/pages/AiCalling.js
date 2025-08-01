@@ -1,16 +1,29 @@
 /* eslint-disable */
 
-
 import React, { useState, useEffect } from 'react';
-import { Phone, Zap, Bot, Radio, Loader2, CheckCircle, AlertCircle, PhoneCall, Signal, Headphones, Mic, Volume2, Activity } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
-const CallingAgentDemo = () => {
+import { Phone, Zap, Bot, Radio, Loader2, CheckCircle, AlertCircle, PhoneCall, Signal, Headphones, Mic, Volume2, Activity, Lock, ArrowLeft, X } from 'lucide-react';
+
+const CallingAgentDemo = ({ onBack }) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [callStatus, setCallStatus] = useState('');
   const [showSuccess, setShowSuccess] = useState(false);
   const [animatedElements, setAnimatedElements] = useState([]);
   const [activeConnections, setActiveConnections] = useState([]);
+  const [canUseDemo, setCanUseDemo] = useState(true);
+  const [hasUsedDemo, setHasUsedDemo] = useState(false);
+  const [checkingEligibility, setCheckingEligibility] = useState(true);
+  const [showCalendarModal, setShowCalendarModal] = useState(false);
+
+  // const API_BASE_URL = 'http://localhost:5001';
+  const API_BASE_URL = 'https://faqtor.onrender.com';
+
+  const ENDPOINTS = {
+    CHECK_ELIGIBILITY: '/api/calling-agent/check-eligibility',
+    INITIATE_CALL: '/api/calling-agent/initiate'
+  };
 
   // Create blinking stars background
   useEffect(() => {
@@ -34,6 +47,51 @@ const CallingAgentDemo = () => {
     setActiveConnections(connections);
   }, []);
 
+  // Check if user can use the demo
+  useEffect(() => {
+    checkDemoEligibility();
+  }, []);
+
+  const checkDemoEligibility = async () => {
+    try {
+      const token = localStorage.getItem('access_token');
+      if (!token) {
+        setCallStatus('Please sign in to use the calling agent demo.');
+        setCanUseDemo(false);
+        setCheckingEligibility(false);
+        return;
+      }
+
+      const url = `${API_BASE_URL}${ENDPOINTS.CHECK_ELIGIBILITY}`;
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const data = await response.json();
+      
+      if (response.ok) {
+        setCanUseDemo(data.canUse);
+        setHasUsedDemo(data.hasUsedDemo);
+        
+        if (!data.canUse) {
+          setCallStatus('You have already used your free calling agent demo. Each account gets one demo call.');
+        }
+      } else {
+        setCallStatus('Unable to verify demo eligibility. Please try again.');
+        setCanUseDemo(false);
+      }
+    } catch (error) {
+      setCallStatus('Error checking demo eligibility. Please try again.');
+      setCanUseDemo(false);
+    } finally {
+      setCheckingEligibility(false);
+    }
+  };
+
   const formatPhoneNumber = (value) => {
     // Keep the + and digits only
     const cleaned = value.replace(/[^\d+]/g, '');
@@ -49,6 +107,7 @@ const CallingAgentDemo = () => {
       return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(6, 10)}`;
     }
   };
+
   const handlePhoneChange = (e) => {
     const formatted = formatPhoneNumber(e.target.value);
     setPhoneNumber(formatted);
@@ -60,6 +119,11 @@ const CallingAgentDemo = () => {
   };
 
   const handleStartCall = async () => {
+    if (!canUseDemo) {
+      setCallStatus('Demo limit reached. You can only use this demo once per account.');
+      return;
+    }
+
     if (!validatePhone(phoneNumber)) {
       setCallStatus('Please enter a valid 10-digit phone number');
       return;
@@ -69,26 +133,47 @@ const CallingAgentDemo = () => {
     setCallStatus('Initiating AI call...');
 
     try {
-      const response = await fetch(process.env.REACT_APP_N8N_WEBHOOK_URL || 'https://n8n.softtik.com/webhook/calling-agent', {
+      const token = localStorage.getItem('access_token');
+      if (!token) {
+        throw new Error('Authentication required');
+      }
+
+      const url = `${API_BASE_URL}${ENDPOINTS.INITIATE_CALL}`;
+      const response = await fetch(url, {
         method: 'POST',
         headers: {
+          'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            phoneNumber: phoneNumber, // Send the full number with country code
-            timestamp: new Date().toISOString(),
-            name: 'Asad'
-          }),
+          phoneNumber: phoneNumber,
+          timestamp: new Date().toISOString(),
+        }),
       });
+
+      const data = await response.json();
 
       if (response.ok) {
         setCallStatus('AI agent is calling your number...');
         setShowSuccess(true);
+        setCanUseDemo(false); // Disable further use
+        setHasUsedDemo(true);
+        
         setTimeout(() => {
-          setCallStatus('Call initiated successfully! Please answer your phone.');
+          setCallStatus('Call initiated successfully! Please answer your phone. Your demo quota has been used.');
         }, 2000);
+
+        // Show calendar modal after 5 seconds
+        setTimeout(() => {
+          setShowCalendarModal(true);
+        }, 5000);
       } else {
-        throw new Error('Failed to initiate call');
+        setCallStatus(data.message || 'Failed to initiate call.');
+        // If response indicates demo was used, update state
+        if (response.status === 403) {
+          setCanUseDemo(false);
+          setHasUsedDemo(true);
+        }
       }
     } catch (error) {
       setCallStatus('Failed to initiate call. Please try again.');
@@ -365,6 +450,18 @@ const CallingAgentDemo = () => {
     </div>
   );
 
+  if (checkingEligibility) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 relative overflow-hidden flex items-center justify-center">
+        <BlinkingStars />
+        <div className="text-center">
+          <Loader2 className="w-12 h-12 text-[#cbe9a1] animate-spin mx-auto mb-4" />
+          <p className="text-[#cbe9a1] text-lg">Checking demo eligibility...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 relative overflow-hidden">
       {/* Blinking Stars Background */}
@@ -382,6 +479,27 @@ const CallingAgentDemo = () => {
       {/* Main Content */}
       <div className="relative z-10 container mx-auto px-4 py-16">
         <div className="max-w-6xl mx-auto">
+
+          {/* Back Button */}
+          <div className="absolute top-6 left-6 z-20">
+            <Link 
+              to="/demo-agents"
+              className="group relative flex items-center gap-2 px-4 py-2 rounded-xl bg-gray-900/80 backdrop-blur-sm border border-gray-700/50 text-gray-300 hover:text-white transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-[#DAF7A6]/20 hover:border-[#DAF7A6]/30"
+            >
+              {/* Glow Effect */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-[#DAF7A6] to-[#C8E6A0] rounded-xl blur opacity-0 group-hover:opacity-30 transition-opacity duration-300"></div>
+              
+              {/* Button Content */}
+              <div className="relative flex items-center gap-2">
+                <ArrowLeft className="w-4 h-4 group-hover:translate-x-[-2px] transition-transform duration-300" />
+                <span className="text-sm font-medium">Back</span>
+              </div>
+              
+              {/* Corner Accent */}
+              <div className="absolute top-1 right-1 w-1.5 h-1.5 bg-[#DAF7A6] rounded-full opacity-0 group-hover:opacity-60 transition-opacity duration-300"></div>
+            </Link>
+          </div>
+
           {/* Header Section */}
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-3 mb-6 bg-[#cbe9a1]/10 px-6 py-3 rounded-full border border-[#cbe9a1]/20 backdrop-blur-sm">
@@ -389,21 +507,28 @@ const CallingAgentDemo = () => {
               <span className="text-sm font-medium" style={{color: '#cbe9a1'}}>
                 AI Calling Agent Demo
               </span>
-              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+              <div className={`w-2 h-2 rounded-full ${canUseDemo ? 'bg-green-400 animate-pulse' : 'bg-red-400'}`}></div>
             </div>
             
-            {/* <h1 className="text-6l md:text-8xl font-bold mb-8 bg-gradient-to-r from-white via-gray-100 to-[#cbe9a1] bg-clip-text text-transparent leading-tight">
-              Experience the Future of AI Phone Calls
-            </h1>
-            
-            <h1 className="text-6l md:text-5xl font-bold mb-8 bg-gradient-to-r from-[#cbe9a1] to-[#a8d3a0] bg-clip-text text-transparent">
-          
-            </h1> */}
-            
             <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-8">
-              Watch our AI agent make a real phone call with human-like conversation, 
-              real-time voice processing, and intelligent responses.
+              {canUseDemo 
+                ? "Watch our AI agent make a real phone call with human-like conversation, real-time voice processing, and intelligent responses."
+                : "You have used your free demo call for this account"
+              }
             </p>
+
+            {/* Demo Status Alert */}
+            {hasUsedDemo && (
+              <div className="max-w-md mx-auto mb-8 p-4 bg-orange-500/10 border border-orange-400/20 rounded-xl">
+                <div className="flex items-center gap-3 text-orange-400">
+                  <Lock className="w-5 h-5" />
+                  <div className="text-left">
+                    <p className="font-semibold">Demo Used</p>
+                    <p className="text-sm text-orange-300">One demo per account policy</p>
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* Live Demo Stats */}
             <div className="flex justify-center gap-8 mb-12">
@@ -422,6 +547,9 @@ const CallingAgentDemo = () => {
               ))}
             </div>
           </div>
+
+
+
 
           {/* Main Demo Interface */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -462,11 +590,15 @@ const CallingAgentDemo = () => {
                 {/* Phone Icon with Advanced Animation */}
                 <div className="relative mb-8 flex justify-center">
                   <div className="relative">
-                    <div className="w-24 h-24 bg-[#cbe9a1]/20 rounded-full flex items-center justify-center relative">
-                      <Phone className="w-12 h-12" style={{color: '#cbe9a1'}} />
+                    <div className={`w-24 h-24 ${canUseDemo ? 'bg-[#cbe9a1]/20' : 'bg-gray-600/20'} rounded-full flex items-center justify-center relative`}>
+                      {canUseDemo ? (
+                        <Phone className="w-12 h-12" style={{color: '#cbe9a1'}} />
+                      ) : (
+                        <Lock className="w-12 h-12 text-gray-400" />
+                      )}
                       
-                      {/* Multiple Pulse Rings */}
-                      {[0, 1, 2].map((i) => (
+                      {/* Multiple Pulse Rings - only show if can use demo */}
+                      {canUseDemo && [0, 1, 2].map((i) => (
                         <div
                           key={i}
                           className="absolute inset-0 rounded-full border-2 border-[#cbe9a1]/30"
@@ -477,36 +609,40 @@ const CallingAgentDemo = () => {
                         />
                       ))}
                       
-                      {/* Rotating Elements */}
-                      <div className="absolute inset-0 animate-spin-slow">
-                        {[0, 90, 180, 270].map((angle) => (
+                      {/* Rotating Elements - only show if can use demo */}
+                      {canUseDemo && (
+                        <div className="absolute inset-0 animate-spin-slow">
+                          {[0, 90, 180, 270].map((angle) => (
+                            <div
+                              key={angle}
+                              className="absolute w-2 h-2 bg-[#cbe9a1]/60 rounded-full"
+                              style={{
+                                top: '10%',
+                                left: '50%',
+                                transformOrigin: '0 100px',
+                                transform: `rotate(${angle}deg)`,
+                              }}
+                            />
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                    
+                    {/* Voice Waves - only show if can use demo */}
+                    {canUseDemo && (
+                      <div className="absolute -left-6 -right-6 -top-6 -bottom-6">
+                        {[0, 1, 2, 3].map((i) => (
                           <div
-                            key={angle}
-                            className="absolute w-2 h-2 bg-[#cbe9a1]/60 rounded-full"
+                            key={i}
+                            className="absolute inset-0 border border-[#cbe9a1]/20 rounded-full"
                             style={{
-                              top: '10%',
-                              left: '50%',
-                              transformOrigin: '0 100px',
-                              transform: `rotate(${angle}deg)`,
+                              animation: `voiceWave 4s ease-out infinite`,
+                              animationDelay: `${i * 1}s`,
                             }}
                           />
                         ))}
                       </div>
-                    </div>
-                    
-                    {/* Voice Waves */}
-                    <div className="absolute -left-6 -right-6 -top-6 -bottom-6">
-                      {[0, 1, 2, 3].map((i) => (
-                        <div
-                          key={i}
-                          className="absolute inset-0 border border-[#cbe9a1]/20 rounded-full"
-                          style={{
-                            animation: `voiceWave 4s ease-out infinite`,
-                            animationDelay: `${i * 1}s`,
-                          }}
-                        />
-                      ))}
-                    </div>
+                    )}
                   </div>
                 </div>
 
@@ -524,10 +660,13 @@ const CallingAgentDemo = () => {
                         onChange={handlePhoneChange}
                         placeholder="+123 348138139"
                         maxLength={14}
-                        className="w-full px-6 py-4 bg-gray-800/50 border border-gray-600 rounded-xl text-white text-lg text-center focus:ring-2 focus:border-[#cbe9a1]/50 transition-all duration-200 backdrop-blur-sm"
+                        disabled={!canUseDemo}
+                        className={`w-full px-6 py-4 ${canUseDemo ? 'bg-gray-800/50' : 'bg-gray-700/30'} border border-gray-600 rounded-xl text-white text-lg text-center focus:ring-2 focus:border-[#cbe9a1]/50 transition-all duration-200 backdrop-blur-sm disabled:cursor-not-allowed disabled:opacity-50`}
                         onFocus={(e) => {
-                          e.target.style.boxShadow = '0 0 0 2px rgba(203, 233, 161, 0.3)';
-                          e.target.style.borderColor = '#cbe9a1';
+                          if (canUseDemo) {
+                            e.target.style.boxShadow = '0 0 0 2px rgba(203, 233, 161, 0.3)';
+                            e.target.style.borderColor = '#cbe9a1';
+                          }
                         }}
                         onBlur={(e) => {
                           e.target.style.boxShadow = 'none';
@@ -535,13 +674,17 @@ const CallingAgentDemo = () => {
                         }}
                       />
                       <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
-                        <Mic className="w-5 h-5 text-gray-400" />
+                        {canUseDemo ? (
+                          <Mic className="w-5 h-5 text-gray-400" />
+                        ) : (
+                          <Lock className="w-5 h-5 text-gray-500" />
+                        )}
                       </div>
                       
                       {/* Input Glow Effect */}
                       <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-[#cbe9a1]/10 to-transparent opacity-0 transition-opacity duration-300 pointer-events-none"
                            style={{
-                             opacity: validatePhone(phoneNumber) ? 1 : 0,
+                             opacity: (validatePhone(phoneNumber) && canUseDemo) ? 1 : 0,
                            }}
                       />
                     </div>
@@ -550,14 +693,14 @@ const CallingAgentDemo = () => {
                   {/* Enhanced Call Button */}
                   <button
                     onClick={handleStartCall}
-                    disabled={isLoading || !validatePhone(phoneNumber)}
+                    disabled={isLoading || !validatePhone(phoneNumber) || !canUseDemo}
                     className="w-full relative overflow-hidden py-4 px-8 rounded-xl font-semibold text-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group"
                     style={{
-                      background: validatePhone(phoneNumber) 
+                      background: (validatePhone(phoneNumber) && canUseDemo)
                         ? 'linear-gradient(135deg, #cbe9a1 0%, #a8d3a0 100%)' 
                         : '#6b7280',
                       color: '#1f2937',
-                      boxShadow: validatePhone(phoneNumber) 
+                      boxShadow: (validatePhone(phoneNumber) && canUseDemo)
                         ? '0 0 30px rgba(203, 233, 161, 0.4)' 
                         : 'none',
                     }}
@@ -576,6 +719,11 @@ const CallingAgentDemo = () => {
                           <CheckCircle className="w-6 h-6" />
                           <span>Call Initiated!</span>
                         </>
+                      ) : !canUseDemo ? (
+                        <>
+                          <Lock className="w-6 h-6" />
+                          <span>Demo Used</span>
+                        </>
                       ) : (
                         <>
                           <Zap className="w-6 h-6 group-hover:scale-110 transition-transform duration-200" />
@@ -588,14 +736,18 @@ const CallingAgentDemo = () => {
                   {/* Status Message */}
                   {callStatus && (
                     <div className={`p-4 rounded-xl border text-sm transition-all duration-300 ${
-                      callStatus.includes('Failed') || callStatus.includes('valid')
+                      callStatus.includes('Failed') || callStatus.includes('valid') || callStatus.includes('sign in') || callStatus.includes('already used')
                         ? 'bg-red-500/10 border-red-400/20 text-red-400'
+                        : callStatus.includes('quota has been used') || callStatus.includes('limit reached')
+                        ? 'bg-orange-500/10 border-orange-400/20 text-orange-400'
                         : 'bg-[#cbe9a1]/10 border-[#cbe9a1]/20'
                     }`}
-                    style={!callStatus.includes('Failed') && !callStatus.includes('valid') ? {color: '#cbe9a1'} : {}}>
+                    style={!callStatus.includes('Failed') && !callStatus.includes('valid') && !callStatus.includes('sign in') && !callStatus.includes('already used') && !callStatus.includes('quota') && !callStatus.includes('limit') ? {color: '#cbe9a1'} : {}}>
                       <div className="flex items-center gap-3">
-                        {callStatus.includes('Failed') || callStatus.includes('valid') ? (
+                        {callStatus.includes('Failed') || callStatus.includes('valid') || callStatus.includes('sign in') ? (
                           <AlertCircle className="w-5 h-5 flex-shrink-0" />
+                        ) : callStatus.includes('already used') || callStatus.includes('quota') || callStatus.includes('limit') ? (
+                          <Lock className="w-5 h-5 flex-shrink-0" />
                         ) : (
                           <div className="flex items-center gap-2">
                             <Bot className="w-5 h-5 flex-shrink-0" />
@@ -619,27 +771,92 @@ const CallingAgentDemo = () => {
                   )}
                 </div>
 
-                {/* Features List */}
-                <div className="mt-8 pt-6 border-t border-gray-700/50">
-                  {/* <div className="grid grid-cols-2 gap-4 text-sm">
-                    {[
-                      { icon: Radio, text: 'Real-time conversation' },
-                      { icon: Bot, text: 'Human-like responses' },
-                      { icon: Volume2, text: 'Natural voice synthesis' },
-                      { icon: Signal, text: 'Instant connection' },
-                    ].map((feature, i) => (
-                      <div key={i} className="flex items-center gap-2 text-gray-400 hover:text-[#cbe9a1] transition-colors duration-200">
-                        <feature.icon className="w-4 h-4" />
-                        <span>{feature.text}</span>
-                      </div>
-                    ))}
-                  </div> */}
-                </div>
+{/* Features List or Upgrade Notice */}
+{/* Features List or Upgrade Notice */}
+<div className="mt-8 pt-6 border-t border-gray-700/50 relative z-50">
+  {!canUseDemo ? (
+    <div className="text-center relative z-50">
+      <p className="text-gray-400 text-sm mb-3">
+        How was our Calling Agent ?
+      </p>
+      <button 
+        onClick={() => {
+          console.log('CONTACT BUTTON CLICKED!');
+          setShowCalendarModal(true);
+        }}
+        onMouseEnter={() => console.log('Button hovered!')}
+        onMouseLeave={() => console.log('Button unhovered!')}
+        className="relative z-50 text-[#cbe9a1] text-sm font-medium hover:underline transition-colors duration-200 hover:text-[#a8d3a0] cursor-pointer  px-2 py-1 rounded"
+        style={{ 
+          position: 'relative',
+          zIndex: 9999,
+          pointerEvents: 'auto'
+        }}
+      >
+        Schedule a meeting with us to discuss further
+      </button>
+    </div>
+  ) : (
+    <div className="text-center">
+      <p className="text-gray-400 text-sm">
+         You can only avail a single demo per account
+      </p>
+    </div>
+  )}
+</div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Calendar Modal */}
+      {showCalendarModal && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-gray-900 border border-[#cbe9a1]/20 rounded-3xl w-full max-w-4xl h-[600px] relative overflow-hidden shadow-2xl">
+            {/* Modal Header */}
+            <div className="bg-gradient-to-r from-[#cbe9a1]/10 to-transparent p-6 border-b border-[#cbe9a1]/20">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-[#cbe9a1]/20 rounded-full flex items-center justify-center">
+                    <Phone className="w-6 h-6" style={{color: '#cbe9a1'}} />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-white">Loved the Demo?</h3>
+                    <p className="text-gray-300">Schedule a meeting to discuss your AI solution</p>
+                  </div>
+                </div>
+                
+                <button
+                  onClick={() => setShowCalendarModal(false)}
+                  className="w-10 h-10 bg-gray-800/50 hover:bg-gray-700/50 border border-gray-600 hover:border-[#cbe9a1]/30 rounded-full flex items-center justify-center transition-all duration-200 group"
+                >
+                  <X className="w-5 h-5 text-gray-400 group-hover:text-white" />
+                </button>
+              </div>
+            </div>
+
+            {/* Calendar Container */}
+            <div className="p-6 h-[calc(600px-120px)]">
+              <div className="bg-white rounded-2xl h-full border border-[#cbe9a1]/20 overflow-hidden shadow-inner">
+                <iframe
+                  src="https://cal.com/faqtor?theme=light"
+                  className="w-full h-full"
+                  frameBorder="0"
+                  title="Schedule a meeting"
+                />
+              </div>
+            </div>
+
+            {/* Decorative Elements */}
+            <div className="absolute top-4 right-4 w-2 h-2 bg-[#cbe9a1] rounded-full animate-pulse"></div>
+            <div className="absolute bottom-4 left-4 w-1 h-1 bg-[#cbe9a1]/60 rounded-full"></div>
+            
+            {/* Glow Effect */}
+            <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-[#cbe9a1]/5 to-transparent pointer-events-none"></div>
+          </div>
+        </div>
+      )}
 
       {/* Enhanced CSS Animations */}
       <style jsx>{`

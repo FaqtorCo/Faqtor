@@ -125,6 +125,7 @@ def signin():
     return jsonify({
         "access_token": access_token,
         "name": user.name  # Return user's name
+        
     }), 200
 
 @app.route('/protected', methods=['GET'])

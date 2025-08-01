@@ -520,12 +520,12 @@ const MarketingAgentDemo = () => {
               <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
             </div>
             
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white via-gray-100 to-[#cbe9a1] bg-clip-text text-transparent">
+            {/* <h1 className="text-5xl md:text-6l font-bold mb-6 bg-gradient-to-r from-white via-gray-100 to-[#cbe9a1] bg-clip-text text-transparent">
               Create Your Marketing Campaign
-            </h1>
+            </h1> */}
             
             <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              Let our AI marketing agent analyze your brand and create a custom marketing strategy 
+              Let our AI marketing agent analyze your brand and create a custom marketing strategical images 
               tailored to your industry and goals.
             </p>
           </div>

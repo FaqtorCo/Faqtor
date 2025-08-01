@@ -1,7 +1,9 @@
 /* eslint-disable */
 
 import React, { useState, useEffect, useRef } from 'react';
-import { MessageCircle, Bot, Send, Loader2, CheckCircle, AlertCircle, Sparkles, Settings, User, Zap, MessageSquare, Brain, Activity } from 'lucide-react';
+import { Link } from 'react-router-dom';
+
+import { MessageCircle, Bot, Send, Loader2, CheckCircle, AlertCircle, Sparkles, Settings, User, Zap, MessageSquare, Brain, Activity, Lock, X, ArrowLeft } from 'lucide-react';
 
 const ChatbotDemo = () => {
   const [chatbotPrompt, setChatbotPrompt] = useState('');
@@ -18,7 +20,21 @@ const ChatbotDemo = () => {
     accuracy: '96.7%',
     satisfaction: '4.8/5'
   });
+  const [canUseDemo, setCanUseDemo] = useState(true);
+  const [hasUsedDemo, setHasUsedDemo] = useState(false);
+  const [checkingEligibility, setCheckingEligibility] = useState(true);
+  const [messageCount, setMessageCount] = useState(0);
+  const [maxMessages] = useState(3);
+  const [showCalendarModal, setShowCalendarModal] = useState(false);
   const messagesEndRef = useRef(null);
+
+  // const API_BASE_URL = 'http://localhost:5001';
+  const API_BASE_URL = 'https://faqtor.onrender.com';
+
+  const ENDPOINTS = {
+    CHECK_ELIGIBILITY: '/api/chatbot/check-eligibility',
+    SEND_MESSAGE: '/api/chatbot/send-message'
+  };
 
   // Generate a unique session ID when component mounts
   useEffect(() => {
@@ -46,6 +62,49 @@ const ChatbotDemo = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
+  // Check if user can use the demo
+  useEffect(() => {
+    checkDemoEligibility();
+  }, []);
+
+  const checkDemoEligibility = async () => {
+    try {
+      const token = localStorage.getItem('access_token');
+      if (!token) {
+        setCanUseDemo(false);
+        setCheckingEligibility(false);
+        return;
+      }
+
+      const url = `${API_BASE_URL}${ENDPOINTS.CHECK_ELIGIBILITY}`;
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const data = await response.json();
+      
+      if (response.ok) {
+        setCanUseDemo(data.canUse);
+        setHasUsedDemo(data.hasUsedDemo);
+        setMessageCount(data.messageCount || 0);
+        
+        if (!data.canUse) {
+          setIsConfigured(false);
+        }
+      } else {
+        setCanUseDemo(false);
+      }
+    } catch (error) {
+      setCanUseDemo(false);
+    } finally {
+      setCheckingEligibility(false);
+    }
+  };
+
   // Sample prompts for different business types
   const samplePrompts = [
     {
@@ -67,7 +126,7 @@ const ChatbotDemo = () => {
   };
 
   const configureChatbot = () => {
-    if (!chatbotPrompt.trim()) {
+    if (!chatbotPrompt.trim() || !canUseDemo) {
       return;
     }
     
@@ -86,7 +145,9 @@ const ChatbotDemo = () => {
   };
 
   const sendMessage = async () => {
-    if (!currentMessage.trim() || isLoading) return;
+    if (!currentMessage.trim() || isLoading || !canUseDemo || messageCount >= maxMessages) {
+      return;
+    }
 
     const userMessage = {
       id: messages.length + 1,
@@ -102,86 +163,169 @@ const ChatbotDemo = () => {
     setIsTyping(true);
 
     try {
-      // Updated request body with the required fields
-      const requestBody = {
-        action: "sendMessage",
-        chatInput: messageToSend,
-        metadata: {
-          timestamp: new Date().toISOString(),
-          userAgent: navigator.userAgent,
-          conversationLength: messages.length + 1,
-          prompt: chatbotPrompt
-        },
-        sessionId: sessionId,
-        prompt: chatbotPrompt // Keep this for backward compatibility if needed
-      };
-
-      const response = await fetch('https://n8n.softtik.com/webhook/e4a1d330-231b-4199-8f47-c7bb79ed3a94/chat', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(requestBody)
-      });
-
-      // Handle different response types like the working widget
-      let data;
-      const contentType = response.headers.get("content-type");
-      
-      if (contentType && contentType.includes("application/json")) {
-        data = await response.json();
-      } else {
-        data = await response.text();
+      const token = localStorage.getItem('access_token');
+      if (!token) {
+        throw new Error('Authentication required');
       }
 
-      console.log("Response received:", data);
+      // Update message count immediately
+      const newMessageCount = messageCount + 1;
+      setMessageCount(newMessageCount);
 
-      // Simulate typing delay for better UX
-      setTimeout(() => {
-        let botContent = 'I understand your question. Let me help you with that!';
-        
-        // Handle different possible response formats like the widget
-        if (data) {
-          if (typeof data === "string") {
-            botContent = data;
-          } else if (data.text) {
-            botContent = data.text;
-          } else if (data.output) {
-            botContent = data.output;
-          } else if (data.message) {
-            botContent = data.message;
-          } else {
-            botContent = "Received response: " + JSON.stringify(data);
+      const url = `${API_BASE_URL}${ENDPOINTS.SEND_MESSAGE}`;
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: messageToSend,
+          prompt: chatbotPrompt,
+          sessionId: sessionId,
+          timestamp: new Date().toISOString(),
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Simulate typing delay for better UX
+        setTimeout(() => {
+          let botContent = data.response || 'I understand your question. Let me help you with that!';
+          
+          const botMessage = {
+            id: messages.length + 2,
+            type: 'bot',
+            content: botContent,
+            timestamp: new Date()
+          };
+          
+          setMessages(prev => [...prev, botMessage]);
+          setIsTyping(false);
+          
+          // Update metrics randomly for demo effect
+          setChatMetrics({
+            responseTime: `${(Math.random() * 2 + 0.3).toFixed(1)}s`,
+            accuracy: `${(Math.random() * 5 + 95).toFixed(1)}%`,
+            satisfaction: `${(Math.random() * 0.4 + 4.6).toFixed(1)}/5`
+          });
+
+          // Check if user reached the limit
+          if (newMessageCount >= maxMessages) {
+            setCanUseDemo(false);
+            setHasUsedDemo(true);
+            
+            setTimeout(() => {
+              const limitMessage = {
+                id: messages.length + 3,
+                type: 'bot',
+                content: 'You\'ve reached your 3-message limit for this demo. Thank you for trying our chatbot!',
+                timestamp: new Date()
+              };
+              setMessages(prev => [...prev, limitMessage]);
+              
+              // Show calendar modal after the limit message
+              setTimeout(() => {
+                setShowCalendarModal(true);
+              }, 2000);
+            }, 1000);
           }
-        }
-        
-        const botMessage = {
-          id: messages.length + 2,
-          type: 'bot',
-          content: botContent,
-          timestamp: new Date()
-        };
-        
-        setMessages(prev => [...prev, botMessage]);
-        setIsTyping(false);
-        
-        // Update metrics randomly for demo effect
-        setChatMetrics({
-          responseTime: `${(Math.random() * 2 + 0.3).toFixed(1)}s`,
-          accuracy: `${(Math.random() * 5 + 95).toFixed(1)}%`,
-          satisfaction: `${(Math.random() * 0.4 + 4.6).toFixed(1)}/5`
-        });
-      }, 1500);
+        }, 1500);
+      } else {
+        throw new Error(data.message || 'Failed to send message');
+      }
     } catch (error) {
       console.error('Error sending message:', error);
-      const errorMessage = {
-        id: messages.length + 2,
-        type: 'bot',
-        content: 'I apologize, but I\'m having trouble connecting right now. Please try again in a moment.',
-        timestamp: new Date()
-      };
-      setMessages(prev => [...prev, errorMessage]);
-      setIsTyping(false);
+      
+      // Fallback to original N8N webhook for demo purposes
+      try {
+        const requestBody = {
+          action: "sendMessage",
+          chatInput: messageToSend,
+          metadata: {
+            timestamp: new Date().toISOString(),
+            userAgent: navigator.userAgent,
+            conversationLength: messages.length + 1,
+            prompt: chatbotPrompt
+          },
+          sessionId: sessionId,
+          prompt: chatbotPrompt
+        };
+
+        const fallbackResponse = await fetch('https://n8n.softtik.com/webhook/e4a1d330-231b-4199-8f47-c7bb79ed3a94/chat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(requestBody)
+        });
+
+        let data;
+        const contentType = fallbackResponse.headers.get("content-type");
+        
+        if (contentType && contentType.includes("application/json")) {
+          data = await fallbackResponse.json();
+        } else {
+          data = await fallbackResponse.text();
+        }
+
+        setTimeout(() => {
+          let botContent = 'I understand your question. Let me help you with that!';
+          
+          if (data) {
+            if (typeof data === "string") {
+              botContent = data;
+            } else if (data.text) {
+              botContent = data.text;
+            } else if (data.output) {
+              botContent = data.output;
+            } else if (data.message) {
+              botContent = data.message;
+            }
+          }
+          
+          const botMessage = {
+            id: messages.length + 2,
+            type: 'bot',
+            content: botContent,
+            timestamp: new Date()
+          };
+          
+          setMessages(prev => [...prev, botMessage]);
+          setIsTyping(false);
+          
+          // Check if user reached the limit
+          if (newMessageCount >= maxMessages) {
+            setCanUseDemo(false);
+            setHasUsedDemo(true);
+            
+            setTimeout(() => {
+              const limitMessage = {
+                id: messages.length + 3,
+                type: 'bot',
+                content: 'You\'ve reached your 3-message limit for this demo. Thank you for trying our chatbot!',
+                timestamp: new Date()
+              };
+              setMessages(prev => [...prev, limitMessage]);
+              
+              // Show calendar modal after the limit message
+              setTimeout(() => {
+                setShowCalendarModal(true);
+              }, 2000);
+            }, 1000);
+          }
+        }, 1500);
+      } catch (fallbackError) {
+        const errorMessage = {
+          id: messages.length + 2,
+          type: 'bot',
+          content: 'I apologize, but I\'m having trouble connecting right now. Please try again in a moment.',
+          timestamp: new Date()
+        };
+        setMessages(prev => [...prev, errorMessage]);
+        setIsTyping(false);
+      }
     } finally {
       setIsLoading(false);
     }
@@ -409,6 +553,18 @@ const ChatbotDemo = () => {
     </div>
   );
 
+  if (checkingEligibility) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 relative overflow-hidden flex items-center justify-center">
+        <AnimatedParticles />
+        <div className="text-center">
+          <Loader2 className="w-12 h-12 text-[#cbe9a1] animate-spin mx-auto mb-4" />
+          <p className="text-[#cbe9a1] text-lg">Checking demo eligibility...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-800 relative overflow-hidden">
       {/* Animated Background */}
@@ -432,17 +588,47 @@ const ChatbotDemo = () => {
               <span className="text-sm font-medium" style={{color: '#cbe9a1'}}>
                 AI Chatbot Demo
               </span>
-              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+              <div className={`w-2 h-2 rounded-full ${canUseDemo ? 'bg-green-400 animate-pulse' : 'bg-red-400'}`}></div>
             </div>
             
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white via-gray-100 to-[#cbe9a1] bg-clip-text text-transparent">
-              Build Your Smart Chatbot
-            </h1>
-            
             <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              Configure your AI chatbot with your business information and watch it handle customer inquiries 
-              with intelligent, contextual responses.
+              {canUseDemo 
+                ? "Configure your AI chatbot with your business information and watch it handle customer inquiries with intelligent, contextual responses."
+                : "You have used your 3 free messages for this demo. Each account gets a limited demo experience."
+              }
             </p>
+
+            {/* Demo Status Alert */}
+            {hasUsedDemo && (
+              <div className="max-w-md mx-auto mt-8 p-4 bg-orange-500/10 border border-orange-400/20 rounded-xl">
+                <div className="flex items-center gap-3 text-orange-400">
+                  <Lock className="w-5 h-5" />
+                  <div className="text-left">
+                    <p className="font-semibold">Demo Limit Reached</p>
+                    <p className="text-sm text-orange-300">3 messages per account policy</p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Message Counter */}
+            {canUseDemo && isConfigured && (
+              <div className="max-w-md mx-auto mt-8 p-4 bg-[#cbe9a1]/10 border border-[#cbe9a1]/20 rounded-xl">
+                <div className="flex items-center justify-between text-[#cbe9a1]">
+                  <span className="text-sm font-medium">Messages remaining:</span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-lg font-bold">{maxMessages - messageCount}</span>
+                    <MessageSquare className="w-4 h-4" />
+                  </div>
+                </div>
+                <div className="mt-2 bg-gray-700 rounded-full h-2">
+                  <div 
+                    className="bg-[#cbe9a1] h-2 rounded-full transition-all duration-300"
+                    style={{ width: `${((maxMessages - messageCount) / maxMessages) * 100}%` }}
+                  ></div>
+                </div>
+              </div>
+            )}
 
             {/* Live Demo Stats */}
             <div className="flex justify-center gap-8 mt-12">
@@ -460,6 +646,29 @@ const ChatbotDemo = () => {
                 </div>
               ))}
             </div>
+          </div>
+
+
+
+
+          {/* Back Button */}
+          <div className="absolute top-6 left-6 z-20">
+            <Link 
+              to="/demo-agents"
+              className="group relative flex items-center gap-2 px-4 py-2 rounded-xl bg-gray-900/80 backdrop-blur-sm border border-gray-700/50 text-gray-300 hover:text-white transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-[#DAF7A6]/20 hover:border-[#DAF7A6]/30"
+            >
+              {/* Glow Effect */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-[#DAF7A6] to-[#C8E6A0] rounded-xl blur opacity-0 group-hover:opacity-30 transition-opacity duration-300"></div>
+              
+              {/* Button Content */}
+              <div className="relative flex items-center gap-2">
+                <ArrowLeft className="w-4 h-4 group-hover:translate-x-[-2px] transition-transform duration-300" />
+                <span className="text-sm font-medium">Back</span>
+              </div>
+              
+              {/* Corner Accent */}
+              <div className="absolute top-1 right-1 w-1.5 h-1.5 bg-[#DAF7A6] rounded-full opacity-0 group-hover:opacity-60 transition-opacity duration-300"></div>
+            </Link>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -486,7 +695,7 @@ const ChatbotDemo = () => {
               </div>
 
               {/* Configuration Panel */}
-              {!isConfigured && (
+              {!isConfigured && canUseDemo && (
                 <div className="bg-gray-900/50 backdrop-blur-lg border border-[#cbe9a1]/20 rounded-3xl p-8">
                   <div className="flex items-center gap-3 mb-6">
                     <Settings className="w-6 h-6 text-[#cbe9a1]" />
@@ -530,10 +739,10 @@ const ChatbotDemo = () => {
                     
                     <button
                       onClick={configureChatbot}
-                      disabled={!chatbotPrompt.trim()}
+                      disabled={!chatbotPrompt.trim() || !canUseDemo}
                       className="w-full py-3 px-6 rounded-xl font-semibold transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group"
                       style={{
-                        background: chatbotPrompt.trim() 
+                        background: (chatbotPrompt.trim() && canUseDemo)
                           ? 'linear-gradient(135deg, #cbe9a1 0%, #a8d3a0 100%)' 
                           : '#6b7280',
                         color: '#1f2937',
@@ -546,6 +755,11 @@ const ChatbotDemo = () => {
                             <CheckCircle className="w-5 h-5" />
                             <span>Chatbot Configured!</span>
                           </>
+                        ) : !canUseDemo ? (
+                          <>
+                            <Lock className="w-5 h-5" />
+                            <span>Demo Limit Reached</span>
+                          </>
                         ) : (
                           <>
                             <Bot className="w-5 h-5" />
@@ -554,6 +768,30 @@ const ChatbotDemo = () => {
                         )}
                       </div>
                     </button>
+                  </div>
+                </div>
+              )}
+
+              {/* Demo limit reached message */}
+              {!canUseDemo && (
+                <div className="bg-gray-900/50 backdrop-blur-lg border border-orange-400/20 rounded-3xl p-8">
+                  <div className="text-center">
+                    <div className="w-16 h-16 bg-orange-400/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <Lock className="w-8 h-8 text-orange-400" />
+                    </div>
+                    <h3 className="text-xl font-bold text-white mb-2">Demo Limit Reached</h3>
+                    <p className="text-gray-400 mb-4">
+                      You've used your 3 free messages for this chatbot demo.
+                    </p>
+                    <p className="text-gray-400 text-sm mb-6">
+                      Want to explore more? Schedule a meeting with us.
+                    </p>
+                    <button 
+  onClick={() => setShowCalendarModal(true)}
+  className="px-6 py-3 bg-gradient-to-r from-[#cbe9a1] to-[#a8d3a0] text-gray-900 font-semibold rounded-xl hover:shadow-lg hover:shadow-[#cbe9a1]/25 transition-all duration-300"
+>
+  Set up a meeting
+</button>
                   </div>
                 </div>
               )}
@@ -566,15 +804,24 @@ const ChatbotDemo = () => {
                 <div className="bg-gradient-to-r from-[#cbe9a1]/10 to-transparent p-6 border-b border-gray-700/50">
                   <div className="flex items-center gap-4">
                     <div className="relative">
-                      <div className="w-12 h-12 bg-[#cbe9a1]/20 rounded-full flex items-center justify-center">
-                        <Bot className="w-6 h-6" style={{color: '#cbe9a1'}} />
+                      <div className={`w-12 h-12 ${canUseDemo ? 'bg-[#cbe9a1]/20' : 'bg-gray-600/20'} rounded-full flex items-center justify-center`}>
+                        {canUseDemo ? (
+                          <Bot className="w-6 h-6" style={{color: '#cbe9a1'}} />
+                        ) : (
+                          <Lock className="w-6 h-6 text-gray-400" />
+                        )}
                       </div>
-                      <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-gray-900"></div>
+                      <div className={`absolute -bottom-1 -right-1 w-4 h-4 ${canUseDemo ? 'bg-green-400' : 'bg-red-400'} rounded-full border-2 border-gray-900`}></div>
                     </div>
                     <div>
                       <h3 className="text-white font-semibold">AI Assistant</h3>
                       <p className="text-gray-400 text-sm">
-                        {isConfigured ? 'Online • Ready to help' : 'Configure to start chatting'}
+                        {!canUseDemo 
+                          ? 'Demo limit reached' 
+                          : isConfigured 
+                            ? `Online • ${maxMessages - messageCount} messages left` 
+                            : 'Configure to start chatting'
+                        }
                       </p>
                     </div>
                   </div>
@@ -585,8 +832,18 @@ const ChatbotDemo = () => {
                   {!isConfigured ? (
                     <div className="flex items-center justify-center h-full">
                       <div className="text-center">
-                        <MessageSquare className="w-16 h-16 text-gray-600 mx-auto mb-4" />
-                        <p className="text-gray-400">Configure your chatbot to start the conversation</p>
+                        {canUseDemo ? (
+                          <>
+                            <MessageSquare className="w-16 h-16 text-gray-600 mx-auto mb-4" />
+                            <p className="text-gray-400">Configure your chatbot to start the conversation</p>
+                          </>
+                        ) : (
+                          <>
+                            <Lock className="w-16 h-16 text-gray-600 mx-auto mb-4" />
+                            <p className="text-gray-400">Demo limit reached</p>
+                            <p className="text-gray-500 text-sm mt-2">You've used all 3 free messages</p>
+                          </>
+                        )}
                       </div>
                     </div>
                   ) : (
@@ -656,17 +913,17 @@ const ChatbotDemo = () => {
                           value={currentMessage}
                           onChange={(e) => setCurrentMessage(e.target.value)}
                           onKeyPress={handleKeyPress}
-                          placeholder="Type your message..."
-                          disabled={isLoading}
-                          className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-xl text-white focus:ring-2 focus:border-[#cbe9a1]/50 transition-all duration-200 placeholder-gray-400"
+                          placeholder={messageCount >= maxMessages ? "Message limit reached" : "Type your message..."}
+                          disabled={isLoading || messageCount >= maxMessages || !canUseDemo}
+                          className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-xl text-white focus:ring-2 focus:border-[#cbe9a1]/50 transition-all duration-200 placeholder-gray-400 disabled:opacity-50 disabled:cursor-not-allowed"
                         />
                       </div>
                       <button
                         onClick={sendMessage}
-                        disabled={!currentMessage.trim() || isLoading}
+                        disabled={!currentMessage.trim() || isLoading || messageCount >= maxMessages || !canUseDemo}
                         className="px-4 py-3 rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group relative overflow-hidden"
                         style={{
-                          background: currentMessage.trim() && !isLoading
+                          background: (currentMessage.trim() && !isLoading && messageCount < maxMessages && canUseDemo)
                             ? 'linear-gradient(135deg, #cbe9a1 0%, #a8d3a0 100%)'
                             : '#6b7280',
                           color: '#1f2937',
@@ -676,6 +933,8 @@ const ChatbotDemo = () => {
                         <div className="relative z-10">
                           {isLoading ? (
                             <Loader2 className="w-5 h-5 animate-spin" />
+                          ) : messageCount >= maxMessages ? (
+                            <Lock className="w-5 h-5" />
                           ) : (
                             <Send className="w-5 h-5" />
                           )}
@@ -720,6 +979,54 @@ const ChatbotDemo = () => {
           </div>
         </div>
       </div>
+
+      {/* Calendar Modal */}
+      {showCalendarModal && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-gray-900 border border-[#cbe9a1]/20 rounded-3xl w-full max-w-4xl h-[600px] relative overflow-hidden shadow-2xl">
+            {/* Modal Header */}
+            <div className="bg-gradient-to-r from-[#cbe9a1]/10 to-transparent p-6 border-b border-[#cbe9a1]/20">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-[#cbe9a1]/20 rounded-full flex items-center justify-center">
+                    <MessageCircle className="w-6 h-6" style={{color: '#cbe9a1'}} />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-white">Loved the Chatbot Demo?</h3>
+                    <p className="text-gray-300">Schedule a meeting to discuss your AI chatbot solution</p>
+                  </div>
+                </div>
+                
+                <button
+                  onClick={() => setShowCalendarModal(false)}
+                  className="w-10 h-10 bg-gray-800/50 hover:bg-gray-700/50 border border-gray-600 hover:border-[#cbe9a1]/30 rounded-full flex items-center justify-center transition-all duration-200 group"
+                >
+                  <X className="w-5 h-5 text-gray-400 group-hover:text-white" />
+                </button>
+              </div>
+            </div>
+
+            {/* Calendar Container */}
+            <div className="p-6 h-[calc(600px-120px)]">
+              <div className="bg-white rounded-2xl h-full border border-[#cbe9a1]/20 overflow-hidden shadow-inner">
+                <iframe
+                  src="https://cal.com/faqtor?theme=light"
+                  className="w-full h-full"
+                  frameBorder="0"
+                  title="Schedule a meeting"
+                />
+              </div>
+            </div>
+
+            {/* Decorative Elements */}
+            <div className="absolute top-4 right-4 w-2 h-2 bg-[#cbe9a1] rounded-full animate-pulse"></div>
+            <div className="absolute bottom-4 left-4 w-1 h-1 bg-[#cbe9a1]/60 rounded-full"></div>
+            
+            {/* Glow Effect */}
+            <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-[#cbe9a1]/5 to-transparent pointer-events-none"></div>
+          </div>
+        </div>
+      )}
 
       {/* Enhanced CSS Animations */}
       <style jsx>{`

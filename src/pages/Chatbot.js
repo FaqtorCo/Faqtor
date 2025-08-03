@@ -71,8 +71,10 @@ const ChatbotDemo = () => {
     try {
       const token = localStorage.getItem('access_token');
       if (!token) {
+        // setCallStatus('Please sign in to use the calling agent demo.');
         setCanUseDemo(false);
         setCheckingEligibility(false);
+        setHasUsedDemo(false); // Add this line
         return;
       }
 
@@ -144,6 +146,8 @@ const ChatbotDemo = () => {
     setTimeout(() => setShowSuccess(false), 3000);
   };
 
+
+
   const sendMessage = async () => {
     if (!currentMessage.trim() || isLoading || !canUseDemo || messageCount >= maxMessages) {
       return;
@@ -162,15 +166,18 @@ const ChatbotDemo = () => {
     setIsLoading(true);
     setIsTyping(true);
 
+
+          // Update message count immediately
+          const newMessageCount = messageCount + 1;
+          setMessageCount(newMessageCount);
+    
+
     try {
       const token = localStorage.getItem('access_token');
       if (!token) {
         throw new Error('Authentication required');
       }
 
-      // Update message count immediately
-      const newMessageCount = messageCount + 1;
-      setMessageCount(newMessageCount);
 
       const url = `${API_BASE_URL}${ENDPOINTS.SEND_MESSAGE}`;
       const response = await fetch(url, {
@@ -588,28 +595,53 @@ const ChatbotDemo = () => {
               <span className="text-sm font-medium" style={{color: '#cbe9a1'}}>
                 AI Chatbot Demo
               </span>
-              <div className={`w-2 h-2 rounded-full ${canUseDemo ? 'bg-green-400 animate-pulse' : 'bg-red-400'}`}></div>
-            </div>
+              <div className={`w-2 h-2 rounded-full ${
+  !canUseDemo && !hasUsedDemo 
+    ? 'bg-red-400 animate-pulse' 
+    : canUseDemo 
+      ? 'bg-green-400 animate-pulse' 
+      : 'bg-red-400'
+}`}></div>         </div>
             
             <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              {canUseDemo 
-                ? "Configure your AI chatbot with your business information and watch it handle customer inquiries with intelligent, contextual responses."
-                : "You have used your 3 free messages for this demo. Each account gets a limited demo experience."
-              }
-            </p>
+  {!canUseDemo && !hasUsedDemo
+    ? "Please sign in to try our AI chatbot demo with 3 free messages per account."
+    : canUseDemo 
+      ? "Configure your AI chatbot with your business information and watch it handle customer inquiries with intelligent, contextual responses."
+      : "You have used your 3 free messages for this demo. Each account gets a limited demo experience."
+  }
+</p>
 
             {/* Demo Status Alert */}
-            {hasUsedDemo && (
-              <div className="max-w-md mx-auto mt-8 p-4 bg-orange-500/10 border border-orange-400/20 rounded-xl">
-                <div className="flex items-center gap-3 text-orange-400">
-                  <Lock className="w-5 h-5" />
-                  <div className="text-left">
-                    <p className="font-semibold">Demo Limit Reached</p>
-                    <p className="text-sm text-orange-300">3 messages per account policy</p>
-                  </div>
-                </div>
-              </div>
-            )}
+{/* Please login message */}
+{/* Demo Status Alert */}
+{!canUseDemo && !hasUsedDemo && (
+  <div className="max-w-md mx-auto mt-8 p-4 bg-red-500/10 border border-red-400/20 rounded-xl">
+    <div className="flex items-center gap-3 text-red-400">
+      <User className="w-5 h-5" />
+      <div className="text-left">
+        <p className="font-semibold">Sign In Required</p>
+        <p className="text-sm text-red-300">Please sign in to try the demo</p>
+      </div>
+    </div>
+  </div>
+)}
+
+
+{/* Demo Used Alert */}
+{!canUseDemo && hasUsedDemo && (
+  <div className="max-w-md mx-auto mt-8 p-4 bg-orange-500/10 border border-orange-400/20 rounded-xl">
+    <div className="flex items-center gap-3 text-orange-400">
+      <Lock className="w-5 h-5" />
+      <div className="text-left">
+        <p className="font-semibold">Demo Limit Reached</p>
+        <p className="text-sm text-orange-300">3 messages per account policy</p>
+      </div>
+    </div>
+  </div>
+)}
+
+
 
             {/* Message Counter */}
             {canUseDemo && isConfigured && (
@@ -773,7 +805,7 @@ const ChatbotDemo = () => {
               )}
 
               {/* Demo limit reached message */}
-              {!canUseDemo && (
+              {!canUseDemo && hasUsedDemo && (
                 <div className="bg-gray-900/50 backdrop-blur-lg border border-orange-400/20 rounded-3xl p-8">
                   <div className="text-center">
                     <div className="w-16 h-16 bg-orange-400/20 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -795,6 +827,30 @@ const ChatbotDemo = () => {
                   </div>
                 </div>
               )}
+
+              {/* Please login message */}
+{!canUseDemo && !hasUsedDemo && (
+  <div className="bg-gray-900/50 backdrop-blur-lg border border-blue-400/20 rounded-3xl p-8">
+    <div className="text-center">
+      <div className="w-16 h-16 bg-blue-400/20 rounded-full flex items-center justify-center mx-auto mb-4">
+        <User className="w-8 h-8 text-blue-400" />
+      </div>
+      <h3 className="text-xl font-bold text-white mb-2">Sign In Required</h3>
+      <p className="text-gray-400 mb-4">
+        Please sign in to try the AI calling agent demo.
+      </p>
+      <p className="text-gray-400 text-sm mb-6">
+        Each account gets 3 messages with the bot.
+      </p>
+      {/* <Link 
+        to="/signin"
+        className="inline-block px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold rounded-xl hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300"
+      >
+        Sign In
+      </Link> */}
+    </div>
+  </div>
+)}
             </div>
 
             {/* Right Side - Chat Interface */}
@@ -804,49 +860,71 @@ const ChatbotDemo = () => {
                 <div className="bg-gradient-to-r from-[#cbe9a1]/10 to-transparent p-6 border-b border-gray-700/50">
                   <div className="flex items-center gap-4">
                     <div className="relative">
-                      <div className={`w-12 h-12 ${canUseDemo ? 'bg-[#cbe9a1]/20' : 'bg-gray-600/20'} rounded-full flex items-center justify-center`}>
-                        {canUseDemo ? (
-                          <Bot className="w-6 h-6" style={{color: '#cbe9a1'}} />
-                        ) : (
-                          <Lock className="w-6 h-6 text-gray-400" />
-                        )}
-                      </div>
-                      <div className={`absolute -bottom-1 -right-1 w-4 h-4 ${canUseDemo ? 'bg-green-400' : 'bg-red-400'} rounded-full border-2 border-gray-900`}></div>
-                    </div>
+                    <div className={`w-12 h-12 ${
+  !canUseDemo && !hasUsedDemo 
+    ? 'bg-red-400/20' 
+    : canUseDemo 
+      ? 'bg-[#cbe9a1]/20' 
+      : 'bg-gray-600/20'
+} rounded-full flex items-center justify-center`}>
+  {!canUseDemo && !hasUsedDemo ? (
+    <User className="w-6 h-6 text-red-400" />
+  ) : canUseDemo ? (
+    <Bot className="w-6 h-6" style={{color: '#cbe9a1'}} />
+  ) : (
+    <Lock className="w-6 h-6 text-gray-400" />
+  )}
+</div>
+<div className={`absolute -bottom-1 -right-1 w-4 h-4 ${
+  !canUseDemo && !hasUsedDemo 
+    ? 'bg-red-400' 
+    : canUseDemo 
+      ? 'bg-green-400' 
+      : 'bg-red-400'
+} rounded-full border-2 border-gray-900`}></div>
+                 </div>
                     <div>
                       <h3 className="text-white font-semibold">AI Assistant</h3>
                       <p className="text-gray-400 text-sm">
-                        {!canUseDemo 
-                          ? 'Demo limit reached' 
-                          : isConfigured 
-                            ? `Online • ${maxMessages - messageCount} messages left` 
-                            : 'Configure to start chatting'
-                        }
-                      </p>
+  {!canUseDemo && !hasUsedDemo
+    ? 'Please sign in to start'
+    : !canUseDemo 
+      ? 'Demo limit reached' 
+      : isConfigured 
+        ? `Online • ${maxMessages - messageCount} messages left` 
+        : 'Configure to start chatting'
+  }
+</p>
                     </div>
                   </div>
                 </div>
 
                 {/* Messages Area */}
                 <div className="flex-1 overflow-y-auto p-4 space-y-4">
-                  {!isConfigured ? (
-                    <div className="flex items-center justify-center h-full">
-                      <div className="text-center">
-                        {canUseDemo ? (
-                          <>
-                            <MessageSquare className="w-16 h-16 text-gray-600 mx-auto mb-4" />
-                            <p className="text-gray-400">Configure your chatbot to start the conversation</p>
-                          </>
-                        ) : (
-                          <>
-                            <Lock className="w-16 h-16 text-gray-600 mx-auto mb-4" />
-                            <p className="text-gray-400">Demo limit reached</p>
-                            <p className="text-gray-500 text-sm mt-2">You've used all 3 free messages</p>
-                          </>
-                        )}
-                      </div>
-                    </div>
-                  ) : (
+                {!isConfigured ? (
+  <div className="flex items-center justify-center h-full">
+    <div className="text-center">
+    {!canUseDemo && !hasUsedDemo ? (
+  <>
+    <User className="w-16 h-16 text-red-400 mx-auto mb-4" />
+    <p className="text-gray-400">Please sign in to use the chatbot</p>
+    <p className="text-gray-500 text-sm mt-2">Each account gets 3 free messages</p>
+  </>
+      ) : canUseDemo ? (
+        <>
+          <MessageSquare className="w-16 h-16 text-gray-600 mx-auto mb-4" />
+          <p className="text-gray-400">Configure your chatbot to start the conversation</p>
+        </>
+      ) : (
+        <>
+          <Lock className="w-16 h-16 text-gray-600 mx-auto mb-4" />
+          <p className="text-gray-400">Demo limit reached</p>
+          <p className="text-gray-500 text-sm mt-2">You've used all 3 free messages</p>
+        </>
+      )}
+    </div>
+  </div>
+) : (
                     <>
                       {messages.map((message) => (
                         <div

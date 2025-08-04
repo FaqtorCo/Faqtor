@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { MessageCircle, Bot, Send, Loader2, CheckCircle, AlertCircle, Sparkles, Settings, User, Zap, MessageSquare, Brain, Activity, Lock, X, ArrowLeft } from 'lucide-react';
 
+
 const ChatbotDemo = () => {
   const [chatbotPrompt, setChatbotPrompt] = useState('');
   const [messages, setMessages] = useState([]);
@@ -106,6 +107,34 @@ const ChatbotDemo = () => {
       setCheckingEligibility(false);
     }
   };
+
+  const parseMarkdown = (text) => {
+    if (!text) return text;
+    
+    // Split text by markdown patterns while preserving the delimiters
+    const parts = text.split(/(\*\*.*?\*\*)/g);
+    
+    return parts.map((part, index) => {
+      // Check if this part is bold markdown
+      if (part.startsWith('**') && part.endsWith('**')) {
+        const boldText = part.slice(2, -2); // Remove ** from both ends
+        return <strong key={index} className="font-bold">{boldText}</strong>;
+      }
+      
+      // Check for other patterns you might want to support
+      // Italic text (*text*)
+      if (part.startsWith('*') && part.endsWith('*') && !part.startsWith('**')) {
+        const italicText = part.slice(1, -1);
+        return <em key={index} className="italic">{italicText}</em>;
+      }
+      
+      // Regular text
+      return part;
+    });
+  };
+
+  
+
 
   // Sample prompts for different business types
   const samplePrompts = [
@@ -943,8 +972,9 @@ const ChatbotDemo = () => {
                               {message.type === 'user' && (
                                 <User className="w-4 h-4 mt-0.5 text-gray-700 flex-shrink-0" />
                               )}
-                              <p className="text-sm leading-relaxed">{message.content}</p>
-                            </div>
+<div className="text-sm leading-relaxed">
+  {parseMarkdown(message.content)}
+</div>                            </div>
                             <p className={`text-xs mt-2 ${
                               message.type === 'user' ? 'text-gray-600' : 'text-gray-400'
                             }`}>

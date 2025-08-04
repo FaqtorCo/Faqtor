@@ -243,7 +243,6 @@ const ChatbotWidget = () => {
         },
         // Event listeners to capture messages and responses
         onMessage: (message) => {
-          console.log("Message sent:", message);
           // Make sure user messages appear in the UI
           if (message && message.text) {
             // Only add if not already in messages array (to avoid duplicates)
@@ -260,7 +259,6 @@ const ChatbotWidget = () => {
           }
         },
         onResponse: (response) => {
-          console.log("Response received:", response);
           setIsLoading(false);
           if (response) {
             // Handle different response formats
@@ -338,7 +336,6 @@ const ChatbotWidget = () => {
       );
 
       const data = await response.json();
-      console.log("Direct webhook response:", data); // Log full response structure
 
       setIsLoading(false);
 

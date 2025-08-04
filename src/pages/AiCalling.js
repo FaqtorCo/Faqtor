@@ -781,11 +781,8 @@ const CallingAgentDemo = ({ onBack }) => {
       </p>
       <button 
         onClick={() => {
-          console.log('CONTACT BUTTON CLICKED!');
           setShowCalendarModal(true);
         }}
-        onMouseEnter={() => console.log('Button hovered!')}
-        onMouseLeave={() => console.log('Button unhovered!')}
         className="relative z-50 text-[#cbe9a1] text-sm font-medium hover:underline transition-colors duration-200 hover:text-[#a8d3a0] cursor-pointer  px-2 py-1 rounded"
         style={{ 
           position: 'relative',

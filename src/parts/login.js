@@ -118,10 +118,7 @@ const AuthComponent = () => {
   };
 
   const confirmLogout = () => {
-    console.log('Logout button clicked'); // Debug log
-    console.log('Current showLogoutConfirm state:', showLogoutConfirm); // Debug current state
     setShowLogoutConfirm(true);
-    console.log('Set showLogoutConfirm to true'); // Debug state change
   };
 
   const handleLogout = () => {
@@ -212,7 +209,6 @@ const AuthComponent = () => {
   return (
     <>
       {/* Debug info */}
-      {console.log('Rendering component, showLogoutConfirm:', showLogoutConfirm)}
       
       {/* Compact Login/Signup Buttons */}
       <div className="flex items-center gap-3 ml-auto">

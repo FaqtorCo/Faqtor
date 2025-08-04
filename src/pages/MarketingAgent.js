@@ -101,7 +101,6 @@ const MarketingAgentDemo = () => {
       let processedFile = file;
       if (file.size > 1024 * 1024) { // 1MB
         processedFile = await compressImage(file);
-        console.log(`Image compressed from ${(file.size / 1024 / 1024).toFixed(2)}MB to ${(processedFile.size / 1024 / 1024).toFixed(2)}MB`);
       }
 
       setFormData(prev => ({

@@ -8,8 +8,6 @@ import AuthComponent from 'parts/login';
 const FuturisticServices = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
   const [selectedCard, setSelectedCard] = useState(null);
-  const [typingText, setTypingText] = useState('');
-  const [currentCodeIndex, setCurrentCodeIndex] = useState(0);
 
   const services = [
     {

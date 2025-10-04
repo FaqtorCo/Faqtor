@@ -67,8 +67,8 @@ const AuthComponent = () => {
     }
 
     const endpoint = isLogin ? '/api/signin' : '/api/signup';
-    // const url = `http://localhost:5001${endpoint}`;
-    const url = `https://faqtor.onrender.com${endpoint}`;
+    const url = `http://localhost:5001${endpoint}`;
+    // const url = `https://faqtor.onrender.com${endpoint}`;
 
     // Prepare data based on login/signup
     const submitData = isLogin 

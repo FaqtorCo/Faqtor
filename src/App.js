@@ -12,6 +12,8 @@ import MainLandingPage from "pages/MainLandingPage";
 import './assets/css/styles.css';
 import ChatbotWidget from './parts/ChatbotWidget'; // Import the custom ChatbotWidget
 import Blogs from 'pages/Blogs';
+import EventsGallery from 'pages/EventsPortfolio';
+
 import BlogPost from 'pages/BlogPost'; // Import the new BlogPost component
 import DemoAgents from 'pages/DemoAgents';
 import CallingAgentDemo from 'pages/AiCalling';
@@ -47,6 +49,8 @@ function App() {
       <Routes>
         <Route path="/" element={<MainLandingPage />} />
         <Route path="/blogs" element={<Blogs />} />
+        <Route path="/events" element={<EventsGallery />} />
+
         <Route path="/demo-agents" element={<DemoAgents />} />
         <Route path="/demo-agents/ai-calling" element={<CallingAgentDemo />} />
         <Route path="/demo-agents/marketing-agent" element={<MarketingAgentDemo />} />

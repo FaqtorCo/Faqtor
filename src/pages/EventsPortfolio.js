@@ -98,7 +98,7 @@ const [isModalOpen, setIsModalOpen] = useState(false);
     },
     {
       id: 3,
-      title: "Crowders GiG X The Graph",
+      title: "Faqtor GiG X The Graph",
       date: "March 06, 2023",
       location: "Chaye Gossip, Lahore",
       description: "An interactive evening gig where data meets creativity. Where a lot of young minds joined together to master the art of creating powerful graph presentations that transform complex information into compelling visual stories.",
@@ -127,7 +127,7 @@ const [isModalOpen, setIsModalOpen] = useState(false);
   
     {
       id: 5,
-      title: "The Crowders X The Graph",
+      title: "Faqtor X The Graph",
       date: "March 28, 2024",
       location: "Islamabad, Pakistan",
       description: "This event focused mainly on fun activity with the introduction of the Graph's advocate program and brining new minds together to grow the ecosystem and giving a chance to developers to score grants for their new ideas!",
@@ -558,35 +558,38 @@ className="flex flex-wrap justify-center gap-3 text-sm animate-stats-reveal"
 
         <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 animate-text-reveal">
-            Ready to Join Our Next Event?
+          Partner with Us to Shape the Future!
           </h2>
           <p className="text-xl text-gray-300 mb-10 animate-text-reveal" style={{ animationDelay: '0.3s' }}>
-            Stay updated with our latest workshops, bootcamps, and conferences. Be part of a community that's shaping the future.
-          </p>
+          We’re inviting organizations, communities, and innovators to collaborate on our next big event, from workshops to bootcamps and conferences. Schedule a meeting with us to discuss further.          </p>
           
-          <button   onClick={() => window.open('/#discuss-project', '_blank')} className="group relative px-10 py-5 bg-gradient-to-r from-[#DAF7A6] to-[#C8E6A0] hover:from-[#C8E6A0] hover:to-[#DAF7A6] text-black rounded-full font-bold text-lg transition-all duration-500 transform hover:scale-110 overflow-hidden animate-text-reveal" style={{ animationDelay: '0.6s' }}>
-            {/* Enhanced button effects */}
+          <button
+  onClick={() => window.open('https://cal.com/faqtor', '_blank')}
+  className="group relative px-10 py-5 bg-gradient-to-r from-[#DAF7A6] to-[#C8E6A0] hover:from-[#C8E6A0] hover:to-[#DAF7A6] text-black rounded-full font-bold text-lg transition-all duration-500 transform hover:scale-110 overflow-hidden animate-text-reveal"
+  style={{ animationDelay: '0.6s' }}
+>
+  {/* Enhanced button effects */}
+  <div className="absolute -inset-2 bg-gradient-to-r from-[#DAF7A6] to-[#C8E6A0] rounded-full blur opacity-0 group-hover:opacity-60 transition-opacity duration-500 animate-spin-slow"></div>
+  <div className="absolute inset-0 bg-white/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+  <span className="relative z-10">Open Calendar</span>
 
-            <div className="absolute -inset-2 bg-gradient-to-r from-[#DAF7A6] to-[#C8E6A0] rounded-full blur opacity-0 group-hover:opacity-60 transition-opacity duration-500 animate-spin-slow"></div>
-            <div className="absolute inset-0 bg-white/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <span className="relative z-10">Get Notified</span>
-            
-            {/* Particle burst effect */}
-            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              {[...Array(8)].map((_, i) => (
-                <div
-                  key={i}
-                  className="absolute w-1 h-1 bg-white rounded-full animate-particle-burst"
-                  style={{
-                    left: '50%',
-                    top: '50%',
-                    animationDelay: `${i * 0.1}s`,
-                    transform: `rotate(${i * 45}deg)`
-                  }}
-                />
-              ))}
-            </div>
-          </button>
+  {/* Particle burst effect */}
+  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+    {[...Array(8)].map((_, i) => (
+      <div
+        key={i}
+        className="absolute w-1 h-1 bg-white rounded-full animate-particle-burst"
+        style={{
+          left: '50%',
+          top: '50%',
+          animationDelay: `${i * 0.1}s`,
+          transform: `rotate(${i * 45}deg)`
+        }}
+      />
+    ))}
+  </div>
+</button>
+
           {/* Image Modal */}
 
         </div>

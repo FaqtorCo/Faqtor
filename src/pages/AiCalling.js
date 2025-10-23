@@ -17,8 +17,8 @@ const CallingAgentDemo = ({ onBack }) => {
   const [checkingEligibility, setCheckingEligibility] = useState(true);
   const [showCalendarModal, setShowCalendarModal] = useState(false);
 
-  const API_BASE_URL = 'http://localhost:5001';
-  // const API_BASE_URL = 'https://faqtor.onrender.com';
+  // const API_BASE_URL = 'http://localhost:5001';
+  const API_BASE_URL = 'https://faqtor.onrender.com';
 
   const ENDPOINTS = {
     CHECK_ELIGIBILITY: '/api/calling-agent/check-eligibility',

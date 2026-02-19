@@ -19,6 +19,8 @@ import DemoAgents from 'pages/DemoAgents';
 import CallingAgentDemo from 'pages/AiCalling';
 import MarketingAgentDemo from 'pages/MarketingAgent';
 import ChatbotDemo from 'pages/Chatbot';
+import ProjectPage from 'pages/ProjectPage';
+import ProjectDetailPage from 'pages/ProjectDetailPage';
 
 function App() {
   // Add this useEffect to remove any n8n elements that might appear
@@ -57,6 +59,9 @@ function App() {
         <Route path="/demo-agents/chatbot" element={<ChatbotDemo />} />
 
         <Route path="/blogs/:slug" element={<BlogPost />} /> {/* Dynamic route for individual blog posts */}
+
+        <Route path="/project" element={<ProjectPage />} />
+        <Route path="/project/:id" element={<ProjectDetailPage />} />
 
         {/* <Route exact path="/" element={<LandingPage />} />
         <Route path="/About-us" element={<Aboutus />} />

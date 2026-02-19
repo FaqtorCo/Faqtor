@@ -6,12 +6,11 @@
 import React, { useState } from "react";
 import { Fade } from "react-awesome-reveal";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import ProjectModal from "./ProjectModal.js";
+import { useNavigate } from "react-router-dom";
 
 export default function AllPortfolio({ data }) {
   const [showMore, setShowMore] = useState(false);
-  const [selectedProject, setSelectedProject] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   // Filter projects by type
   const aiAgents = data.filter((item) => item.type === "AI Agent");
@@ -27,13 +26,7 @@ export default function AllPortfolio({ data }) {
   const remainingAll = data.slice(3);
 
   const handleProjectClick = (project) => {
-    setSelectedProject(project);
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setSelectedProject(null);
+    navigate(`/project/${project.id}`);
   };
 
   const handleKeyPress = (event, project) => {
@@ -231,14 +224,6 @@ export default function AllPortfolio({ data }) {
           </TabPanel>
         </Tabs>
 
-        {/* Project Modal */}
-        {selectedProject && (
-          <ProjectModal
-            project={selectedProject}
-            isOpen={isModalOpen}
-            onClose={closeModal}
-          />
-        )}
       </section>
     </Fade>
   );

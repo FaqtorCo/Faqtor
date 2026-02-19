@@ -17,6 +17,21 @@ import ArkFoodAnalytics from "../assets/images/Portfolio/ArkFoodsAnalytics.jpg";
 import Aura from "../assets/images/Portfolio/Aura.png";
 import marketingagent from "../assets/images/Portfolio/marketingagent.png";
 import socialmedia from "../assets/images/Portfolio/social.jpg";
+
+// RetainIQ Img Imports
+import RetainIQLanding from "../assets/images/Portfolio/RetainIQLanding.png";
+import RetainIQDashboard from "../assets/images/Portfolio/RetainIQDashboard.png";
+import RetainIQRecover from "../assets/images/Portfolio/RetainIQRecover.png";
+import RetainIQRetain from "../assets/images/Portfolio/RetainIQRetain.png";
+import RetainIQCampaigns from "../assets/images/Portfolio/RetainIQCampaigns.png";
+
+// Cloudax Img Imports
+import CloudaxLanding from "../assets/images/Portfolio/CloudaxLanding.png";
+import CloudaxDashboard from "../assets/images/Portfolio/CloudaxDashboard.png";
+import CloudaxChatbot from "../assets/images/Portfolio/CloudaxChatbot.png";
+import CloudaxCallingAgent from "../assets/images/Portfolio/CloudaxCallingAgent.png";
+import CloudaxKnowledgeBase from "../assets/images/Portfolio/CloudaxKnowledgeBase.png";
+
 // Advantages
 import Communicative from "../assets/images/Advantages/Communicative.png";
 import Collaborative from "../assets/images/Advantages/Collaborative.png";
@@ -164,6 +179,126 @@ export const Portfolios = [
     longDescription:
       "Ark Foods is a comprehensive Spices Price Analytics platform that connects Merchants with their profitable markets across the globe. Built with modern web technologies, it features real-time data analytics, Efficient Alert System, Historical and forecasted data, and an admin dashboard for complete platform oversight.",
  
+  },
+
+  // SaaS Platforms
+  {
+    id: "retainiq-008",
+    title: "RetainIQ",
+    imageUrl: RetainIQLanding,
+    images: [RetainIQLanding, RetainIQDashboard, RetainIQRecover, RetainIQRetain, RetainIQCampaigns],
+    type: "Web App",
+    status: "Production Ready",
+    responsibility: [
+      "AI-Powered Churn Prediction",
+      "Automated Payment Recovery",
+      "Customer Reactivation Workflows",
+      "GPT-Driven Campaign Engine",
+    ],
+    technologies: [
+      "React",
+      "Python",
+      "Stripe",
+      "Pipedream",
+      "LightGBM",
+      "GPT",
+      "Zapier",
+    ],
+    description:
+      "A complete AI-powered customer retention suite with four integrated modules — Recover, Reactivate, Retain, and Campaigns — that work together to reduce churn, recover failed payments, and boost lifetime value through ML predictions and automated outreach.",
+    longDescription:
+      "RetainIQ is an end-to-end retention platform built around a LightGBM churn prediction model. The Recover module integrates with Stripe to automatically detect failed payments and email recovery links via Pipedream workflows. Reactivate identifies dormant customers through activity scoring and queues targeted re-engagement emails. Retain provides cohort analysis, risk distribution, engagement scoring, and GPT-generated business insights. Campaigns ties it all together with AI-suggested, segment-targeted campaigns deployable through Mailchimp, Gmail, or WhatsApp via Zapier.",
+    modules: [
+      {
+        title: "Landing",
+        description: "Landing page of RetainIQ contains all the information about what to expect once inside the web application. It contains 4 modules: Recover, Reactivate, Retain and Campaigns.",
+      },
+      {
+        title: "Dashboard",
+        description: "Dynamic dashboard that summarises all the modules working in proper sync. Shows the Machine Learning model (LightGBM) with all the predictions made. You can see the recent recoveries and reactivations, with a comparison of all the modules. Includes a smart action suggestion system powered by GPT, which observes the dashboard and suggests based on it.",
+      },
+      {
+        title: "Recover Module",
+        description: "A highly technical module that works with Stripe + Pipedream (automation). Uses Stripe Express with connected accounts for a platform fee. Failed payments are routed via the web application — if a failed payment is detected, it will show up and automatically a fee link will be emailed to the customer. Once they pay, it will be recovered and a confirmation email is sent. Stripe is handled by Stripe itself, and no sensitive information is saved in the database.",
+      },
+      {
+        title: "Retain Module",
+        description: "The heart of RetainIQ — uses a prediction system as well as a churn prediction system where we use the Machine Learning model (LightGBM) trained on the Telcom IBM dataset, and predict customer trends based on it. Users can use the KPIs to make suggestions. Includes a variety of metrics: cohort analysis, GPT-based insights (technical + business). You can also choose each file individually to check analysis separately and see which feature dominates the most.",
+      },
+      {
+        title: "Campaigns",
+        description: "Once the churn test and prediction is made, Campaigns is the final step. You can choose campaigns generated by GPT, which are targeted specifically for each customer type, or create your own and send them to customers via a Zapier workflow for Mailchimp or Gmail directly. WhatsApp is also an option — a very powerful tool for churn retention.",
+      },
+    ],
+    features: [
+      "ML Churn Prediction (LightGBM)",
+      "Stripe Payment Recovery Automation",
+      "Dormant Customer Reactivation",
+      "Cohort Retention Analysis",
+      "GPT Business & Technical Insights",
+      "AI-Generated Targeted Campaigns",
+      "Multi-Channel Outreach (Email, WhatsApp)",
+      "Real-time KPI Dashboard",
+    ],
+  },
+  {
+    id: "cloudax-009",
+    title: "Cloudax",
+    imageUrl: CloudaxLanding,
+    images: [CloudaxLanding, CloudaxDashboard, CloudaxChatbot, CloudaxCallingAgent, CloudaxKnowledgeBase],
+    type: "Web App",
+    status: "Production Ready",
+    responsibility: [
+      "AI Chatbot with RAG",
+      "Intelligent Calling Agent",
+      "Knowledge Base Management",
+      "Real-time Analytics Dashboard",
+    ],
+    technologies: [
+      "React",
+      "Node.js",
+      "OpenAI",
+      "ElevenLabs",
+      "Deepgram",
+      "RAG",
+      "WebSocket",
+    ],
+    description:
+      "An enterprise contact center platform featuring an AI chatbot with RAG capabilities, an intelligent 24/7 calling agent, and a knowledge base system — all managed from a unified dark-themed dashboard with real-time analytics.",
+    longDescription:
+      "Cloudax is a full-stack AI-powered contact center solution. It provides businesses with a RAG-based chatbot that stays grounded in their uploaded knowledge base, an intelligent calling agent configurable across 15+ industries with custom voice and personality settings, and embeddable chat widgets for seamless website integration. The platform includes usage analytics, training assistant management, and a 10-step calling agent setup wizard covering industry selection, templates, business profiles, integrations, and more.",
+    modules: [
+      {
+        title: "Landing",
+        description: "The Cloudax landing page showcases the enterprise contact centre solutions — automated outbound campaigns and intelligent inbound solutions. Handles thousands of calls daily with 99.99% uptime and 24/7 support.",
+      },
+      {
+        title: "Dashboard",
+        description: "Dynamic Dashboard with analytics for each separate bucket of users and the AI bots. Includes overview and analytics tabs, usage metrics tracking OpenAI 4o-mini, ElevenLabs Voice, and Deepgram usage, along with active assistant counts, user stats, agent events, and monthly cost tracking.",
+      },
+      {
+        title: "Chatbot + iFrame",
+        description: "Chatbot with RAG capabilities that can be designed and deployed according to your need. Smart use of RAG with your Business Knowledge Base that will work inside that boundary. Deployable as an embeddable iFrame widget on any website with suggested questions and multi-mode support (Chat, Voice, Files).",
+      },
+      {
+        title: "Calling Agent",
+        description: "Simple yet highly intelligent Calling Agent that is available 24/7 and will book any query accordingly. Easy to set up with a 10-step wizard covering industry selection (15+ industries), templates, business profile, industry questions, knowledge base, integrations, call settings, personality, and review. Fully configurable with custom AI instructions, voice selection, and authentication settings.",
+      },
+      {
+        title: "RAG Knowledge Base",
+        description: "Add any PDF of your business niche and use that inside your chatbot OR calling agent. It will work accordingly and will not deviate from the said Knowledge Base. Supports document upload, status tracking, and seamless integration with all AI assistants on the platform.",
+      },
+    ],
+    features: [
+      "RAG-Powered Chatbot",
+      "24/7 AI Calling Agent",
+      "Embeddable Chat Widget (iFrame)",
+      "PDF Knowledge Base Upload",
+      "15+ Industry Templates",
+      "Voice Selection & Personality Config",
+      "Training Assistant Management",
+      "Usage Metrics & Analytics Dashboard",
+    ],
   },
 
   // AI Agent Projects (Remaining 3 - Show More)

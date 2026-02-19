@@ -179,6 +179,30 @@ export default function ProjectModal({ project, isOpen, onClose }) {
                   </p>
                 </div>
 
+                {/* Module Breakdown */}
+                {project.modules && project.modules.length > 0 && (
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-800 mb-3">
+                      Modules
+                    </h3>
+                    <div className="space-y-3">
+                      {project.modules.map((mod, index) => (
+                        <div
+                          key={index}
+                          className="bg-gray-50 rounded-lg p-4 border-l-4 border-theme-purple"
+                        >
+                          <h4 className="font-semibold text-gray-800 mb-1">
+                            {mod.title}
+                          </h4>
+                          <p className="text-gray-600 text-sm leading-relaxed">
+                            {mod.description}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
                 {/* Technologies Used */}
                 {project.technologies && (
                   <div>

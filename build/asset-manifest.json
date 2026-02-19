@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/static/css/main.8608df70.css",
-    "main.js": "/static/js/main.20dc25c2.js",
-    "static/js/453.73627e4f.chunk.js": "/static/js/453.73627e4f.chunk.js",
+    "main.css": "/static/css/main.0b611d1e.css",
+    "main.js": "/static/js/main.1f017495.js",
+    "static/js/453.bf09e920.chunk.js": "/static/js/453.bf09e920.chunk.js",
     "static/media/logo.png": "/static/media/logo.f80d378d1469baad029b.png",
     "static/media/social.jpg": "/static/media/social.ea5fb6457be56d148fde.jpg",
     "static/media/calling3.jpg": "/static/media/calling3.c432b2a8c1c182832bb5.jpg",
@@ -11,14 +11,24 @@
     "static/media/marketingagent.png": "/static/media/marketingagent.90a6082c3ce9f7885329.png",
     "static/media/BrianAutomation.jpg": "/static/media/BrianAutomation.1cf3e8e3266db0c58d1e.jpg",
     "static/media/calling.jpg": "/static/media/calling.856e878d8b48104fe112.jpg",
+    "static/media/RetainIQRetain.png": "/static/media/RetainIQRetain.9c19d72ef739218c9e5c.png",
     "static/media/portfolioHero.png": "/static/media/portfolioHero.bd16fbc2ddbc062780ac.png",
     "static/media/calling2.jpg": "/static/media/calling2.a8e209a0090811119017.jpg",
     "static/media/BrianKarshMain.jpg": "/static/media/BrianKarshMain.6cb6aa46e57e88268636.jpg",
     "static/media/ArkFoodsAnalytics.jpg": "/static/media/ArkFoodsAnalytics.8f07b2d84a698fcbd435.jpg",
     "static/media/ArkFoodMain.jpg": "/static/media/ArkFoodMain.570ca58598f982821858.jpg",
+    "static/media/RetainIQDashboard.png": "/static/media/RetainIQDashboard.e17892946d9be46ba65e.png",
+    "static/media/CloudaxLanding.png": "/static/media/CloudaxLanding.206e2352a2e370942289.png",
+    "static/media/CloudaxChatbot.png": "/static/media/CloudaxChatbot.a2dcfe921fdc8c98e250.png",
+    "static/media/CloudaxCallingAgent.png": "/static/media/CloudaxCallingAgent.12b56bd4ac350775f678.png",
+    "static/media/CloudaxDashboard.png": "/static/media/CloudaxDashboard.23f2b07d6746dd2f4a74.png",
+    "static/media/RetainIQCampaigns.png": "/static/media/RetainIQCampaigns.a0bc1c617a347944bfca.png",
+    "static/media/RetainIQRecover.png": "/static/media/RetainIQRecover.a3b527e679e6b9c07b73.png",
     "static/media/HRD.jpg": "/static/media/HRD.a068b40c1c2e7a731969.jpg",
     "static/media/Sasha.jpg": "/static/media/Sasha.d03a2982978ba6c1ad59.jpg",
+    "static/media/RetainIQLanding.png": "/static/media/RetainIQLanding.859d46fcd751d6f97d1f.png",
     "static/media/Finance.jpg": "/static/media/Finance.a5bbe30ebe0d2584e1ec.jpg",
+    "static/media/CloudaxKnowledgeBase.png": "/static/media/CloudaxKnowledgeBase.39d9ff584a5d7f3beb45.png",
     "static/media/Kruger.jpg": "/static/media/Kruger.0acf17f214f7b1ce391a.jpg",
     "static/media/Reiner.jpg": "/static/media/Reiner.964ca1a031ef72005ed3.jpg",
     "static/media/Management.png": "/static/media/Management.323b1fec36c45ff45ef7.png",
@@ -30,12 +40,12 @@
     "static/media/CEO.jpg": "/static/media/CEO.1348dc1626e3c3dd6e1e.jpg",
     "static/media/Mobile.png": "/static/media/Mobile.3895db1ec1859459fd4e.png",
     "index.html": "/index.html",
-    "main.8608df70.css.map": "/static/css/main.8608df70.css.map",
-    "main.20dc25c2.js.map": "/static/js/main.20dc25c2.js.map",
-    "453.73627e4f.chunk.js.map": "/static/js/453.73627e4f.chunk.js.map"
+    "main.0b611d1e.css.map": "/static/css/main.0b611d1e.css.map",
+    "main.1f017495.js.map": "/static/js/main.1f017495.js.map",
+    "453.bf09e920.chunk.js.map": "/static/js/453.bf09e920.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.8608df70.css",
-    "static/js/main.20dc25c2.js"
+    "static/css/main.0b611d1e.css",
+    "static/js/main.1f017495.js"
   ]
 }

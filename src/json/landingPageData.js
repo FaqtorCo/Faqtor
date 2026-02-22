@@ -294,7 +294,7 @@ export const Portfolios = [
       "Next.js",
       "Node.js",
       "PostgreSQL",
-      "Stripe",
+      "Stripe Connect",
       "Channel API",
       "WebSockets",
     ],

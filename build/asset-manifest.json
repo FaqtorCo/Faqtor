@@ -1,16 +1,21 @@
 {
   "files": {
     "main.css": "/static/css/main.0b611d1e.css",
-    "main.js": "/static/js/main.1f017495.js",
+    "main.js": "/static/js/main.75232c90.js",
     "static/js/453.bf09e920.chunk.js": "/static/js/453.bf09e920.chunk.js",
     "static/media/logo.png": "/static/media/logo.f80d378d1469baad029b.png",
     "static/media/social.jpg": "/static/media/social.ea5fb6457be56d148fde.jpg",
     "static/media/calling3.jpg": "/static/media/calling3.c432b2a8c1c182832bb5.jpg",
     "static/media/Aura.png": "/static/media/Aura.1bf0918844702e24b720.png",
     "static/media/chatbot.jpg": "/static/media/chatbot.310028788cec97b005a0.jpg",
+    "static/media/visa123-5.png": "/static/media/visa123-5.a2ab960f30a8a9af856b.png",
     "static/media/marketingagent.png": "/static/media/marketingagent.90a6082c3ce9f7885329.png",
     "static/media/BrianAutomation.jpg": "/static/media/BrianAutomation.1cf3e8e3266db0c58d1e.jpg",
+    "static/media/visa123-2.png": "/static/media/visa123-2.b98ef0012df007b0d19c.png",
     "static/media/calling.jpg": "/static/media/calling.856e878d8b48104fe112.jpg",
+    "static/media/visa123-1.png": "/static/media/visa123-1.3ee770209117e0f0b1b9.png",
+    "static/media/visa123-4.png": "/static/media/visa123-4.94e4f2a0211278590808.png",
+    "static/media/visa123-3.png": "/static/media/visa123-3.993e157b9bd37a7f14c8.png",
     "static/media/RetainIQRetain.png": "/static/media/RetainIQRetain.9c19d72ef739218c9e5c.png",
     "static/media/portfolioHero.png": "/static/media/portfolioHero.bd16fbc2ddbc062780ac.png",
     "static/media/calling2.jpg": "/static/media/calling2.a8e209a0090811119017.jpg",
@@ -41,11 +46,11 @@
     "static/media/Mobile.png": "/static/media/Mobile.3895db1ec1859459fd4e.png",
     "index.html": "/index.html",
     "main.0b611d1e.css.map": "/static/css/main.0b611d1e.css.map",
-    "main.1f017495.js.map": "/static/js/main.1f017495.js.map",
+    "main.75232c90.js.map": "/static/js/main.75232c90.js.map",
     "453.bf09e920.chunk.js.map": "/static/js/453.bf09e920.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.0b611d1e.css",
-    "static/js/main.1f017495.js"
+    "static/js/main.75232c90.js"
   ]
 }

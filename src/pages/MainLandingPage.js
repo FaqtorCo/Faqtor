@@ -6,7 +6,8 @@ import React from "react";
 import SEO from "../parts/SEO";
 import LandingPage from "./LandingPage";
 import Aboutus from "./Aboutus";
-import ProjectPage from "./ProjectPage";
+import Portfolio from "../parts/Portfolio";
+import { Portfolios } from "../json/landingPageData";
 import { DiscussProjectPage } from "./DiscussProjectPage";
 import Header from "../parts/Header";
 import Footer from "../parts/Footer";
@@ -30,7 +31,7 @@ export default function MainLandingPage() {
         <Aboutus />
       </section>
       <section id="projects">
-        <ProjectPage />
+        <Portfolio data={Portfolios.slice(0, 3)} />
       </section>
       <section id="discuss-project">
         <DiscussProjectPage />
